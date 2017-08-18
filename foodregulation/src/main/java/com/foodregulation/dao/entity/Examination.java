@@ -3,177 +3,164 @@ package com.foodregulation.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 
-public class Examination implements Serializable {
-    private Long id;
+public class Examination
+  implements Serializable
+{
+  private Long id;
+  private String templateName;
+  private String choiceCount;
+  private String choiceScore;
+  private String choiceTime;
+  private String judgmentCount;
+  private String judgmentScore;
+  private String judgmentTime;
+  private String completionCount;
+  private String completionScore;
+  private String completionTime;
+  private Long enterpriseCount;
+  private Long completeCount;
+  private Date createTime;
+  private List<Long> choiceList;
+  private List<Long> judgmentList;
+  private List<Long> completionList;
+  private static final long serialVersionUID = 1L;
 
-    private String templateName;
+  public Long getId()
+  {
+    return this.id;
+  }
 
-    private String choiceCount;
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    private String choiceScore;
-    
-    private String choiceTime;
+  public String getTemplateName() {
+    return this.templateName;
+  }
 
-    private String judgmentCount;
+  public void setTemplateName(String templateName) {
+    this.templateName = (templateName == null ? null : templateName.trim());
+  }
 
-    private String judgmentScore;
-    
-    private String judgmentTime;
+  public String getChoiceCount() {
+    return this.choiceCount;
+  }
 
-    private String completionCount;
+  public void setChoiceCount(String choiceCount) {
+    this.choiceCount = (choiceCount == null ? null : choiceCount.trim());
+  }
 
-    private String completionScore;
-    
-    private String completionTime;
+  public String getChoiceScore() {
+    return this.choiceScore;
+  }
 
-    private Long enterpriseCount;
+  public void setChoiceScore(String choiceScore) {
+    this.choiceScore = (StringUtils.isBlank(choiceScore) ? "0" : choiceScore.trim());
+  }
 
-    private Long completeCount;
+  public String getJudgmentCount() {
+    return this.judgmentCount;
+  }
 
-    private Date createTime;
+  public void setJudgmentCount(String judgmentCount) {
+    this.judgmentCount = (judgmentCount == null ? null : judgmentCount.trim());
+  }
 
-    private List<Long> choiceList;
+  public String getJudgmentScore() {
+    return this.judgmentScore;
+  }
 
-    private List<Long> judgmentList;
+  public void setJudgmentScore(String judgmentScore) {
+    this.judgmentScore = (StringUtils.isBlank(judgmentScore) ? "0" : judgmentScore.trim());
+  }
 
-    private List<Long> completionList;
+  public String getCompletionCount() {
+    return this.completionCount;
+  }
 
-    private static final long serialVersionUID = 1L;
+  public void setCompletionCount(String completionCount) {
+    this.completionCount = (completionCount == null ? null : completionCount.trim());
+  }
 
-    public Long getId() {
-        return id;
-    }
+  public String getCompletionScore() {
+    return this.completionScore;
+  }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public void setCompletionScore(String completionScore) {
+    this.completionScore = (StringUtils.isBlank(completionScore) ? "0" : completionScore.trim());
+  }
 
-    public String getTemplateName() {
-        return templateName;
-    }
+  public Long getEnterpriseCount() {
+    return this.enterpriseCount;
+  }
 
-    public void setTemplateName(String templateName) {
-        this.templateName = templateName == null ? null : templateName.trim();
-    }
+  public void setEnterpriseCount(Long enterpriseCount) {
+    this.enterpriseCount = enterpriseCount;
+  }
 
-    public String getChoiceCount() {
-        return choiceCount;
-    }
+  public Long getCompleteCount() {
+    return this.completeCount;
+  }
 
-    public void setChoiceCount(String choiceCount) {
-        this.choiceCount = choiceCount == null ? null : choiceCount.trim();
-    }
+  public void setCompleteCount(Long completeCount) {
+    this.completeCount = completeCount;
+  }
 
-    public String getChoiceScore() {
-        return choiceScore;
-    }
+  public Date getCreateTime() {
+    return this.createTime;
+  }
 
-    public void setChoiceScore(String choiceScore) {
-        this.choiceScore = choiceScore == null ? null : choiceScore.trim();
-    }
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
+  }
 
-    public String getJudgmentCount() {
-        return judgmentCount;
-    }
+  public List<Long> getChoiceList() {
+    return this.choiceList;
+  }
 
-    public void setJudgmentCount(String judgmentCount) {
-        this.judgmentCount = judgmentCount == null ? null : judgmentCount.trim();
-    }
+  public void setChoiceList(List<Long> choiceList) {
+    this.choiceList = choiceList;
+  }
 
-    public String getJudgmentScore() {
-        return judgmentScore;
-    }
+  public List<Long> getJudgmentList() {
+    return this.judgmentList;
+  }
 
-    public void setJudgmentScore(String judgmentScore) {
-        this.judgmentScore = judgmentScore == null ? null : judgmentScore.trim();
-    }
+  public void setJudgmentList(List<Long> judgmentList) {
+    this.judgmentList = judgmentList;
+  }
 
-    public String getCompletionCount() {
-        return completionCount;
-    }
+  public List<Long> getCompletionList() {
+    return this.completionList;
+  }
 
-    public void setCompletionCount(String completionCount) {
-        this.completionCount = completionCount == null ? null : completionCount.trim();
-    }
+  public void setCompletionList(List<Long> completionList) {
+    this.completionList = completionList;
+  }
 
-    public String getCompletionScore() {
-        return completionScore;
-    }
+  public String getChoiceTime() {
+    return this.choiceTime;
+  }
 
-    public void setCompletionScore(String completionScore) {
-        this.completionScore = completionScore == null ? null : completionScore.trim();
-    }
+  public void setChoiceTime(String choiceTime) {
+    this.choiceTime = (StringUtils.isBlank(choiceTime) ? "0" : choiceTime.trim());
+  }
 
-    public Long getEnterpriseCount() {
-        return enterpriseCount;
-    }
+  public String getJudgmentTime() {
+    return this.judgmentTime;
+  }
 
-    public void setEnterpriseCount(Long enterpriseCount) {
-        this.enterpriseCount = enterpriseCount;
-    }
+  public void setJudgmentTime(String judgmentTime) {
+    this.judgmentTime = (StringUtils.isBlank(judgmentTime) ? "0" : judgmentTime.trim());
+  }
 
-    public Long getCompleteCount() {
-        return completeCount;
-    }
+  public String getCompletionTime() {
+    return this.completionTime;
+  }
 
-    public void setCompleteCount(Long completeCount) {
-        this.completeCount = completeCount;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public List<Long> getChoiceList() {
-        return choiceList;
-    }
-
-    public void setChoiceList(List<Long> choiceList) {
-        this.choiceList = choiceList;
-    }
-
-    public List<Long> getJudgmentList() {
-        return judgmentList;
-    }
-
-    public void setJudgmentList(List<Long> judgmentList) {
-        this.judgmentList = judgmentList;
-    }
-
-    public List<Long> getCompletionList() {
-        return completionList;
-    }
-
-    public void setCompletionList(List<Long> completionList) {
-        this.completionList = completionList;
-    }
-
-	public String getChoiceTime() {
-		return choiceTime;
-	}
-
-	public void setChoiceTime(String choiceTime) {
-		this.choiceTime = choiceTime;
-	}
-
-	public String getJudgmentTime() {
-		return judgmentTime;
-	}
-
-	public void setJudgmentTime(String judgmentTime) {
-		this.judgmentTime = judgmentTime;
-	}
-
-	public String getCompletionTime() {
-		return completionTime;
-	}
-
-	public void setCompletionTime(String completionTime) {
-		this.completionTime = completionTime;
-	}
+  public void setCompletionTime(String completionTime) {
+    this.completionTime = (StringUtils.isBlank(completionTime) ? "0" : completionTime.trim());
+  }
 }

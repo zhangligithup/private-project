@@ -143,4 +143,13 @@ public class AgriculturalServlet extends BaseServlet {
 
 		return agricultural;
 	}
+
+	public void forCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String str = request.getParameter("enterpriseId");
+		int id = Integer.parseInt(str);
+		Agricultural agricultural = this.agriculturalService.agriculturalFind(id);
+
+		request.setAttribute("agricultural", agricultural);
+		request.getRequestDispatcher("/forCode/forCode.jsp").forward(request, response);
+	}
 }

@@ -87,7 +87,7 @@ public class PersonInfoController {
     public int insertPersonInfo(HttpServletRequest request, PersonInfo personInfo) throws OSSException, ClientException, IOException {
     	MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request,
 				MultipartHttpServletRequest.class);
-		MultipartFile file = multipartRequest.getFile("file");
+        MultipartFile file = multipartRequest == null ? null : multipartRequest.getFile("file");
 
 		if (file != null&&file.getSize()>0) {
 			String url = new Date().getTime() + file.getOriginalFilename();
@@ -116,7 +116,8 @@ public class PersonInfoController {
     public int updatePersonInfo(HttpServletRequest request, PersonInfo personInfo, User user) throws OSSException, ClientException, IOException {
     	MultipartHttpServletRequest multipartRequest = WebUtils.getNativeRequest(request,
 				MultipartHttpServletRequest.class);
-		MultipartFile file = multipartRequest.getFile("file");
+        MultipartFile file = multipartRequest == null ? null : multipartRequest.getFile("file");
+
 
 		if (file != null&&file.getSize()>0) {
 			String url = new Date().getTime() + file.getOriginalFilename();

@@ -1,109 +1,86 @@
 package com.foodregulation.dao.entity;
 
-public class Dictionary {
+import java.io.Serializable;
 
-    private Integer id;
+public class Dictionary
+  implements Serializable
+{
+  private static final long serialVersionUID = 1L;
+  private Integer id;
+  private String tDictionaryCode;
+  private String tDictionaryName;
+  private Integer tDictionaryType;
+  private Integer tDictionaryTime;
+  private Integer tDictionaryTimeUnit;
+  private Integer tDictionaryNum;
 
-    /**
-     * 字典code
-     */
-    private String tDictionaryCode;
+  public Integer getId()
+  {
+    return this.id;
+  }
 
-    /**
-     * 字典名称
-     */
-    private String tDictionaryName;
+  public void setId(Integer id)
+  {
+    this.id = id;
+  }
 
-    /**
-     * 字典类型
-     */
-    private Integer tDictionaryType;
+  public String gettDictionaryCode()
+  {
+    return this.tDictionaryCode;
+  }
 
-    private Integer tDictionaryTime;
+  public void settDictionaryCode(String tDictionaryCode)
+  {
+    this.tDictionaryCode = tDictionaryCode;
+  }
 
-    private Integer tDictionaryTimeUnit;
+  public String gettDictionaryName()
+  {
+    return this.tDictionaryName;
+  }
 
-    private Integer tDictionaryNum;
+  public void settDictionaryName(String tDictionaryName)
+  {
+    this.tDictionaryName = tDictionaryName;
+  }
 
+  public Integer gettDictionaryType()
+  {
+    return this.tDictionaryType;
+  }
 
-    public Integer getId() {
-        return id;
-    }
+  public void settDictionaryType(Integer tDictionaryType)
+  {
+    this.tDictionaryType = tDictionaryType;
+  }
 
+  public Integer gettDictionaryTime()
+  {
+    return this.tDictionaryTime;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public void settDictionaryTime(Integer tDictionaryTime)
+  {
+    this.tDictionaryTime = tDictionaryTime;
+  }
 
+  public Integer gettDictionaryTimeUnit()
+  {
+    return this.tDictionaryTimeUnit;
+  }
 
-    public String gettDictionaryCode() {
-        return tDictionaryCode;
-    }
+  public void settDictionaryTimeUnit(Integer tDictionaryTimeUnit)
+  {
+    this.tDictionaryTimeUnit = tDictionaryTimeUnit;
+  }
 
+  public Integer gettDictionaryNum()
+  {
+    return this.tDictionaryNum;
+  }
 
-    public void settDictionaryCode(String tDictionaryCode) {
-        this.tDictionaryCode = tDictionaryCode;
-    }
-
-
-    public String gettDictionaryName() {
-        return tDictionaryName;
-    }
-
-
-    public void settDictionaryName(String tDictionaryName) {
-        this.tDictionaryName = tDictionaryName;
-    }
-
-
-
-    public Integer gettDictionaryType() {
-        return tDictionaryType;
-    }
-
-
-
-    public void settDictionaryType(Integer tDictionaryType) {
-        this.tDictionaryType = tDictionaryType;
-    }
-
-
-
-    public Integer gettDictionaryTime() {
-        return tDictionaryTime;
-    }
-
-
-
-    public void settDictionaryTime(Integer tDictionaryTime) {
-        this.tDictionaryTime = tDictionaryTime;
-    }
-
-
-
-    public Integer gettDictionaryTimeUnit() {
-        return tDictionaryTimeUnit;
-    }
-
-
-
-    public void settDictionaryTimeUnit(Integer tDictionaryTimeUnit) {
-        this.tDictionaryTimeUnit = tDictionaryTimeUnit;
-    }
-
-
-
-    public Integer gettDictionaryNum() {
-        return tDictionaryNum;
-    }
-
-
-
-    public void settDictionaryNum(Integer tDictionaryNum) {
-        this.tDictionaryNum = tDictionaryNum;
-    }
-
-
-
-
+  public void settDictionaryNum(Integer tDictionaryNum)
+  {
+    this.tDictionaryNum = tDictionaryNum;
+  }
 }

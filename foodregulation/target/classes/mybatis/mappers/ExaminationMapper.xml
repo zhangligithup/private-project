@@ -366,7 +366,7 @@
             WHERE rl.`examinationId` = ${examinationId}
               AND p.`person_id` = ${personId}
 
-            ORDER BY e.`id`
+            ORDER BY e.`ex_type`,e.`id`
   </select>
 
   <select id="findComExamAndMyAnswer" resultType="map" parameterType="map">
@@ -390,7 +390,7 @@
             WHERE rl.`examinationId` = ${examinationId}
               AND ep.`person_company_id`= ${personCompanyId}
 
-            ORDER BY e.`id`
+            ORDER BY e.`ex_type`,e.`id`
   </select>
 
 

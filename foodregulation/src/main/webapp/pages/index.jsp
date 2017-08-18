@@ -360,7 +360,7 @@ function addPersonInfo(){
 function insertPersonInfo(){
 
 	if(!$("input[name='perosnTel']").val()){
-		alertEase("移动电话不能为空",'2');
+		alertEase("移动电话不能为空",2);
 		return false;
 	}
 	var formData = new FormData($('#data_person')[0]);

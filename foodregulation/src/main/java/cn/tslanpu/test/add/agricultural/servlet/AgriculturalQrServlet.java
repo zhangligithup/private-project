@@ -40,7 +40,9 @@ public class AgriculturalQrServlet extends HttpServlet {
 		int idInt = Integer.parseInt(idStr);
 		
 		//二维码封装的链接
-        String text = "http://chaxun1.tslanpu.cn:18080/x5/UI2/v_/tslanpu/mainActivity.w?device=m&id=";
+		String text = request.getRequestURL().toString();
+	    text = text.substring(0, text.indexOf("AgriculturalQrServlet"));
+	    text = text + "/AgriculturalServlet?method=forCode&enterpriseId=";
         int width = 300;  
         int height = 300;  
         //二维码的图片格式  
@@ -63,7 +65,9 @@ public class AgriculturalQrServlet extends HttpServlet {
 				}  
     		 
     		 //二维码生成路径
-    		 File outputFile = new File(getPath() + File.separator + id + ".png");
+			 String path = request.getRealPath("/");
+			 File outputFile = new File(path + File.separator + id + ".png");
+			 
     		 file = id + ".png";
     		 fileName = ids.get(id)+ "_" + id;
     	     MatrixToImageWriter.writeToFile(bitMatrix, format, outputFile);
@@ -86,8 +90,8 @@ public class AgriculturalQrServlet extends HttpServlet {
     	Map<Integer,String> ids = new HashMap<Integer,String>();
     	Connection conn = DB.getConnection();
     	String sql = "select * from agricultural where id = " + id;
-    	PreparedStatement PST = DB.createPST(conn, sql);
-    	ResultSet rs = DB.getRs(PST);
+    	PreparedStatement pst = DB.createPST(conn, sql);
+    	ResultSet rs = DB.getRs(pst);
     	
     	try {
 			while(rs.next()){
@@ -95,20 +99,10 @@ public class AgriculturalQrServlet extends HttpServlet {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		}finally {
+		      DB.close(conn, pst, rs);
+	    }
     	return ids;
     }
-	
-	public static String getPath(){
-	  String nowpath = System.getProperty("user.dir");  
-      String path = nowpath.replace("bin", "webapps");
-      path = path.replace("\\", "/");
-      path += "/"+ "tslanpu/QrCode";	//本工程目录下的QrCode文件夹
-      File tmp = new File(path);  
-      if (!tmp.exists()) {  
-          tmp.mkdirs();  
-      }  
-      return path;  
-	}
 
 }

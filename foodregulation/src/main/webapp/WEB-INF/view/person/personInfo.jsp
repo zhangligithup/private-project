@@ -168,30 +168,6 @@ function queryPersonInfo(curr){
 	});
 }
 
-
-function insertPersonInfo(){
-	var perosnTel = $("#perosnTel").val();
-	if(perosnTel==""){
-		alertEase("移动电话不能为空",'alert_err');
-		return;
-	}
-	$.ajax({
-		url:"${pageContext.request.contextPath}/personInfo/insertPersonInfo.do",
-		type:"post",
-		dataType:"json",
-		data:$('#data_person').serialize(),
-		success : function(json) {
-			if(json>0){
-				alertEase("添加信息成功",'alert_succ');
-			}else{
-				alertEase("添加信息失败",'alert_err');
-			}
-			emptyFormPersonInfo();
-			queryPersonInfo();
-		}
-	}); 
-}
-
 function findPersonInfo(personId){
 	$("#save_person").hide();
 	$("#update_person").show();

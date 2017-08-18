@@ -108,11 +108,13 @@ public class AppController {
 		param.put("fazhengriqi", request.getParameter("fazhengriqi"));
 		param.put("startNum", request.getParameter("startNum"));
 		param.put("searchkey", request.getParameter("searchkey"));
-		param.put("enterpriseNameLike", request.getParameter("enterpriseNameLike"));//企业名称模糊查询
-		param.put("enterpriseType", request.getParameter("enterpriseType"));//企业类别查询
-		param.put("checkUnitCode", request.getParameter("checkUnitCode"));//监管单位
-		param.put("address", request.getParameter("address"));//企行政区域
-		param.put("startNum", (Integer.parseInt(request.getParameter("pageindex")==null?"1":request.getParameter("pageindex")) - 1) * 10);
+		param.put("enterpriseNameLike", request.getParameter("enterpriseNameLike"));// 企业名称模糊查询
+		param.put("enterpriseType", request.getParameter("enterpriseType"));// 企业类别查询
+		param.put("checkUnitCode", request.getParameter("checkUnitCode"));// 监管单位
+		param.put("address", request.getParameter("address"));// 企行政区域
+		param.put("startNum",
+				(Integer.parseInt(request.getParameter("pageindex") == null ? "1" : request.getParameter("pageindex"))
+						- 1) * 10);
 		param.put("limit",
 				StringUtils.isBlank(request.getParameter("pagesize")) ? 10 : request.getParameter("pagesize"));
 		try {
@@ -131,9 +133,9 @@ public class AppController {
 				info.setScpermit(map.get("scpermit") == null ? "" : map.get("scpermit").toString());
 				info.setYouxiaodate(map.get("youxiaodate") == null ? "" : map.get("youxiaodate").toString());
 				info.setScaddress(map.get("scaddress") == null ? "" : map.get("scaddress").toString());
-				info.setEnterpriseType(map.get("enterpriseType")==null?"":map.get("enterpriseType").toString());
+				info.setEnterpriseType(map.get("enterpriseType") == null ? "" : map.get("enterpriseType").toString());
 				info.setEnterpriseTypeName("");
-				if(map.get("enterpriseType")!=null){
+				if (map.get("enterpriseType") != null) {
 					if (map.get("enterpriseType").toString().equals("enterprise_1")) {
 						info.setEnterpriseTypeName("食用农产品经营户");
 					} else if (map.get("enterpriseType").toString().equals("enterprise_2")) {
@@ -158,10 +160,10 @@ public class AppController {
 						info.setEnterpriseTypeName("医疗器械使用企业");
 					}
 				}
-			
-				info.setQydelegate(map.get("qydelegate")==null?"":map.get("qydelegate").toString());
-				info.setQyphone(map.get("qyphone")==null?"":map.get("qyphone").toString());
-				info.setZzcode(map.get("zzcode")==null?"":map.get("zzcode").toString());
+
+				info.setQydelegate(map.get("qydelegate") == null ? "" : map.get("qydelegate").toString());
+				info.setQyphone(map.get("qyphone") == null ? "" : map.get("qyphone").toString());
+				info.setZzcode(map.get("zzcode") == null ? "" : map.get("zzcode").toString());
 				array.add(info);
 			}
 			return ResultUtil.appJsonObject(true, "", "data", array);
@@ -195,9 +197,9 @@ public class AppController {
 		param.put("type", type);
 		User user = appService.userLogin(param);
 
-		if (user!=null) {
+		if (user != null) {
 			return ResultUtil.appJsonObject(true, "", "data", user);
-		}else{
+		} else {
 			return ResultUtil.appJsonObject(false, "用户名或密码错误");
 		}
 	}
@@ -306,7 +308,7 @@ public class AppController {
 		try {
 			param.put("enterpriseName", enterpriseName);
 			param.put("reportId", reportId);
-			if(StringUtils.isBlank(enterpriseName)&&StringUtils.isBlank(reportId)){
+			if (StringUtils.isBlank(enterpriseName) && StringUtils.isBlank(reportId)) {
 				return ResultUtil.appJsonObject(true, "", "data", new Report());
 			}
 			Report sac = appService.getReport(param);
@@ -330,12 +332,13 @@ public class AppController {
 	public JSONObject tsjyList(HttpServletRequest request) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		try {
-			//获取人员id
+			// 获取人员id
 			String username = request.getParameter("username");
-			if(!"admin".equals(username)){
+			if (!"admin".equals(username)) {
 				param.put("personId", personInfoService.findPersonByName(username).getPersonId());
 			}
-			param.put("startNum", Integer.parseInt(request.getParameter("pageindex"))<1?0:Integer.parseInt(request.getParameter("pageindex"))-1);
+			param.put("startNum", Integer.parseInt(request.getParameter("pageindex")) < 1 ? 0
+					: Integer.parseInt(request.getParameter("pageindex")) - 1);
 			param.put("limit",
 					StringUtils.isBlank(request.getParameter("pagesize")) ? 10 : request.getParameter("pagesize"));
 			List<Report> sac = appService.getReportList(param);
@@ -636,18 +639,18 @@ public class AppController {
 		// 查询所有单位,监管单位
 		List<Dictionary> unitList = unitService.query();
 		request.getSession().setAttribute("unitList", unitList);
-		//保存检查频次到session
-        List<Dictionary> checkFrequencyList = dictionaryService.getDictionaryByType(6);
-        request.getSession().setAttribute("checkFrequencyList", checkFrequencyList);
-        Admin admin = adminService.query(request.getParameter("username"),"");
-        if(Constant.ADMIN.equals(request.getParameter("username"))){
-        	request.setAttribute("currentUnitCode","");
-        	admin.setUnitCode("");
-        }else{
-        	request.setAttribute("currentUnitCode",admin.getUnitCode());
-        }
-        request.getSession().setAttribute("sessionAdmin", admin);
-        return "supervisionAndCheck/supervisionAndCheckTaskApp";
+		// 保存检查频次到session
+		List<Dictionary> checkFrequencyList = dictionaryService.getDictionaryByType(6);
+		request.getSession().setAttribute("checkFrequencyList", checkFrequencyList);
+		Admin admin = adminService.query(request.getParameter("username"), "");
+		if (Constant.ADMIN.equals(request.getParameter("username"))) {
+			request.setAttribute("currentUnitCode", "");
+			admin.setUnitCode("");
+		} else {
+			request.setAttribute("currentUnitCode", admin.getUnitCode());
+		}
+		request.getSession().setAttribute("sessionAdmin", admin);
+		return "supervisionAndCheck/supervisionAndCheckTaskApp";
 	}
 
 	@RequestMapping("insertAppUserLocation")
@@ -701,8 +704,8 @@ public class AppController {
 	public JSONObject selectPhysical(HttpServletRequest request) {
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("type", request.getParameter("type"));// 1 :已过期 2:未过期
-		param.put("companyName", request.getParameter("companyName"));//企业名称
-		param.put("physicalName", request.getParameter("physicalName"));//体检人姓名
+		param.put("companyName", request.getParameter("companyName"));// 企业名称
+		param.put("physicalName", request.getParameter("physicalName"));// 体检人姓名
 		initPage(request, param);
 		List<Physical> data = physicalService.selectPhysical(param);
 
@@ -771,7 +774,7 @@ public class AppController {
 			if (StringUtils.isBlank(physical.getReportDateStr())) {
 				return ResultUtil.appJsonObject(false, "报告日期不能为空");
 			}
-			if (null == physical.getEnterpriseTypeId() ||"0".equals(physical.getEnterpriseTypeId())) {
+			if (null == physical.getEnterpriseTypeId() || "0".equals(physical.getEnterpriseTypeId())) {
 				return ResultUtil.appJsonObject(false, "企业类别id不能为空");
 			}
 
@@ -786,17 +789,17 @@ public class AppController {
 			// "-").replace("月/", "-").replace("日", "");
 			physical.setReportDate(dateFormat.parse(physical.getReportDateStr()));
 
-			EnterpriseUser enterpriseUser=physicalService.selectEnterpriseUserByUsername(physical.getPhone());
-            if(enterpriseUser==null){
-            	EnterpriseUser user=new EnterpriseUser();
-                user.setUserName(physical.getPhone());
-                user.setEnterpriseName(physical.getCompanyName());
-                user.setPassword("123456");
+			EnterpriseUser enterpriseUser = physicalService.selectEnterpriseUserByUsername(physical.getPhone());
+			if (enterpriseUser == null) {
+				EnterpriseUser user = new EnterpriseUser();
+				user.setUserName(physical.getPhone());
+				user.setEnterpriseName(physical.getCompanyName());
+				user.setPassword("123456");
 
-                physicalService.addEnterpriseUser(user);
-            }else {
-                return ResultUtil.appJsonObject(false,"联系电话已存在");
-            }
+				physicalService.addEnterpriseUser(user);
+			} else {
+				return ResultUtil.appJsonObject(false, "联系电话已存在");
+			}
 
 			int add = physicalService.addPhysical(physical);
 			if (add > 0) {
@@ -819,27 +822,28 @@ public class AppController {
 	@RequestMapping("/findMyExamination")
 	@ResponseBody
 	public JSONObject findMyExamination(HttpServletRequest request) {
-		String type = request.getParameter("type");//type   1执法端    0企业端
+		String type = request.getParameter("type");// type 1执法端 0企业端
 		String personId = request.getParameter("personId");// 人员id
 		Map<String, Object> param = new HashMap<String, Object>();
-		param.put("completeState", request.getParameter("completeState"));// 已完成// 未完成
+		param.put("completeState", request.getParameter("completeState"));// 已完成//
+																			// 未完成
 		param.put("templateName", request.getParameter("templateName"));// 试卷模版名称
-        param.put("type",type);
+		param.put("type", type);
 		initPage(request, param);
-		
+
 		int personCompanyId = 0;
 		String name = "";
-		if("0".equals(type)){
-			//获取企业类别id
+		if ("0".equals(type)) {
+			// 获取企业类别id
 			personCompanyId = dictionaryService.selectEnterpriseTypeIdByEnterpriseUserId(Integer.valueOf(personId));
-			if(personCompanyId==-1){
-				return ResultUtil.appJsonObject(false,"人员不存");
+			if (personCompanyId == -1) {
+				return ResultUtil.appJsonObject(false, "人员不存");
 			}
 			name = physicalService.selectEnterpriseUserById(Integer.valueOf(personId)).getName();
-		}else{
+		} else {
 			PersonInfo personInfo = personInfoService.findPersonInfo(Integer.valueOf(personId));
-			if(personInfo==null){
-				return ResultUtil.appJsonObject(false,"人员不存");
+			if (personInfo == null) {
+				return ResultUtil.appJsonObject(false, "人员不存");
 			}
 			personCompanyId = personInfo.getPersonCompanyId();
 			name = personInfo.getPersonName();
@@ -879,16 +883,17 @@ public class AppController {
 
 		Map<String, Object> map = examinationService.findPersonExamScire(param);// 查找某人某试卷分数及试卷标题
 		JSONObject json = new JSONObject();
-		if("0".equals(param.get("type"))){
-			//获取企业类别id
-			int personCompanyId = dictionaryService.selectEnterpriseTypeIdByEnterpriseUserId(Integer.valueOf(request.getParameter("personId")));
-			if(personCompanyId==-1){
+		if ("0".equals(param.get("type"))) {
+			// 获取企业类别id
+			int personCompanyId = dictionaryService
+					.selectEnterpriseTypeIdByEnterpriseUserId(Integer.valueOf(request.getParameter("personId")));
+			if (personCompanyId == -1) {
 				System.out.println("人员不存在");
 			}
-			param.put("personCompanyId",personCompanyId);
+			param.put("personCompanyId", personCompanyId);
 			List<Map<String, Object>> data = examinationService.findComExamAndMyAnswer(param);
 			json.put("examList", data);
-		}else {
+		} else {
 			List<Map<String, Object>> data = examinationService.findExamAndMyAnswer(param);
 			json.put("examList", data);
 		}
@@ -921,47 +926,6 @@ public class AppController {
 		return ResultUtil.appJsonObject(true, "", "data", data);
 	}
 
-	/**
-	 * 答题
-	 * 
-	 * @param request
-	 * @param list
-	 * @return
-	 */
-	@RequestMapping("answerExam")
-	@ResponseBody
-	public JSONObject answerExam(HttpServletRequest request, @RequestBody List<ExamRecord> list) {
-		boolean pageResult = false;
-		try {
-			if (CollectionUtils.isEmpty(list))
-				return ResultUtil.appJsonObject(pageResult, "答案不能为空");
-
-			for (ExamRecord record : list) {
-				if (null == record.getExamId() || 0 == record.getExamId()) {
-					return ResultUtil.appJsonObject(pageResult, "试题id不能为空");
-				}
-				if (null == record.getExaminationId() || 0 == record.getExaminationId()) {
-					return ResultUtil.appJsonObject(pageResult, "试卷id不能为空");
-				}
-				if (null == record.getOperatorId() || 0 == record.getOperatorId()) {
-					return ResultUtil.appJsonObject(pageResult, "答题人员id不能为空");
-				}
-			}
-
-			int total = examRelationService.findTotalExam(list.get(0).getExaminationId());
-			if (total != list.size())
-				return ResultUtil.appJsonObject(pageResult, "必须答完试卷所有试题");
-
-			int add = examinationService.insertListRecord(list);
-			if (add > 0)
-				pageResult = true;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		return ResultUtil.appJsonObject(pageResult, "");
-	}
-
 	// app端试卷答题页面
 	@RequestMapping("showAnswerExam")
 	public String showAnswerExam(HttpServletRequest request) {
@@ -969,16 +933,17 @@ public class AppController {
 		param.put("personId", request.getParameter("personId"));// 答题人员id
 		param.put("examinationId", request.getParameter("examinationId"));// 试卷id
 		param.put("type", request.getParameter("type"));// (1:执法端 0:企业端)
-		if("0".equals(param.get("type"))){
-			//获取企业类别id
-			int personCompanyId = dictionaryService.selectEnterpriseTypeIdByEnterpriseUserId(Integer.valueOf(request.getParameter("personId")));
-			if(personCompanyId==-1){
+		if ("0".equals(param.get("type"))) {
+			// 获取企业类别id
+			int personCompanyId = dictionaryService
+					.selectEnterpriseTypeIdByEnterpriseUserId(Integer.valueOf(request.getParameter("personId")));
+			if (personCompanyId == -1) {
 				System.out.println("人员不存在");
 			}
-			param.put("personCompanyId",personCompanyId);
+			param.put("personCompanyId", personCompanyId);
 			List<Map<String, Object>> data = examinationService.findComExamAndMyAnswer(param);
 			request.setAttribute("dataList", data);
-		}else {
+		} else {
 			List<Map<String, Object>> data = examinationService.findExamAndMyAnswer(param);
 			request.setAttribute("dataList", data);
 		}
@@ -986,18 +951,24 @@ public class AppController {
 				.findExamination(Long.valueOf(request.getParameter("examinationId")));// 查找某人试卷标题
 		request.setAttribute("templateName", examination.getTemplateName());
 		request.setAttribute("personId", request.getParameter("personId"));
-		request.setAttribute("type",request.getParameter("type"));
+		request.setAttribute("type", request.getParameter("type"));
 		request.setAttribute("examinationId", request.getParameter("examinationId"));
-		//获取总答题时间
-		double choiceCount = StringUtils.isBlank(examination.getChoiceCount())?0:Double.valueOf(examination.getChoiceCount());
-		double judgmentCount = StringUtils.isBlank(examination.getJudgmentCount())?0:Double.valueOf(examination.getJudgmentCount());
-		double completionCount = StringUtils.isBlank(examination.getCompletionCount())?0:Double.valueOf(examination.getCompletionCount());
-		double choiceTime = StringUtils.isBlank(examination.getChoiceTime())?0:Double.valueOf(examination.getChoiceTime());
-		double judgmentTime = StringUtils.isBlank(examination.getJudgmentTime())?0:Double.valueOf(examination.getJudgmentTime());
-		double completionTime = StringUtils.isBlank(examination.getCompletionTime())?0:Double.valueOf(examination.getCompletionTime());
-		
-		int totalTime = ((Double)(choiceCount*choiceTime+judgmentCount*judgmentTime+completionCount*completionTime)).intValue();//秒
-		request.setAttribute("totalTime", totalTime);
+		// 获取总答题时间
+		double choiceCount = StringUtils.isBlank(examination.getChoiceCount()) ? 0
+				: Double.valueOf(examination.getChoiceCount());
+		double judgmentCount = StringUtils.isBlank(examination.getJudgmentCount()) ? 0
+				: Double.valueOf(examination.getJudgmentCount());
+		double completionCount = StringUtils.isBlank(examination.getCompletionCount()) ? 0
+				: Double.valueOf(examination.getCompletionCount());
+		double choiceTime = StringUtils.isBlank(examination.getChoiceTime()) ? 0
+				: Double.valueOf(examination.getChoiceTime());
+		double judgmentTime = StringUtils.isBlank(examination.getJudgmentTime()) ? 0
+				: Double.valueOf(examination.getJudgmentTime());
+		double completionTime = StringUtils.isBlank(examination.getCompletionTime()) ? 0
+				: Double.valueOf(examination.getCompletionTime());
+
+		int totalTime = Double.valueOf(choiceCount * choiceTime + judgmentCount * judgmentTime + completionCount * completionTime).intValue();//秒
+	    request.setAttribute("totalTime", Integer.valueOf(totalTime + (60 - totalTime % 60)));
 		return "exam/questions";
 	}
 
@@ -1007,16 +978,17 @@ public class AppController {
 		param.put("personId", request.getParameter("personId"));// 答题人员id
 		param.put("examinationId", request.getParameter("examinationId"));// 试卷id
 		param.put("type", request.getParameter("type"));// (1:执法端 0:企业端)
-		if("0".equals(param.get("type"))){
-			//获取企业类别id
-			int personCompanyId = dictionaryService.selectEnterpriseTypeIdByEnterpriseUserId(Integer.valueOf(request.getParameter("personId")));
-			if(personCompanyId==-1){
+		if ("0".equals(param.get("type"))) {
+			// 获取企业类别id
+			int personCompanyId = dictionaryService
+					.selectEnterpriseTypeIdByEnterpriseUserId(Integer.valueOf(request.getParameter("personId")));
+			if (personCompanyId == -1) {
 				System.out.println("人员不存在");
 			}
-			param.put("personCompanyId",personCompanyId);
+			param.put("personCompanyId", personCompanyId);
 			List<Map<String, Object>> data = examinationService.findComExamAndMyAnswer(param);
 			request.setAttribute("dataList", data);
-		}else {
+		} else {
 			List<Map<String, Object>> data = examinationService.findExamAndMyAnswer(param);
 			request.setAttribute("dataList", data);
 		}
@@ -1062,12 +1034,32 @@ public class AppController {
 			list.add(examRecord);
 		}
 		try {
+			
+			this.examinationService.deleteRecord(examinationId, personId, type);
+
+			if (CollectionUtils.isEmpty(list)) {
+				ExamRecord examRecord = new ExamRecord();
+				examRecord.setExaminationId(Long.valueOf(examinationId));
+				examRecord.setOperatorId(Integer.valueOf(personId));
+				examRecord.setAnswer("");
+				examRecord.setExamId(Long.valueOf(-1L));
+				examRecord.setType(type);
+				list.add(examRecord);
+			}
+			
 			examinationService.insertListRecord(list);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return "提交失败";
 		}
 		return "提交成功";
+	}
+
+	@RequestMapping({ "isAnswerExam" })
+	@ResponseBody
+	public int isAnswerExam(String examinationId, String personId, String type) {
+		int num = this.examinationService.isAnswerExam(examinationId, personId, type);
+		return num;
 	}
 
 	/******************************************** 溯源管理 ********************************************************************/
@@ -1079,15 +1071,18 @@ public class AppController {
 	@ResponseBody
 	public JSONObject selectPurchaseLedger(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("startNum", request.getParameter("startNum")==null?0:(Integer.valueOf(request.getParameter("startNum"))-1));
+		map.put("startNum",
+				request.getParameter("startNum") == null ? 0 : (Integer.valueOf(request.getParameter("startNum")) - 1));
 		map.put("limit", request.getParameter("limit"));
-		//EnterpriseUser enterpriseUser=physicalService.selectEnterpriseUserByUsername(request.getParameter("username"));
-		//map.put("enterpriseName", enterpriseUser==null?"":enterpriseUser.getEnterpriseName());
+		// EnterpriseUser
+		// enterpriseUser=physicalService.selectEnterpriseUserByUsername(request.getParameter("username"));
+		// map.put("enterpriseName",
+		// enterpriseUser==null?"":enterpriseUser.getEnterpriseName());
 		map.put("enterpriseName", request.getParameter("enterpriseName"));
 		map.put("reportTime", request.getParameter("reportTime"));
-		map.put("commodity", request.getParameter("commodity"));//物品名称
-		map.put("purchaseTime", request.getParameter("purchaseTime"));//进货时间
-		if("1".equals(request.getParameter("ctype"))){
+		map.put("commodity", request.getParameter("commodity"));// 物品名称
+		map.put("purchaseTime", request.getParameter("purchaseTime"));// 进货时间
+		if ("1".equals(request.getParameter("ctype"))) {
 			map.put("createUser", request.getParameter("username"));
 		}
 		List<PurchaseLedger> result = originService.selectPurchaseLedgerApp(map);
@@ -1104,8 +1099,9 @@ public class AppController {
 	@RequestMapping("/insertPurchaseLedger")
 	@ResponseBody
 	public JSONObject insertPurchaseLedger(HttpServletRequest request) {
-		EnterpriseUser enterpriseUser=physicalService.selectEnterpriseUserByUsername(request.getParameter("username"));
-		String company = enterpriseUser==null?"":enterpriseUser.getEnterpriseName();
+		EnterpriseUser enterpriseUser = physicalService
+				.selectEnterpriseUserByUsername(request.getParameter("username"));
+		String company = enterpriseUser == null ? "" : enterpriseUser.getEnterpriseName();
 
 		String commodity = request.getParameter("commodity");
 
@@ -1114,35 +1110,38 @@ public class AppController {
 		String buyer = request.getParameter("buyer");
 
 		Date purchaseTime = null;
-		try{
-			purchaseTime = request.getParameter("purchaseTime")==null?null:DateUtil.stringToDate(request.getParameter("purchaseTime"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"进货时间格式不正确");
+		try {
+			purchaseTime = request.getParameter("purchaseTime") == null ? null
+					: DateUtil.stringToDate(request.getParameter("purchaseTime"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "进货时间格式不正确");
 		}
 
 		Date reportTime = null;
-		try{
-			reportTime = request.getParameter("reportTime")==null?new Date():DateUtil.stringToDate(request.getParameter("reportTime"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"上报时间格式不正确");
+		try {
+			reportTime = request.getParameter("reportTime") == null ? new Date()
+					: DateUtil.stringToDate(request.getParameter("reportTime"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "上报时间格式不正确");
 		}
 
 		String spec = request.getParameter("spec");
 
 		Integer num = null;
-		try{
-			num = request.getParameter("num")==null?null:Integer.valueOf(request.getParameter("num"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"数量格式不正确");
+		try {
+			num = request.getParameter("num") == null ? null : Integer.valueOf(request.getParameter("num"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "数量格式不正确");
 		}
 
 		String batchNumber = request.getParameter("batchNumber");
 
 		Date safeDate = null;
-		try{
-			safeDate = request.getParameter("safeDate")==null?null:DateUtil.stringToDate(request.getParameter("safeDate"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"保质期格式不正确");
+		try {
+			safeDate = request.getParameter("safeDate") == null ? null
+					: DateUtil.stringToDate(request.getParameter("safeDate"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "保质期格式不正确");
 		}
 
 		String supplyPerson = request.getParameter("supplyPerson");
@@ -1181,7 +1180,7 @@ public class AppController {
 		}
 
 	}
-	
+
 	/**
 	 * 产品进货台账-修改
 	 */
@@ -1192,9 +1191,10 @@ public class AppController {
 		if (StringUtils.isBlank(id)) {
 			return ResultUtil.appJsonObject(false, "请传入参数产品进货台帐ID");
 		}
-		
-		EnterpriseUser enterpriseUser=physicalService.selectEnterpriseUserByUsername(request.getParameter("username"));
-		String company = enterpriseUser==null?"":enterpriseUser.getEnterpriseName();
+
+		EnterpriseUser enterpriseUser = physicalService
+				.selectEnterpriseUserByUsername(request.getParameter("username"));
+		String company = enterpriseUser == null ? "" : enterpriseUser.getEnterpriseName();
 
 		String commodity = request.getParameter("commodity");
 
@@ -1203,35 +1203,38 @@ public class AppController {
 		String buyer = request.getParameter("buyer");
 
 		Date purchaseTime = null;
-		try{
-			purchaseTime = request.getParameter("purchaseTime")==null?null:DateUtil.stringToDate(request.getParameter("purchaseTime"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"进货时间格式不正确");
+		try {
+			purchaseTime = request.getParameter("purchaseTime") == null ? null
+					: DateUtil.stringToDate(request.getParameter("purchaseTime"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "进货时间格式不正确");
 		}
 
 		Date reportTime = null;
-		try{
-			reportTime = request.getParameter("reportTime")==null?new Date():DateUtil.stringToDate(request.getParameter("reportTime"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"上报时间格式不正确");
+		try {
+			reportTime = request.getParameter("reportTime") == null ? new Date()
+					: DateUtil.stringToDate(request.getParameter("reportTime"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "上报时间格式不正确");
 		}
 
 		String spec = request.getParameter("spec");
 
 		Integer num = null;
-		try{
-			num = request.getParameter("num")==null?null:Integer.valueOf(request.getParameter("num"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"数量格式不正确");
+		try {
+			num = request.getParameter("num") == null ? null : Integer.valueOf(request.getParameter("num"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "数量格式不正确");
 		}
 
 		String batchNumber = request.getParameter("batchNumber");
 
 		Date safeDate = null;
-		try{
-			safeDate = request.getParameter("safeDate")==null?null:DateUtil.stringToDate(request.getParameter("safeDate"));
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"保质期格式不正确");
+		try {
+			safeDate = request.getParameter("safeDate") == null ? null
+					: DateUtil.stringToDate(request.getParameter("safeDate"));
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "保质期格式不正确");
 		}
 
 		String supplyPerson = request.getParameter("supplyPerson");
@@ -1261,7 +1264,7 @@ public class AppController {
 		record.setSupplyPerson(supplyPerson);
 		record.setSupplyTel(supplyTel);
 		record.setSupplyUnit(supplyUnit);
-		
+
 		try {
 			originService.updatePurchaseLedger(record);
 			return ResultUtil.appJsonObject(true, "修改成功");
@@ -1269,14 +1272,14 @@ public class AppController {
 			return ResultUtil.appJsonObject(false, e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * 产品进货台账-删除
 	 */
 	@RequestMapping("/deletePurchaseLedger")
 	@ResponseBody
 	public JSONObject deletePurchaseLedger(HttpServletRequest request, Integer id) {
-		
+
 		if (StringUtils.isBlank(id)) {
 			return ResultUtil.appJsonObject(false, "请传入参数产品进货台帐ID");
 		}
@@ -1308,7 +1311,7 @@ public class AppController {
 		map.put("startNum", request.getParameter("startNum"));
 		map.put("company", request.getParameter("company"));
 		map.put("recordTime", request.getParameter("recordTime"));
-		if("1".equals(request.getParameter("ctype"))){
+		if ("1".equals(request.getParameter("ctype"))) {
 			map.put("createUser", request.getParameter("username"));
 		}
 		map.put("limit", request.getParameter("limit"));
@@ -1326,7 +1329,7 @@ public class AppController {
 	@RequestMapping("/insertAdditiveFiling")
 	@ResponseBody
 	public JSONObject insertAdditiveFiling(HttpServletRequest request, AdditiveFiling record) {
-        record.setCreateUser(request.getParameter("username"));
+		record.setCreateUser(request.getParameter("username"));
 		if (StringUtils.isBlank(record.getCompany())) {
 			return ResultUtil.appJsonObject(false, "请填写企业名称");
 		} else if (StringUtils.isBlank(record.getCompanyAddress())) {
@@ -1344,16 +1347,16 @@ public class AppController {
 		} else if (StringUtils.isBlank(record.getPurchaseTime())) {
 			return ResultUtil.appJsonObject(false, "请填写进货时间");
 		}
-		
-		try{
-			DateUtil.stringToDate(record.getRecordTime(),"yyyy-MM-dd HH:mm");
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"备案时间格式不正确");
+
+		try {
+			DateUtil.stringToDate(record.getRecordTime(), "yyyy-MM-dd HH:mm");
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "备案时间格式不正确");
 		}
-		try{
-			DateUtil.stringToDate(record.getPurchaseTime(),"yyyy-MM-dd HH:mm");
-		}catch(Exception e){
-			return ResultUtil.appJsonObject(false,"进货时间格式不正确");
+		try {
+			DateUtil.stringToDate(record.getPurchaseTime(), "yyyy-MM-dd HH:mm");
+		} catch (Exception e) {
+			return ResultUtil.appJsonObject(false, "进货时间格式不正确");
 		}
 		/*
 		 * String rootPath =
@@ -1377,7 +1380,7 @@ public class AppController {
 			return ResultUtil.appJsonObject(false, "插入失败");
 		}
 	}
-	
+
 	/**
 	 * 食品添加剂备案-修改
 	 */
@@ -1387,7 +1390,7 @@ public class AppController {
 
 		if (StringUtils.isBlank(record.getId())) {
 			return ResultUtil.appJsonObject(false, "请传入参数食品添加剂备案ID");
-		}else if (StringUtils.isBlank(record.getCompany())) {
+		} else if (StringUtils.isBlank(record.getCompany())) {
 			return ResultUtil.appJsonObject(false, "请填写企业名称");
 		} else if (StringUtils.isBlank(record.getCompanyAddress())) {
 			return ResultUtil.appJsonObject(false, "请填写企业地址 ");
@@ -1412,14 +1415,14 @@ public class AppController {
 			return ResultUtil.appJsonObject(false, e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * 食品添加剂备案-删除
 	 */
 	@RequestMapping("/deleteAdditiveFiling")
 	@ResponseBody
 	public JSONObject deleteAdditiveFiling(HttpServletRequest request, Integer id) {
-		
+
 		if (StringUtils.isBlank(id)) {
 			return ResultUtil.appJsonObject(false, "请传入参数食品添加剂备案ID");
 		}
@@ -1480,7 +1483,7 @@ public class AppController {
 		}
 
 	}
-	
+
 	/**
 	 * 备案登记表-修改
 	 */
@@ -1512,14 +1515,14 @@ public class AppController {
 		}
 
 	}
-	
+
 	/**
 	 * 备案登记表-删除
 	 */
 	@RequestMapping("/deleteKeepRecord")
 	@ResponseBody
 	public JSONObject deleteKeepRecord(HttpServletRequest request, Integer id) {
-		
+
 		if (StringUtils.isBlank(id)) {
 			return ResultUtil.appJsonObject(false, "请传入参数备案登记表ID");
 		}
@@ -1530,7 +1533,6 @@ public class AppController {
 			return ResultUtil.appJsonObject(false, e.getMessage());
 		}
 	}
-	
 
 	@RequestMapping("/getNotitication")
 	@ResponseBody
@@ -1560,9 +1562,10 @@ public class AppController {
 			return ResultUtil.appJsonObject(true, "", "data", list);
 		}
 	}
-	
+
 	/**
 	 * 获取所有企业名称
+	 * 
 	 * @Description: TODO
 	 * @author kongjiang
 	 * @date 2017年3月30日 下午4:25:35
@@ -1571,14 +1574,15 @@ public class AppController {
 	@RequestMapping("/getEnterpriseInfoName")
 	@ResponseBody
 	public JSONObject getEnterpriseInfoName(HttpServletRequest request) {
-		Map<String, Object> map = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("enterpriseType", request.getParameter("enterpriseType"));
 		List<Map<String, Object>> result = appService.selectEnterpriseInfoName(map);
 		return ResultUtil.appJsonObject(true, "", "data", result);
 	}
-	
+
 	/**
 	 * 根据企业名称获取企业详细信息
+	 * 
 	 * @param request
 	 * @return
 	 */
@@ -1586,7 +1590,7 @@ public class AppController {
 	@ResponseBody
 	public JSONObject getEnterpriseByName(HttpServletRequest request) {
 		String enterpriseName = request.getParameter("enterpriseName");
-		if(StringUtils.isBlank(enterpriseName)){
+		if (StringUtils.isBlank(enterpriseName)) {
 			return ResultUtil.appJsonObject(false, "企业名称不能为空");
 		}
 		Map<String, Object> param = new HashMap<String, Object>();

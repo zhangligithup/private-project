@@ -90,16 +90,16 @@
 <body>
 <h1 class="qs_h1">
     ${templateName}
-    <div style="font-weight:normal;font-size:13px;color:#999; line-height:30px;"><span>答题时间：<font style="color:red;">${totalTime/60}</font>分钟</span><span style="padding-left:10px;">剩余时间：</span><span id='tickTime'></span></div>
+    <div style="font-weight:normal;font-size:13px;color:#999; line-height:30px;"><span><font style="color:red;">温馨提示：未点击完成离开此页面，此次答题将为0分</font></span><span>答题时间：<font style="color:red;">${totalTime/60}</font>分钟</span><span style="padding-left:10px;">剩余时间：</span><span id='tickTime'></span></div>
 </h1>
 
 <div class="qs_txt">
 </div>
  <div class="qs_box">
  <form id="data">
- <input type="hidden" name="personId" value="${personId}">
- <input type="hidden" name="examinationId" value="${examinationId}">
- <input type="hidden" name="type" value="${type}">
+ <input type="hidden" id="hipersonId" name="personId" value="${personId}">
+ <input type="hidden" id="hiexaminationId" name="examinationId" value="${examinationId}">
+ <input type="hidden" id="hitype" name="type" value="${type}">
  <input type="hidden" id="totalTime" value="${totalTime}">
  	  <c:forEach var="data" items="${dataList}" varStatus="dd">
 	 	  <c:if test="${data.exType=='选择题'}"> 
@@ -147,6 +147,39 @@
 </div>
 <script type="text/javascript">
 var flag = true;
+//自动提交空白卷，防止重复答题
+$(function(){
+	$.ajax({
+        url:"${pageContext.request.contextPath}/app/isAnswerExam.do",
+        type:"post",
+        async: false,
+        dataType:"text",
+        data:{
+        	examinationId:$("#hiexaminationId").val(),
+        	personId:$("#hipersonId").val(),
+        	type:$("#hitype").val()
+        },
+        success : function(data) {
+        	if(data>0){
+        		$("#savenBtn").hide();
+                flag = false;
+                alertEase("不能重复答卷",2);
+        	}else{
+        		  $.ajax({
+        		        url:"${pageContext.request.contextPath}/app/answer.do",
+        		        type:"post",
+        		        async: false,
+        		        data:$("#data").serialize(),
+        		        success : function(msg) {
+        		        }
+        		    });
+        	}
+        },
+        error:function(XMLHttpRequest, textStatus, errorThrown){
+        }
+    });
+});
+
 function save(){
   if(flag){
 	  $.ajax({
@@ -155,7 +188,7 @@ function save(){
 	        data:$("#data").serialize(),
 	        success : function(msg) {
 	          $("#savenBtn").hide();
-	          alertEase(msg,'alert_succ');
+	          alertEase(msg,1);
 	          flag = false;
 	        },
 	        error:function(){

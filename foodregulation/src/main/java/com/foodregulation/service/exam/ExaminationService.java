@@ -85,7 +85,11 @@ public interface ExaminationService {
      * @return
      */
     int insertListRecord(List<ExamRecord> records);
+    
+    int deleteRecord(String paramString1, String paramString2, String paramString3);
 
+    int isAnswerExam(String paramString1, String paramString2, String paramString3);
+    
     /**
      * 从业人员查看结果
      * @param map

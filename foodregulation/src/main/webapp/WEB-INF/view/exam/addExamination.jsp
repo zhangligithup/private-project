@@ -86,7 +86,7 @@
                 <table class="table table-bordered table2 marb0 ">
                     <thead>
                     <tr>
-                        <th>选择</th>
+                        <th>全选<input type='checkbox' onclick="allChoice(this)"></th>
                         <th>ID</th>
                         <th>试题题目</th>
                         <th>试题选项</th>
@@ -107,9 +107,13 @@
     </div>
 </div>
 <script>
-    $(function(){
-
-    });
+function allChoice(ele){
+	if(ele.checked){
+		$("input[name='check_exam']").attr("checked","true");
+	}else{
+		$("input[name='check_exam']").removeAttr("checked"); 
+	}
+}
 
     var selchoices=[];
     var seljudgment=[];
@@ -256,18 +260,10 @@
 
 
     function addExamination(){
-
-        if (selchoices.length == 0) {
-            alertEase("请选择选择题",2);
-            return
-        }
-        if (seljudgment.length == 0) {
-            alertEase("请选择判断题",2);
-            return
-        }
-        if (selcompletion.length == 0) {
-            alertEase("请选择填空题",2);
-            return
+        
+    	
+        if (selchoices.length == 0&&seljudgment.length == 0&&selcompletion.length == 0) {
+            return;
         }
 
         var templateName=$("#add_exam_templateName").val();
@@ -275,35 +271,47 @@
             alertEase("试卷模版名称不能为空",2);
             return;
         }
-        var choiceScore=$("#add_exam_choiceScore").val();
-        if(choiceScore==undefined||choiceScore.length==0){
-            alertEase("选择题分数不能为空",2);
-            return;
+        if (selchoices.length > 0) {
+	        var choiceScore=$("#add_exam_choiceScore").val();
+	        if(choiceScore==undefined||choiceScore.length==0){
+	            alertEase("选择题分数不能为空",2);
+	            return;
+	        }
         }
-        var judgmentScore=$("#add_exam_judgmentScore").val();
-        if(judgmentScore==undefined||judgmentScore.length==0){
-            alertEase("判断题分数不能为空",2);
-            return;
+        if (seljudgment.length > 0) {
+	        var judgmentScore=$("#add_exam_judgmentScore").val();
+	        if(judgmentScore==undefined||judgmentScore.length==0){
+	            alertEase("判断题分数不能为空",2);
+	            return;
+	        }
         }
-        var completionScore=$("#add_exam_completionScore").val();
-        if(completionScore==undefined||completionScore.length==0){
-            alertEase("填空题分数不能为空",2);
-            return;
+        if (selcompletion.length > 0) {
+	        var completionScore=$("#add_exam_completionScore").val();
+	        if(completionScore==undefined||completionScore.length==0){
+	            alertEase("填空题分数不能为空",2);
+	            return;
+	        }
         }
-        var choiceTime=$("#add_exam_choiceTime").val();
-        if(choiceScore==undefined||choiceScore.length==0){
-            alertEase("选择题答题时间不能为空",2);
-            return;
+        if (selchoices.length > 0) {
+	        var choiceTime=$("#add_exam_choiceTime").val();
+	        if(choiceTime==undefined||choiceTime.length==0){
+	            alertEase("选择题答题时间不能为空",2);
+	            return;
+	        }
         }
-        var judgmentTime=$("#add_exam_judgmentTime").val();
-        if(judgmentScore==undefined||judgmentScore.length==0){
-            alertEase("判断题答题时间不能为空",2);
-            return;
+        if (seljudgment.length > 0) {
+	        var judgmentTime=$("#add_exam_judgmentTime").val();
+	        if(judgmentTime==undefined||judgmentTime.length==0){
+	            alertEase("判断题答题时间不能为空",2);
+	            return;
+	        }
         }
-        var completionTime=$("#add_exam_completionTime").val();
-        if(completionScore==undefined||completionScore.length==0){
-            alertEase("填空题答题时间不能为空",2);
-            return;
+        if (selcompletion.length > 0) {
+	        var completionTime=$("#add_exam_completionTime").val();
+	        if(completionTime==undefined||completionTime.length==0){
+	            alertEase("填空题答题时间不能为空",2);
+	            return;
+	        }
         }
 
         var data={
@@ -327,10 +335,10 @@
             data:data,
             success : function(data) {
                 if(data.result=="true"){
-                    alertEase("新增成功",'alert_succ');
+                    alertEase("新增成功",1);
                     queryExaminationBasic();
                 }else{
-                    alertEase("新增失败! "+data.msg,'alert_err');
+                    alertEase("新增失败! "+data.msg,2);
                 }
             }
         });

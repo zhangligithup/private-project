@@ -21,4 +21,10 @@
       (#{item.examinationId},#{item.examId},#{item.operatorId},#{item.answer},#{item.type})
     </foreach>
   </insert>
+  <delete id="deleteRecord" parameterType="java.lang.String">
+  delete from t_exam_record where examination_id=${examinationId} and operator_id=${personId} and type=${type}
+  </delete>
+  <select id="isAnswerExam" parameterType="java.lang.String" resultType="int">
+  select count(*) from t_exam_record where examination_id=#{examinationId} and operator_id=#{personId} and type=#{type}
+  </select>
 </mapper>
