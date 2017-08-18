@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.IllegalClauseMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.IllegalClause" >
+    <id column="illegal_clause_id" property="illegalClauseId" jdbcType="INTEGER" />
+    <result column="illegal_clause_code" property="illegalClauseCode" jdbcType="VARCHAR" />
+    <result column="illegal_clause_content" property="illegalClauseContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    illegal_clause_id, illegal_clause_code, illegal_clause_content
+  </sql>
+  
+  <select id="selectIllegalClause" resultMap="BaseResultMap"  >
+    select * from t_illegal_clause
+    where 1=1
+    <if test="illegalClauseCode!=null and illegalClauseCode!=''">
+       and illegal_clause_code like CONCAT('%',#{illegalClauseCode},'%') 
+    </if>
+  	<if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+  </select>
+  
+  <select id="selectIllegalClauseTotal" resultType="int" >
+    select count(*) from t_illegal_clause
+    where 1=1
+    <if test="illegalClauseCode!=null and illegalClauseCode!=''">
+       and illegal_clause_code like CONCAT('%',#{illegalClauseCode},'%') 
+    </if>
+  </select>
+  
+  <select id="findIllegalClause" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_illegal_clause
+    where illegal_clause_id = #{illegalClauseId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteIllegalClause" parameterType="java.lang.Integer" >
+    delete from t_illegal_clause
+    where illegal_clause_id = #{illegalClauseId,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insertIllegalClause" parameterType="com.foodregulation.dao.entity.IllegalClause" >
+    insert into t_illegal_clause
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="illegalClauseCode != null" >
+        illegal_clause_code,
+      </if>
+      <if test="illegalClauseContent != null" >
+        illegal_clause_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="illegalClauseCode != null" >
+        #{illegalClauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalClauseContent != null" >
+        #{illegalClauseContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateIllegalClause" parameterType="com.foodregulation.dao.entity.IllegalClause" >
+    update t_illegal_clause
+    <set >
+      <if test="illegalClauseCode != null" >
+        illegal_clause_code = #{illegalClauseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalClauseContent != null" >
+        illegal_clause_content = #{illegalClauseContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where illegal_clause_id = #{illegalClauseId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

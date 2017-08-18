@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.PhysicalMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Physical" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="enterpriseType" property="enterpriseType" jdbcType="VARCHAR" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="hospital" property="hospital" jdbcType="VARCHAR" />
+    <result column="physical_name" property="physicalName" jdbcType="VARCHAR" />
+    <result column="physical_date" property="physicalDate" jdbcType="TIMESTAMP" />
+    <result column="report_date" property="reportDate" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="enterprise_type_id" property="enterpriseTypeId" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enterprise_type,company_name, hospital, physical_name, physical_date, report_date,id_number,phone,enterprise_type_id,url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    a.id, b.t_dictionary_name as enterpriseType,company_name, hospital, physical_name, physical_date, report_date,id_number,phone,enterprise_type_id,url,IF(DATEDIFF(NOW(),physical_date)>365,"已过期","未过期") AS state
+    from t_physical a
+    left join t_dictionary b on a.enterprise_type_id = b.t_dictionary_code
+    where a.id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectPhysicalTotal" resultType="long">
+    select count(*) from t_physical
+    where 1=1
+    <if test="physicalName!=null and physicalName!=''">
+      and physical_name like CONCAT('%', #{physicalName,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="companyName!=null and companyName!=''">
+      and company_name like CONCAT('%', #{companyName,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="type !=null and type==1">
+      and DATEDIFF(NOW(),physical_date)>365
+    </if>
+    <if test="type !=null and type==2">
+      <![CDATA[
+	and DATEDIFF(NOW(),physical_date)<=365
+			]]>
+    </if>
+  </select>
+  <select id="selectPhysical" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />,IF(DATEDIFF(NOW(),physical_date)>365,"已过期","未过期") AS state
+    from t_physical
+    where 1=1
+
+    <if test="physicalSearch!=null and physicalSearch!=''">
+      and (
+            physical_name like CONCAT('%', #{physicalSearch,jdbcType=VARCHAR}, '%')
+          or company_name like CONCAT('%', #{physicalSearch,jdbcType=VARCHAR}, '%')
+      )
+    </if>
+    <if test="type !=null and type==1">
+      and DATEDIFF(NOW(),physical_date)>365
+    </if>
+    <if test="companyName!=null and companyName!='' ">  
+       and company_name LIKE CONCAT('%', #{companyName} , '%')
+    </if>
+    <if test="physicalName!=null and physicalName!='' ">  
+       and physical_name LIKE CONCAT('%', #{physicalName} , '%')
+    </if>
+    <if test="type !=null and type==2">
+      <![CDATA[
+	and DATEDIFF(NOW(),physical_date)<=365
+			]]>
+    </if>
+    order by id desc
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_physical
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteEnUserByUserName" parameterType="java.lang.String" >
+  delete from enterprise_user where user_name = #{userName,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.Physical" >
+    insert into t_physical (id, enterprise_type,company_name, hospital,
+      physical_name, physical_date, report_date,id_number,phone,user_id,enterprise_type_id,url
+      )
+    values (#{id,jdbcType=BIGINT}, #{enterpriseType,jdbcType=VARCHAR}, #{companyName,jdbcType=VARCHAR}, #{hospital,jdbcType=VARCHAR},
+      #{physicalName,jdbcType=VARCHAR}, #{physicalDate,jdbcType=TIMESTAMP}, #{reportDate,jdbcType=TIMESTAMP},
+      #{idNumber,jdbcType=VARCHAR},#{phone,jdbcType=VARCHAR},#{userId,jdbcType=INTEGER},#{enterpriseTypeId,jdbcType=VARCHAR},#{url,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Physical" >
+    insert into t_physical
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="hospital != null" >
+        hospital,
+      </if>
+      <if test="physicalName != null" >
+        physical_name,
+      </if>
+      <if test="physicalDate != null" >
+        physical_date,
+      </if>
+      <if test="reportDate != null" >
+        report_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="hospital != null" >
+        #{hospital,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalName != null" >
+        #{physicalName,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalDate != null" >
+        #{physicalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportDate != null" >
+        #{reportDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.Physical" >
+    update t_physical
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseType != null" >
+        enterprise_type = #{enterpriseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hospital != null" >
+        hospital = #{hospital,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalName != null" >
+        physical_name = #{physicalName,jdbcType=VARCHAR},
+      </if>
+      <if test="physicalDate != null" >
+        physical_date = #{physicalDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="reportDate != null" >
+        report_date = #{reportDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idNumber != null" >
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.Physical" >
+    update t_physical
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      hospital = #{hospital,jdbcType=VARCHAR},
+      physical_name = #{physicalName,jdbcType=VARCHAR},
+      physical_date = #{physicalDate,jdbcType=TIMESTAMP},
+      report_date = #{reportDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

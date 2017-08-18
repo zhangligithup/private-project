@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.ExamMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Exam" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="ex_type" property="exType" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="examination_id" property="examinationId" jdbcType="BIGINT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.foodregulation.dao.entity.Exam" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ex_type, answer, examination_id,content,title
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_exam
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectExamTotal" resultType="long">
+    select count(*) from t_exam
+    WHERE 1=1
+    <if test="type!=null and type!=''">
+      and ex_type = #{type,jdbcType=VARCHAR}
+    </if>
+
+  </select>
+
+  <select id="selectExam" resultMap="ResultMapWithBLOBs" parameterType="Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_exam t
+    WHERE 1=1
+    <if test="type!=null and type!=''">
+      and t.ex_type = #{type,jdbcType=VARCHAR}
+    </if>
+	order by t.id desc
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_exam
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.Exam" >
+    insert into t_exam (id, ex_type, answer, 
+      examination_id, content,title)
+    values (#{id,jdbcType=BIGINT}, #{exType,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{examinationId,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}, #{title,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Exam" >
+    insert into t_exam
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="exType != null" >
+        ex_type,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="examinationId != null" >
+        examination_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="exType != null" >
+        #{exType,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationId != null" >
+        #{examinationId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.Exam" >
+    update t_exam
+    <set >
+      <if test="exType != null" >
+        ex_type = #{exType,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="examinationId != null" >
+        examination_id = #{examinationId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.foodregulation.dao.entity.Exam" >
+    update t_exam
+    set ex_type = #{exType,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      examination_id = #{examinationId,jdbcType=BIGINT},
+      content = #{content,jdbcType=LONGVARCHAR},
+      title = #{title,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.Exam" >
+    update t_exam
+    set ex_type = #{exType,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      examination_id = #{examinationId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectExamRand" resultType="long">
+    select id from t_exam
+    where ex_type=#{exType,jdbcType=VARCHAR}
+    ORDER BY RAND() LIMIT ${limit}
+  </select>
+
+</mapper>

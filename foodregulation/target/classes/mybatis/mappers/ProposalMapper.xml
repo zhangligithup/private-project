@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.ProposalMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Proposal" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="supervisionOpinion" property="supervisionOpinion" jdbcType="VARCHAR" />
+    <result column="proposal_time" property="proposalTime" jdbcType="TIMESTAMP" />
+    <result column="url" property="url" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company, legal_person, address, tel, proposal_time,supervisionOpinion,url
+  </sql>
+  
+  <select id="findProposal" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from proposal
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteProposal" parameterType="java.lang.Integer" >
+    delete from proposal
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertProposal" parameterType="com.foodregulation.dao.entity.Proposal" useGeneratedKeys="true" keyProperty="id">
+    insert into proposal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="proposalTime != null" >
+        proposal_time,
+      </if>
+      <if test="supervisionOpinion != null" >
+        supervisionOpinion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalTime != null" >
+        #{proposalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supervisionOpinion != null" >
+        #{supervisionOpinion,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateProposal" parameterType="com.foodregulation.dao.entity.Proposal" >
+    update proposal
+    <set >
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="proposalTime != null" >
+        proposal_time = #{proposalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="supervisionOpinion != null" >
+        supervisionOpinion = #{supervisionOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPdfDataById" parameterType="int" resultType="map">
+    select a.*,b.check_date   from proposal a,supervisionandcheck b where a.id=#{id,jdbcType=INTEGER} and a.id = b.proposal_id
+  </select>
+</mapper>

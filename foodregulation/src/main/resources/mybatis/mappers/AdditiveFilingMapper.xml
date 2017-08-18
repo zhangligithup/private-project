@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.AdditiveFilingMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.AdditiveFiling" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <result column="contacts_tel" property="contactsTel" jdbcType="VARCHAR" />
+    <result column="record_time" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="keeper" property="keeper" jdbcType="VARCHAR" />
+    <result column="purchase_time" property="purchaseTime" jdbcType="TIMESTAMP" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company, company_address, legal_person, contacts, contacts_tel, record_time, 
+    keeper, purchase_time, img_url
+  </sql>
+  
+  <select id="selectAdditiveFiling" resultMap="BaseResultMap" >
+    select * 
+    from t_additive_filing
+    <where>
+	 	<if test="company!=null and company!='' ">  
+           and company LIKE CONCAT('%', #{company} , '%')
+        </if>   
+        <if test="recordTime!=null and recordTime!='' ">  
+           and record_time LIKE CONCAT('%', #{recordTime} , '%')
+        </if> 
+        <if test="createUser!=null and createUser!='' ">  
+           and createUser = #{createUser}
+        </if>
+    </where>
+    order by id desc
+    <if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+  </select>
+  
+  <select id="selectAdditiveFilingTotal"  resultType="int">
+    select count(*) 
+    from t_additive_filing
+  	<where>
+	 	<if test="company!=null and company!='' ">  
+           and company LIKE CONCAT('%', #{company} , '%')
+        </if>   
+        <if test="recordTime!=null and recordTime!='' ">  
+           and record_time LIKE CONCAT('%', #{recordTime} , '%')
+        </if> 
+        <if test="createUser!=null and createUser!='' ">  
+           and createUser = #{createUser}
+        </if>
+    </where>
+  </select>
+  
+  <select id="findAdditiveFiling" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_additive_filing
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteAdditiveFiling" parameterType="java.lang.Integer" >
+    delete from t_additive_filing
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertAdditiveFiling" parameterType="com.foodregulation.dao.entity.AdditiveFiling" useGeneratedKeys="true" keyProperty="id">
+    insert into t_additive_filing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="companyAddress != null" >
+        company_address,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+      <if test="contactsTel != null" >
+        contacts_tel,
+      </if>
+      <if test="recordTime != null" >
+        record_time,
+      </if>
+      <if test="keeper != null" >
+        keeper,
+      </if>
+      <if test="purchaseTime != null" >
+        purchase_time,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="createUser != null" >
+        createUser,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsTel != null" >
+        #{contactsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="keeper != null" >
+        #{keeper,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null" >
+        #{purchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateAdditiveFiling" parameterType="com.foodregulation.dao.entity.AdditiveFiling" >
+    update t_additive_filing
+    <set >
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAddress != null" >
+        company_address = #{companyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsTel != null" >
+        contacts_tel = #{contactsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        record_time = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="keeper != null" >
+        keeper = #{keeper,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseTime != null" >
+        purchase_time = #{purchaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.SamplingTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.SamplingTask" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="enterpriseId" property="enterpriseId" jdbcType="INTEGER" />
+    <result column="enterprise_type" property="enterpriseType" jdbcType="VARCHAR" />
+    <result column="checkStartDate" property="checkStartDate" jdbcType="TIMESTAMP" />
+    <result column="checkEndDate" property="checkEndDate" jdbcType="TIMESTAMP" />
+    <result column="unitCode" property="unitCode" jdbcType="VARCHAR" />
+    <result column="unitName" property="unitName" jdbcType="VARCHAR" />
+    <result column="batch" property="batch" jdbcType="VARCHAR" />
+    <result column="sampling_type" property="samplingType" jdbcType="VARCHAR" />
+    <result column="enterpriseTypeName" property="enterpriseTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enterpriseId,enterprise_type, checkStartDate, checkEndDate, unitCode, unitName, batch, sampling_type,
+    create_date
+  </sql>
+
+  <insert id="insertList" parameterType="java.util.List" >
+    insert into t_sampling_task (enterpriseId, enterprise_type,checkStartDate,checkDate,
+    checkEndDate, unitCode, unitName,
+    batch, sampling_type
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.enterpriseId}, #{item.enterpriseType}, #{item.checkStartDate},#{item.checkDate},
+      #{item.checkEndDate}, #{item.unitCode}, #{item.unitName},
+      #{item.batch}, #{item.samplingType}
+      )
+    </foreach>
+  </insert>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_sampling_task
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <select id="findSampTaskList" resultType="map">
+    select * from (SELECT
+    DISTINCT t.id, t.enterpriseId,a.qyname, CASE  t.sampling_type WHEN '1' THEN '食品安全抽样单' WHEN '2' THEN '药品安全抽样检验单'  WHEN '3' THEN '化妆品安全抽样单' WHEN '4' THEN '医疗器械安全抽样单'
+    WHEN '5' THEN '保健食品安全抽样单' END AS sampTypeName,
+    t.enterprise_type, d.t_dictionary_name AS enterpriseTypeName
+    ,t.checkStartDate, t.checkEndDate,t.`checkDate`, t.batch, t.unitCode, t.unitName, t.sampling_type,
+    IF(( SELECT COUNT(i.id) FROM  t_sampling_inspection i WHERE t.id=i.task_id AND form_type=1)>=1 and ( SELECT COUNT(i.id) FROM  t_sampling_inspection i WHERE t.id=i.task_id AND form_type=2)>=1,"已完成","未完成") AS state
+
+    FROM t_sampling_task t
+    LEFT JOIN t_dictionary d ON t.enterprise_type = d.t_dictionary_code
+    LEFT JOIN (SELECT
+    id,qyname,address,department,'enterprise_1' AS enterpriseType  FROM agricultural
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_8' AS enterpriseType FROM cosmetic
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_3' AS enterpriseType  FROM criculate
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_9' AS enterpriseType  FROM drug
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_4' AS enterpriseType  FROM food
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_2' AS enterpriseType FROM production
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_11' AS enterpriseType FROM usemed
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_6' AS enterpriseType FROM wine) a
+    ON t.enterpriseId=a.id AND t.`enterprise_type`=a.enterpriseType
+    LEFT JOIN t_sampling_inspection i ON t.id=i.task_id
+    WHERE 1=1
+
+    <if test="enterpriseType!=null and enterpriseType!=''">
+      and a.enterpriseType = #{enterpriseType}
+    </if>
+    <if test="unitCode!=null and unitCode!=''">
+      and t.unitCode = #{unitCode}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      and a.qyname like  CONCAT('%', #{enterpriseName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="startCalenderOne!=null and startCalenderOne!=''">
+      and t.checkStartDate &gt;= #{startCalenderOne}
+    </if>
+    <if test="endCalenderOne!=null and endCalenderOne!=''">
+      and t.checkEndDate &lt;= #{endCalenderOne}
+    </if>
+    order by t.id desc) w order by w.state desc
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+  </select>
+
+  <select id="findSampTaskListTotal" resultType="long" >
+    SELECT count(DISTINCT t.id) FROM t_sampling_task t
+    LEFT JOIN t_dictionary d ON t.enterprise_type = d.t_dictionary_code
+    LEFT JOIN (SELECT
+    id,qyname,address,department,'enterprise_1' AS enterpriseType  FROM agricultural
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_8' AS enterpriseType FROM cosmetic
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_3' AS enterpriseType  FROM criculate
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_9' AS enterpriseType  FROM drug
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_4' AS enterpriseType  FROM food
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_2' AS enterpriseType FROM production
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_11' AS enterpriseType FROM usemed
+    UNION ALL
+    SELECT id,qyname,address,department,'enterprise_6' AS enterpriseType FROM wine) a
+    ON t.enterpriseId=a.id AND t.`enterprise_type`=a.enterpriseType
+    WHERE 1=1
+
+    <if test="enterpriseType!=null and enterpriseType!=''">
+      and a.enterpriseType = #{enterpriseType}
+    </if>
+    <if test="unitCode!=null and unitCode!=''">
+      and t.unitCode = #{unitCode}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      and a.qyname like  CONCAT('%', #{enterpriseName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="startCalenderOne!=null and startCalenderOne!=''">
+      and t.checkStartDate &gt;= #{startCalenderOne}
+    </if>
+    <if test="endCalenderOne!=null and endCalenderOne!=''">
+      and t.checkEndDate &lt;= #{endCalenderOne}
+    </if>
+  </select>
+
+</mapper>

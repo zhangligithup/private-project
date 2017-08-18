@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/plugins-js/bootstrap.js"></script>
+    <!--日历插件-->
+    <script type="text/javascript" src="js/plugins-js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+    <title>食药监管系统</title>
+</head>
+<body>
+<header class="food_header">
+    <div class="logo pull-left">
+        食药监管系统
+    </div>
+    <nav class="header_r pull-right">
+        <ul class="header_r_ul " id="right_head_menu">
+            <li class="people dropdown" >
+                <div id="dropdownMenu1" data-toggle="dropdown">人员管理 <span class="glyphicon glyphicon-chevron-down"></span></div>
+                <ul class="header_r_pop  dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="javascript:void(0)">人员列表</a></li>
+                    <li><a href="javascript:void(0)">添加人员</a></li>
+                </ul>
+            </li>
+            <li class="admin_number">
+                <div id="dropdownMenu2" data-toggle="dropdown">辛超 <span class="glyphicon glyphicon-chevron-down"></span></div>
+                <ul class="header_r_pop dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                    <li><a href="javascript:void(0)">修改密码</a></li>
+                    <li><a href="javascript:void(0)">退出</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+<section class="food_section">
+    <div class="food_left_menu">
+        <ul class="panel-group  food_left_ul" id="accordion">
+            <li  class="panel father_lihover " >
+                <a data-toggle="collapse" data-parent="#accordion"  href="#collapse1" class="father_a bg_notice father_hover">通知公告 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse1" class="panel-collapse collapse in">
+                    <li id="li-1"><a href="javascript:void(0)" data-tab="food_tab" onclick="creatTabPage(1)">公告查询</a></li>
+                    <li id="li-2"><a href="javascript:void(0)" data-tab="food_tab"  onclick="creatTabPage(2)">添加公告</a></li>
+                </ul>
+            </li>
+            <li class="panel ">
+                <a data-toggle="collapse" data-parent="#accordion"  href="#collapse2" class="father_a bg_information">企业信息 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse2" class="panel-collapse collapse">
+                    <li id="li-3"><a href="javascript:void(0)"  onclick="creatTabPage(3)" data-tab="food_tab">企业信息</a></li>
+                    <li id="li-4"><a href="javascript:void(0)"  onclick="creatTabPage(4)" data-tab="food_tab">添加企业</a></li>
+                </ul>
+            </li>
+            <li class="panel">
+                <a  data-toggle="collapse" data-parent="#accordion"  href="#collapse3"  class="father_a bg_credit">企业信用 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse3" class="panel-collapse collapse">
+                    <li  id="li-5"><a href="javascript:void(0)"  onclick="creatTabPage(5)" data-tab="food_tab">企业信用</a></li>
+                </ul>
+            </li>
+            <li class="panel">
+                <a   data-toggle="collapse" data-parent="#accordion"  href="#collapse4"  class="father_a bg_control">监督检查 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse4" class="panel-collapse collapse">
+                    <li id="li-6"><a   href="javascript:void(0)"  onclick="creatTabPage(6)" data-tab="food_tab">监督检查</a></li>
+                    <li id="li-7"><a   href="javascript:void(0)"  onclick="creatTabPage(7)" data-tab="food_tab">添加监督检查</a></li>
+
+                </ul>
+            </li>
+            <li class="panel">
+                <a   data-toggle="collapse" data-parent="#accordion"  href="#collapse5"  class="father_a bg_sample">抽样检查 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse5" class="panel-collapse collapse">
+                    <li  id="li-8"><a   href="javascript:void(0)"  onclick="creatTabPage(8)" data-tab="food_tab">抽样检验</a></li>
+                    <li  id="li-9"><a   href="javascript:void(0)"  onclick="creatTabPage(9)" data-tab="food_tab">添加抽样检验</a></li>
+                </ul>
+            </li>
+            <li class="panel">
+                <a   data-toggle="collapse" data-parent="#accordion"  href="#collapse6"  class="father_a bg_admin">行政处罚 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse6" class="panel-collapse collapse">
+                    <li  id="li-10"><a   href="javascript:void(0)"  onclick="creatTabPage(10)" data-tab="food_tab">案件来源类型</a></li>
+                    <li  id="li-11"><a  href="javascript:void(0)"  onclick="creatTabPage(11)"  data-tab="food_tab">违法条件信息</a></li>
+                    <li  id="li-12"><a   href="javascript:void(0)"  onclick="creatTabPage(12)" data-tab="food_tab">处罚依据信息</a></li>
+                    <li id="li-13"><a  href="javascript:void(0)"  onclick="creatTabPage(13)"  data-tab="food_tab">案件基本信息</a></li>
+                </ul>
+            </li>
+            <li class="panel">
+                <a   data-toggle="collapse" data-parent="#accordion"  href="#collapse7"  class="father_a bg_report">投诉举报 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse7" class="panel-collapse collapse">
+                    <li  id="li-14"><a  href="javascript:void(0)"  onclick="creatTabPage(14)" data-tab="food_tab">投诉举报</a></li>
+                    <li  id="li-15"><a  href="javascript:void(0)"  onclick="creatTabPage(15)" data-tab="food_tab">添加投诉举报</a></li>
+                </ul>
+            </li>
+            <li class="panel">
+                <a   data-toggle="collapse" data-parent="#accordion"  href="#collapse8"  class="father_a bg_count">统计分析 <span class="pull-right glyphicon glyphicon-chevron-right"></span></a>
+                <ul id="collapse8" class="panel-collapse collapse">
+                    <li  id="li-16"><a  href="javascript:void(0)"  onclick="creatTabPage(16)" data-tab="food_tab">企业信息统计</a></li>
+                    <li  id="li-17"><a  href="javascript:void(0)"  onclick="creatTabPage(17)" data-tab="food_tab">企业监督检查统计</a></li>
+                    <li  id="li-18"><a  href="javascript:void(0)"  onclick="creatTabPage(18)" data-tab="food_tab">企业抽样检验统计</a></li>
+                    <li  id="li-19"><a  href="javascript:void(0)"  onclick="creatTabPage(19)" data-tab="food_tab">投诉举报统计</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="food_right_section">
+        <div class="module_right_page">
+            <ul class="nav nav-tabs " id="myTab">
+                <li class="active"><b class="nav_bg_left"></b><a href="#div-1" data-toggle="tab" aria-expanded="true">公告查询</a><span class="module_span_close">X</span><b class="nav_bg_right"></b></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="div-1">
+                    <div class="breadcrumb_box">
+                        <div class="breadcrumb_box_l">
+                            <ol class="breadcrumb">
+                                <li><a href="#">首页</a></li>
+                                <li><a href="#">订单管理</a></li>
+                                <li class="active">订单信息列表</li>
+                            </ol>
+                        </div>
+                        <div class="breadcrumb_box_r">
+                            <div class="pull-right">
+                                <a href=""><img src="${pageContext.request.contextPath}/images/ioc/fresh.jpg" class="fresh_btn"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content_box">
+                        <table class="table search_box marb10">
+                            <thead>
+                            <tr>
+                                <th>
+
+                                    <div class="search_parent">
+                                        <input type="text" class="search_input">
+                                        <a class="search_btn">搜索</a>
+                                    </div>
+                                    </th>
+                                <th>企业类别</th>
+                                <th>
+                                    <select class="select_style1">
+                                    <option value ="volvo">Volvo</option>
+                                    <option value ="saab">Saab</option>
+                                    <option value="opel">Opel</option>
+                                    <option value="audi">Audi</option>
+                                    </select>
+                                </th>
+                                <th>发证日期</th>
+                                <th>
+                                    <div id="calenderOneBox1" style="position:relative">
+                                        <input id="calenderOne" class="bg_calender" size="16" type="text" value="">
+                                    </div>
+
+                                </th>
+                                <th><a href="javascript:void(0)" class="form_btn ">筛选</a></th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <div class="btn_box marb10" >
+                            <div class="pull-left ">
+                                <a href="" class="form_btn2"><img src="${pageContext.request.contextPath }/images/ioc/add.png"> 添加企业</a>
+                                <a href="" class="form_btn2"><img src="${pageContext.request.contextPath }/images/ioc/export.png" alt="">导出Excel</a>
+                            </div>
+                            <div class="pull-right">
+                               <div class="r_txt">共发起 <font>2</font> 次调查</div>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table2">
+                            <thead>
+                            <tr>
+                                <th class="width60">ID</th>
+                                <th>企业名称</th>
+                                <th>经营场所</th>
+                                <th>许可证编号</th>
+                                <th>有效日期</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Bangalore</td>
+                                <td>北京房山</td>
+                                <td>0230293</td>
+                                <td>2016-09-23</td>
+                                <td class="width220">
+                                    <a href="javascript:void(0)" class="editer_btns look_btn">查看</a>
+                                    <a href="javascript:void(0)" class="editer_btns edit_btn">编辑</a>
+                                    <a href="javascript:void(0)" class="editer_btns del_btn">删除</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Mumbai</td>
+                                <td>北京通州</td>
+                                <td>0938347</td>
+                                <td>2016-09-24</td>
+                                <td>
+                                    <a href="javascript:void(0)" class="editer_btns look_btn">查看</a>
+                                    <a href="javascript:void(0)" class="editer_btns edit_btn">编辑</a>
+                                    <a href="javascript:void(0)" class="editer_btns del_btn">删除</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(function(){
+        $('#calenderOne').datetimepicker({
+            container:'#calenderOneBox1',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.DictionaryMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Dictionary" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="t_dictionary_code" property="tDictionaryCode" jdbcType="VARCHAR" />
+    <result column="t_dictionary_name" property="tDictionaryName" jdbcType="VARCHAR" />
+    <result column="t_dictionary_type" property="tDictionaryType" jdbcType="TINYINT" />
+     <result column="t_dictionary_time" property="tDictionaryTime" jdbcType="TINYINT" />
+      <result column="t_dictionary_time_unit" property="tDictionaryTimeUnit" jdbcType="TINYINT" />
+       <result column="t_dictionary_num" property="tDictionaryNum" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, t_dictionary_code, t_dictionary_name, t_dictionary_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_dictionary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_dictionary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.Dictionary" >
+    insert into t_dictionary (id, t_dictionary_code, t_dictionary_name, 
+      t_dictionary_type,t_dictionary_time,t_dictionary_time_unit,t_dictionary_num)
+    values (#{id,jdbcType=INTEGER}, #{tDictionaryCode,jdbcType=VARCHAR}, #{tDictionaryName,jdbcType=VARCHAR}, 
+      #{tDictionaryType,jdbcType=TINYINT},#{tDictionaryTime,jdbcType=TINYINT},#{tDictionaryTimeUnit,jdbcType=TINYINT},#{tDictionaryNum,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Dictionary" >
+    insert into t_dictionary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tDictionaryCode != null" >
+        t_dictionary_code,
+      </if>
+      <if test="tDictionaryName != null" >
+        t_dictionary_name,
+      </if>
+      <if test="tDictionaryType != null" >
+        t_dictionary_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tDictionaryCode != null" >
+        #{tDictionaryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tDictionaryName != null" >
+        #{tDictionaryName,jdbcType=VARCHAR},
+      </if>
+      <if test="tDictionaryType != null" >
+        #{tDictionaryType,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.Dictionary" >
+    update t_dictionary
+    <set >
+      <if test="tDictionaryCode != null" >
+        t_dictionary_code = #{tDictionaryCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tDictionaryName != null" >
+        t_dictionary_name = #{tDictionaryName,jdbcType=VARCHAR},
+      </if>
+      <if test="tDictionaryType != null" >
+        t_dictionary_type = #{tDictionaryType,jdbcType=TINYINT},
+      </if>
+      <if test="tDictionaryTime != null" >
+        t_dictionary_time = #{tDictionaryTime,jdbcType=TINYINT},
+      </if>
+      <if test="tDictionaryTimeUnit != null" >
+        t_dictionary_time_unit = #{tDictionaryTimeUnit,jdbcType=TINYINT},
+      </if>
+       <if test="tDictionaryNum != null" >
+        t_dictionary_num = #{tDictionaryNum,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.Dictionary" >
+    update t_dictionary
+    set t_dictionary_code = #{tDictionaryCode,jdbcType=VARCHAR},
+      t_dictionary_name = #{tDictionaryName,jdbcType=VARCHAR},
+      t_dictionary_type = #{tDictionaryType,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getDictionaryByType" resultMap="BaseResultMap">
+  	select * from t_dictionary where 1=1 
+  	<if test="type !=null">
+  	and t_dictionary_type = ${type}
+  	</if>
+  </select>
+  
+  <select id="getDictionaryByCode" resultMap="BaseResultMap">
+  	select * from t_dictionary where t_dictionary_code = #{tDictionaryCode}
+  </select>
+  
+  
+  
+   <select id="getDictionaryList" resultMap="BaseResultMap">
+  	select * from t_dictionary 
+  	<where>
+  		<if test="type !=null">
+  			and t_dictionary_type = #{type}
+  		</if>
+  	</where>
+  	order by id desc
+  	limit #{pageIndex},#{pageSize}
+  </select>
+  <select id="getDictionaryListCount" resultType="java.lang.Long">
+  	select count(1) from t_dictionary 
+  	<where>
+  		<if test="type !=null">
+  			and t_dictionary_type = #{type}
+  		</if>
+  	</where>
+  	
+  </select>
+  
+  <select id="selectEnterpriseTypeIdByEnterpriseUserId" parameterType="int" resultType="map">
+  		select a.id from t_dictionary a,enterprise_user b where a.t_dictionary_code = b.enterpriseTypeCode and b.id=${personId}
+  </select>
+</mapper>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.KeepRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.KeepRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="additives_name" property="additivesName" jdbcType="VARCHAR" />
+    <result column="implementation_standards" property="implementationStandards" jdbcType="VARCHAR" />
+    <result column="product_company" property="productCompany" jdbcType="VARCHAR" />
+    <result column="sell_company" property="sellCompany" jdbcType="VARCHAR" />
+    <result column="acceptance_method" property="acceptanceMethod" jdbcType="VARCHAR" />
+    <result column="purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="additiveFiling_id" property="additivefilingId" jdbcType="INTEGER" />
+    <result column="purchase_time" property="purchaseTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, additives_name, implementation_standards, product_company, sell_company, acceptance_method, 
+    purpose, remark, additiveFiling_id
+  </sql>
+  
+  <select id="selectKeepRecord" resultMap="BaseResultMap"  >
+    select kr.*,af.purchase_time
+    from t_keep_record kr
+	left join t_additive_filing af
+	on af.id=kr.additiveFiling_id
+    where kr.additiveFiling_id = #{additivefilingId,jdbcType=INTEGER}
+    	<if test="additivesName!=null and additivesName!='' ">  
+           and kr.additives_name LIKE CONCAT('%', #{additivesName} , '%')
+        </if>   
+        <if test="purchaseTime!=null and purchaseTime!='' ">  
+           and af.purchase_time LIKE CONCAT('%', #{purchaseTime} , '%')
+        </if>
+  </select>
+  
+  <select id="selectKeepRecordTotal"  resultType="int">
+    select count(*) 
+    from t_keep_record kr
+	left join t_additive_filing af
+	on af.id=kr.additiveFiling_id
+    where kr.additiveFiling_id = #{additivefilingId,jdbcType=INTEGER}
+  	 	<if test="additivesName!=null and additivesName!='' ">  
+           and kr.additives_name LIKE CONCAT('%', #{additivesName} , '%')
+        </if>   
+        <if test="purchaseTime!=null and purchaseTime!='' ">  
+           and af.purchase_time LIKE CONCAT('%', #{purchaseTime} , '%')
+        </if>
+  </select>
+  
+  <select id="findKeepRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from t_keep_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteKeepRecord" parameterType="java.lang.Integer" >
+    delete from t_keep_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertKeepRecord" parameterType="com.foodregulation.dao.entity.KeepRecord" >
+    insert into t_keep_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="additivesName != null" >
+        additives_name,
+      </if>
+      <if test="implementationStandards != null" >
+        implementation_standards,
+      </if>
+      <if test="productCompany != null" >
+        product_company,
+      </if>
+      <if test="sellCompany != null" >
+        sell_company,
+      </if>
+      <if test="acceptanceMethod != null" >
+        acceptance_method,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="additivefilingId != null" >
+        additiveFiling_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="additivesName != null" >
+        #{additivesName,jdbcType=VARCHAR},
+      </if>
+      <if test="implementationStandards != null" >
+        #{implementationStandards,jdbcType=VARCHAR},
+      </if>
+      <if test="productCompany != null" >
+        #{productCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sellCompany != null" >
+        #{sellCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptanceMethod != null" >
+        #{acceptanceMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="additivefilingId != null" >
+        #{additivefilingId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateKeepRecord" parameterType="com.foodregulation.dao.entity.KeepRecord" >
+    update t_keep_record
+    <set >
+      <if test="additivesName != null" >
+        additives_name = #{additivesName,jdbcType=VARCHAR},
+      </if>
+      <if test="implementationStandards != null" >
+        implementation_standards = #{implementationStandards,jdbcType=VARCHAR},
+      </if>
+      <if test="productCompany != null" >
+        product_company = #{productCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="sellCompany != null" >
+        sell_company = #{sellCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="acceptanceMethod != null" >
+        acceptance_method = #{acceptanceMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="additivefilingId != null" >
+        additiveFiling_id = #{additivefilingId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

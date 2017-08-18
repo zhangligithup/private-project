@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.DrugMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Drug" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="qyname" property="qyname" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="scaddress" property="scaddress" jdbcType="VARCHAR" />
+    <result column="ems" property="ems" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="jjtype" property="jjtype" jdbcType="VARCHAR" />
+    <result column="gsorganization" property="gsorganization" jdbcType="VARCHAR" />
+    <result column="zzcode" property="zzcode" jdbcType="VARCHAR" />
+    <result column="fddelegate" property="fddelegate" jdbcType="VARCHAR" />
+    <result column="fdeduc" property="fdeduc" jdbcType="VARCHAR" />
+    <result column="fdprofess" property="fdprofess" jdbcType="VARCHAR" />
+    <result column="qydelegate" property="qydelegate" jdbcType="VARCHAR" />
+    <result column="qyeduc" property="qyeduc" jdbcType="VARCHAR" />
+    <result column="qyprofess" property="qyprofess" jdbcType="VARCHAR" />
+    <result column="zldelegate" property="zldelegate" jdbcType="VARCHAR" />
+    <result column="zleduc" property="zleduc" jdbcType="VARCHAR" />
+    <result column="zlprofess" property="zlprofess" jdbcType="VARCHAR" />
+    <result column="zydelegate" property="zydelegate" jdbcType="VARCHAR" />
+    <result column="zyeduc" property="zyeduc" jdbcType="VARCHAR" />
+    <result column="zyprofess" property="zyprofess" jdbcType="VARCHAR" />
+    <result column="scpermit" property="scpermit" jdbcType="VARCHAR" />
+    <result column="fazhengjiguan" property="fazhengjiguan" jdbcType="VARCHAR" />
+    <result column="fazhengriqi" property="fazhengriqi" jdbcType="VARCHAR" />
+    <result column="youxiaodate" property="youxiaodate" jdbcType="VARCHAR" />
+    <result column="gsppermit" property="gsppermit" jdbcType="VARCHAR" />
+    <result column="gspfazhengjiguan" property="gspfazhengjiguan" jdbcType="VARCHAR" />
+    <result column="gspfazhengriqi" property="gspfazhengriqi" jdbcType="VARCHAR" />
+    <result column="gspyouxiaodate" property="gspyouxiaodate" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="spdelegate" property="spdelegate" jdbcType="VARCHAR" />
+    <result column="jiandurenyuan" property="jiandurenyuan" jdbcType="VARCHAR" />
+    <result column="xieguanrenyuan" property="xieguanrenyuan" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="jyrange" property="jyrange" jdbcType="VARCHAR" />
+    <result column="zhongarea" property="zhongarea" jdbcType="VARCHAR" />
+    <result column="changarea" property="changarea" jdbcType="VARCHAR" />
+    <result column="yinarea" property="yinarea" jdbcType="VARCHAR" />
+    <result column="lengarea" property="lengarea" jdbcType="VARCHAR" />
+    <result column="manage" property="manage" jdbcType="VARCHAR" />
+    <result column="amend" property="amend" jdbcType="VARCHAR" />
+    <result column="qyphone" property="qyphone" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, qyname, address, scaddress, ems, phone, fax, email, jjtype, gsorganization, zzcode, 
+    fddelegate, fdeduc, fdprofess, qydelegate, qyeduc, qyprofess, zldelegate, zleduc, 
+    zlprofess, zydelegate, zyeduc, zyprofess, scpermit, fazhengjiguan, fazhengriqi, youxiaodate, 
+    gsppermit, gspfazhengjiguan, gspfazhengriqi, gspyouxiaodate, department, spdelegate, 
+    jiandurenyuan, xieguanrenyuan, longitude, latitude, jyrange, zhongarea, changarea, 
+    yinarea, lengarea, manage, amend, qyphone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from drug
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from drug
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.Drug" >
+    insert into drug (id, qyname, address, 
+      scaddress, ems, phone, 
+      fax, email, jjtype, 
+      gsorganization, zzcode, fddelegate, 
+      fdeduc, fdprofess, qydelegate, 
+      qyeduc, qyprofess, zldelegate, 
+      zleduc, zlprofess, zydelegate, 
+      zyeduc, zyprofess, scpermit, 
+      fazhengjiguan, fazhengriqi, youxiaodate, 
+      gsppermit, gspfazhengjiguan, gspfazhengriqi, 
+      gspyouxiaodate, department, spdelegate, 
+      jiandurenyuan, xieguanrenyuan, longitude, 
+      latitude, jyrange, zhongarea, 
+      changarea, yinarea, lengarea, 
+      manage, amend, qyphone
+      )
+    values (#{id,jdbcType=INTEGER}, #{qyname,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{scaddress,jdbcType=VARCHAR}, #{ems,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{jjtype,jdbcType=VARCHAR}, 
+      #{gsorganization,jdbcType=VARCHAR}, #{zzcode,jdbcType=VARCHAR}, #{fddelegate,jdbcType=VARCHAR}, 
+      #{fdeduc,jdbcType=VARCHAR}, #{fdprofess,jdbcType=VARCHAR}, #{qydelegate,jdbcType=VARCHAR}, 
+      #{qyeduc,jdbcType=VARCHAR}, #{qyprofess,jdbcType=VARCHAR}, #{zldelegate,jdbcType=VARCHAR}, 
+      #{zleduc,jdbcType=VARCHAR}, #{zlprofess,jdbcType=VARCHAR}, #{zydelegate,jdbcType=VARCHAR}, 
+      #{zyeduc,jdbcType=VARCHAR}, #{zyprofess,jdbcType=VARCHAR}, #{scpermit,jdbcType=VARCHAR}, 
+      #{fazhengjiguan,jdbcType=VARCHAR}, #{fazhengriqi,jdbcType=VARCHAR}, #{youxiaodate,jdbcType=VARCHAR}, 
+      #{gsppermit,jdbcType=VARCHAR}, #{gspfazhengjiguan,jdbcType=VARCHAR}, #{gspfazhengriqi,jdbcType=VARCHAR}, 
+      #{gspyouxiaodate,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{spdelegate,jdbcType=VARCHAR}, 
+      #{jiandurenyuan,jdbcType=VARCHAR}, #{xieguanrenyuan,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{jyrange,jdbcType=VARCHAR}, #{zhongarea,jdbcType=VARCHAR}, 
+      #{changarea,jdbcType=VARCHAR}, #{yinarea,jdbcType=VARCHAR}, #{lengarea,jdbcType=VARCHAR}, 
+      #{manage,jdbcType=VARCHAR}, #{amend,jdbcType=VARCHAR}, #{qyphone,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Drug" >
+    insert into drug
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qyname != null" >
+        qyname,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="scaddress != null" >
+        scaddress,
+      </if>
+      <if test="ems != null" >
+        ems,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="jjtype != null" >
+        jjtype,
+      </if>
+      <if test="gsorganization != null" >
+        gsorganization,
+      </if>
+      <if test="zzcode != null" >
+        zzcode,
+      </if>
+      <if test="fddelegate != null" >
+        fddelegate,
+      </if>
+      <if test="fdeduc != null" >
+        fdeduc,
+      </if>
+      <if test="fdprofess != null" >
+        fdprofess,
+      </if>
+      <if test="qydelegate != null" >
+        qydelegate,
+      </if>
+      <if test="qyeduc != null" >
+        qyeduc,
+      </if>
+      <if test="qyprofess != null" >
+        qyprofess,
+      </if>
+      <if test="zldelegate != null" >
+        zldelegate,
+      </if>
+      <if test="zleduc != null" >
+        zleduc,
+      </if>
+      <if test="zlprofess != null" >
+        zlprofess,
+      </if>
+      <if test="zydelegate != null" >
+        zydelegate,
+      </if>
+      <if test="zyeduc != null" >
+        zyeduc,
+      </if>
+      <if test="zyprofess != null" >
+        zyprofess,
+      </if>
+      <if test="scpermit != null" >
+        scpermit,
+      </if>
+      <if test="fazhengjiguan != null" >
+        fazhengjiguan,
+      </if>
+      <if test="fazhengriqi != null" >
+        fazhengriqi,
+      </if>
+      <if test="youxiaodate != null" >
+        youxiaodate,
+      </if>
+      <if test="gsppermit != null" >
+        gsppermit,
+      </if>
+      <if test="gspfazhengjiguan != null" >
+        gspfazhengjiguan,
+      </if>
+      <if test="gspfazhengriqi != null" >
+        gspfazhengriqi,
+      </if>
+      <if test="gspyouxiaodate != null" >
+        gspyouxiaodate,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="spdelegate != null" >
+        spdelegate,
+      </if>
+      <if test="jiandurenyuan != null" >
+        jiandurenyuan,
+      </if>
+      <if test="xieguanrenyuan != null" >
+        xieguanrenyuan,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="jyrange != null" >
+        jyrange,
+      </if>
+      <if test="zhongarea != null" >
+        zhongarea,
+      </if>
+      <if test="changarea != null" >
+        changarea,
+      </if>
+      <if test="yinarea != null" >
+        yinarea,
+      </if>
+      <if test="lengarea != null" >
+        lengarea,
+      </if>
+      <if test="manage != null" >
+        manage,
+      </if>
+      <if test="amend != null" >
+        amend,
+      </if>
+      <if test="qyphone != null" >
+        qyphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qyname != null" >
+        #{qyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scaddress != null" >
+        #{scaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ems != null" >
+        #{ems,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jjtype != null" >
+        #{jjtype,jdbcType=VARCHAR},
+      </if>
+      <if test="gsorganization != null" >
+        #{gsorganization,jdbcType=VARCHAR},
+      </if>
+      <if test="zzcode != null" >
+        #{zzcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fddelegate != null" >
+        #{fddelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="fdeduc != null" >
+        #{fdeduc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdprofess != null" >
+        #{fdprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="qydelegate != null" >
+        #{qydelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="qyeduc != null" >
+        #{qyeduc,jdbcType=VARCHAR},
+      </if>
+      <if test="qyprofess != null" >
+        #{qyprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="zldelegate != null" >
+        #{zldelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="zleduc != null" >
+        #{zleduc,jdbcType=VARCHAR},
+      </if>
+      <if test="zlprofess != null" >
+        #{zlprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="zydelegate != null" >
+        #{zydelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="zyeduc != null" >
+        #{zyeduc,jdbcType=VARCHAR},
+      </if>
+      <if test="zyprofess != null" >
+        #{zyprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="scpermit != null" >
+        #{scpermit,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengjiguan != null" >
+        #{fazhengjiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengriqi != null" >
+        #{fazhengriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="youxiaodate != null" >
+        #{youxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="gsppermit != null" >
+        #{gsppermit,jdbcType=VARCHAR},
+      </if>
+      <if test="gspfazhengjiguan != null" >
+        #{gspfazhengjiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="gspfazhengriqi != null" >
+        #{gspfazhengriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="gspyouxiaodate != null" >
+        #{gspyouxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="spdelegate != null" >
+        #{spdelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="jiandurenyuan != null" >
+        #{jiandurenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="xieguanrenyuan != null" >
+        #{xieguanrenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="jyrange != null" >
+        #{jyrange,jdbcType=VARCHAR},
+      </if>
+      <if test="zhongarea != null" >
+        #{zhongarea,jdbcType=VARCHAR},
+      </if>
+      <if test="changarea != null" >
+        #{changarea,jdbcType=VARCHAR},
+      </if>
+      <if test="yinarea != null" >
+        #{yinarea,jdbcType=VARCHAR},
+      </if>
+      <if test="lengarea != null" >
+        #{lengarea,jdbcType=VARCHAR},
+      </if>
+      <if test="manage != null" >
+        #{manage,jdbcType=VARCHAR},
+      </if>
+      <if test="amend != null" >
+        #{amend,jdbcType=VARCHAR},
+      </if>
+      <if test="qyphone != null" >
+        #{qyphone,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.Drug" >
+    update drug
+    <set >
+      <if test="qyname != null" >
+        qyname = #{qyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scaddress != null" >
+        scaddress = #{scaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ems != null" >
+        ems = #{ems,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jjtype != null" >
+        jjtype = #{jjtype,jdbcType=VARCHAR},
+      </if>
+      <if test="gsorganization != null" >
+        gsorganization = #{gsorganization,jdbcType=VARCHAR},
+      </if>
+      <if test="zzcode != null" >
+        zzcode = #{zzcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fddelegate != null" >
+        fddelegate = #{fddelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="fdeduc != null" >
+        fdeduc = #{fdeduc,jdbcType=VARCHAR},
+      </if>
+      <if test="fdprofess != null" >
+        fdprofess = #{fdprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="qydelegate != null" >
+        qydelegate = #{qydelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="qyeduc != null" >
+        qyeduc = #{qyeduc,jdbcType=VARCHAR},
+      </if>
+      <if test="qyprofess != null" >
+        qyprofess = #{qyprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="zldelegate != null" >
+        zldelegate = #{zldelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="zleduc != null" >
+        zleduc = #{zleduc,jdbcType=VARCHAR},
+      </if>
+      <if test="zlprofess != null" >
+        zlprofess = #{zlprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="zydelegate != null" >
+        zydelegate = #{zydelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="zyeduc != null" >
+        zyeduc = #{zyeduc,jdbcType=VARCHAR},
+      </if>
+      <if test="zyprofess != null" >
+        zyprofess = #{zyprofess,jdbcType=VARCHAR},
+      </if>
+      <if test="scpermit != null" >
+        scpermit = #{scpermit,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengjiguan != null" >
+        fazhengjiguan = #{fazhengjiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengriqi != null" >
+        fazhengriqi = #{fazhengriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="youxiaodate != null" >
+        youxiaodate = #{youxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="gsppermit != null" >
+        gsppermit = #{gsppermit,jdbcType=VARCHAR},
+      </if>
+      <if test="gspfazhengjiguan != null" >
+        gspfazhengjiguan = #{gspfazhengjiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="gspfazhengriqi != null" >
+        gspfazhengriqi = #{gspfazhengriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="gspyouxiaodate != null" >
+        gspyouxiaodate = #{gspyouxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="spdelegate != null" >
+        spdelegate = #{spdelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="jiandurenyuan != null" >
+        jiandurenyuan = #{jiandurenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="xieguanrenyuan != null" >
+        xieguanrenyuan = #{xieguanrenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="jyrange != null" >
+        jyrange = #{jyrange,jdbcType=VARCHAR},
+      </if>
+      <if test="zhongarea != null" >
+        zhongarea = #{zhongarea,jdbcType=VARCHAR},
+      </if>
+      <if test="changarea != null" >
+        changarea = #{changarea,jdbcType=VARCHAR},
+      </if>
+      <if test="yinarea != null" >
+        yinarea = #{yinarea,jdbcType=VARCHAR},
+      </if>
+      <if test="lengarea != null" >
+        lengarea = #{lengarea,jdbcType=VARCHAR},
+      </if>
+      <if test="manage != null" >
+        manage = #{manage,jdbcType=VARCHAR},
+      </if>
+      <if test="amend != null" >
+        amend = #{amend,jdbcType=VARCHAR},
+      </if>
+      <if test="qyphone != null" >
+        qyphone = #{qyphone,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.Drug" >
+    update drug
+    set qyname = #{qyname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      scaddress = #{scaddress,jdbcType=VARCHAR},
+      ems = #{ems,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      jjtype = #{jjtype,jdbcType=VARCHAR},
+      gsorganization = #{gsorganization,jdbcType=VARCHAR},
+      zzcode = #{zzcode,jdbcType=VARCHAR},
+      fddelegate = #{fddelegate,jdbcType=VARCHAR},
+      fdeduc = #{fdeduc,jdbcType=VARCHAR},
+      fdprofess = #{fdprofess,jdbcType=VARCHAR},
+      qydelegate = #{qydelegate,jdbcType=VARCHAR},
+      qyeduc = #{qyeduc,jdbcType=VARCHAR},
+      qyprofess = #{qyprofess,jdbcType=VARCHAR},
+      zldelegate = #{zldelegate,jdbcType=VARCHAR},
+      zleduc = #{zleduc,jdbcType=VARCHAR},
+      zlprofess = #{zlprofess,jdbcType=VARCHAR},
+      zydelegate = #{zydelegate,jdbcType=VARCHAR},
+      zyeduc = #{zyeduc,jdbcType=VARCHAR},
+      zyprofess = #{zyprofess,jdbcType=VARCHAR},
+      scpermit = #{scpermit,jdbcType=VARCHAR},
+      fazhengjiguan = #{fazhengjiguan,jdbcType=VARCHAR},
+      fazhengriqi = #{fazhengriqi,jdbcType=VARCHAR},
+      youxiaodate = #{youxiaodate,jdbcType=VARCHAR},
+      gsppermit = #{gsppermit,jdbcType=VARCHAR},
+      gspfazhengjiguan = #{gspfazhengjiguan,jdbcType=VARCHAR},
+      gspfazhengriqi = #{gspfazhengriqi,jdbcType=VARCHAR},
+      gspyouxiaodate = #{gspyouxiaodate,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      spdelegate = #{spdelegate,jdbcType=VARCHAR},
+      jiandurenyuan = #{jiandurenyuan,jdbcType=VARCHAR},
+      xieguanrenyuan = #{xieguanrenyuan,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      jyrange = #{jyrange,jdbcType=VARCHAR},
+      zhongarea = #{zhongarea,jdbcType=VARCHAR},
+      changarea = #{changarea,jdbcType=VARCHAR},
+      yinarea = #{yinarea,jdbcType=VARCHAR},
+      lengarea = #{lengarea,jdbcType=VARCHAR},
+      manage = #{manage,jdbcType=VARCHAR},
+      amend = #{amend,jdbcType=VARCHAR},
+      qyphone = #{qyphone,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

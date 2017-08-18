@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.PersonInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.PersonInfo" >
+    <id column="person_id" property="personId" jdbcType="INTEGER" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="person_company_id" property="personCompanyId" jdbcType="INTEGER" />
+    <result column="person_post_id" property="personPostId" jdbcType="INTEGER" />
+    <result column="perosn_law_card" property="perosnLawCard" jdbcType="VARCHAR" />
+    <result column="person_office_tel" property="personOfficeTel" jdbcType="VARCHAR" />
+    <result column="perosn_tel" property="perosnTel" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="person_company_name" property="personCompanyName" jdbcType="VARCHAR" />
+    <result column="person_post_name" property="personPostName" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    person_id, person_name, person_company_id, person_post_id, perosn_law_card, person_office_tel, 
+    perosn_tel, user_name
+  </sql>
+  <select id="findPersonByName" resultMap="BaseResultMap" parameterType="string">
+    SELECT <include refid="Base_Column_List" />
+    from t_person_info
+    WHERE  user_name=#{username}
+  </select>
+  
+  <select id="selectPersonInfo" resultMap="BaseResultMap" >
+    select p.*,d1.t_dictionary_name person_company_name,d2.t_dictionary_name person_post_name,u.id id
+from t_person_info p
+left join t_dictionary d1
+on d1.id=p.person_company_id
+left join t_dictionary d2
+on d2.id=p.person_post_id
+left join user u
+on u.username=p.user_name
+	<where>
+	 	<if test="personCompanyId!=null and personCompanyId!='' ">  
+           and person_company_id=#{personCompanyId}
+        </if>   
+	 	<if test="name!=null and name!='' ">  
+           and p.person_name=#{name}
+        </if>   
+	 	<if test="edepartment!=null and edepartment!='' ">  
+           and p.person_company_id=#{edepartment}
+        </if>   
+	 	<if test="zfzh!=null and zfzh!='' ">  
+           and p.perosn_law_card=#{zfzh}
+        </if>   
+	 	<if test="mobile!=null and mobile!='' ">  
+           and p.perosn_tel=#{mobile}
+        </if>   
+    </where>
+     order by person_id desc
+    <if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+   
+  </select>
+  
+  <select id="selectPersonInfoTotal"  resultType="int"  >
+     select count(*)
+from t_person_info p
+left join t_dictionary d1
+on d1.id=p.person_company_id
+left join t_dictionary d2
+on d2.id=p.person_post_id
+left join user u
+on u.username=p.user_name
+    <where>
+        <if test="personCompanyId!=null and personCompanyId!='' ">  
+           and person_company_id=#{personCompanyId}
+        </if>   
+        <if test="name!=null and name!='' ">  
+           and p.person_name=#{name}
+        </if>   
+        <if test="edepartment!=null and edepartment!='' ">  
+           and p.person_company_id=#{edepartment}
+        </if>   
+        <if test="zfzh!=null and zfzh!='' ">  
+           and p.perosn_law_card=#{zfzh}
+        </if>   
+        <if test="mobile!=null and mobile!='' ">  
+           and p.perosn_tel=#{mobile}
+        </if>   
+    </where>
+  </select>
+  
+  <select id="findPersonInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select p.*,d1.t_dictionary_name person_company_name,d2.t_dictionary_name person_post_name,u.id
+from t_person_info p
+left join t_dictionary d1
+on d1.id=p.person_company_id
+left join t_dictionary d2
+on d2.id=p.person_post_id
+left join user u
+on u.username=p.user_name
+    where p.person_id = #{personId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deletePersonInfo" parameterType="java.lang.Integer" >
+    delete from t_person_info
+    where person_id = #{personId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertPersonInfo" useGeneratedKeys="true" keyProperty="personId" parameterType="com.foodregulation.dao.entity.PersonInfo" >
+    insert into t_person_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="personName != null" >
+        person_name,
+      </if>
+      <if test="personCompanyId != null" >
+        person_company_id,
+      </if>
+      <if test="personPostId != null" >
+        person_post_id,
+      </if>
+      <if test="perosnLawCard != null" >
+        perosn_law_card,
+      </if>
+      <if test="personOfficeTel != null" >
+        person_office_tel,
+      </if>
+      <if test="perosnTel != null" >
+        perosn_tel,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="personName != null" >
+        #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personCompanyId != null" >
+        #{personCompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="personPostId != null" >
+        #{personPostId,jdbcType=INTEGER},
+      </if>
+      <if test="perosnLawCard != null" >
+        #{perosnLawCard,jdbcType=VARCHAR},
+      </if>
+      <if test="personOfficeTel != null" >
+        #{personOfficeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="perosnTel != null" >
+        #{perosnTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updatePersonInfo" parameterType="com.foodregulation.dao.entity.PersonInfo" >
+    update t_person_info
+    <set >
+      <if test="personName != null" >
+        person_name = #{personName,jdbcType=VARCHAR},
+      </if>
+      <if test="personCompanyId != null" >
+        person_company_id = #{personCompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="personPostId != null" >
+        person_post_id = #{personPostId,jdbcType=INTEGER},
+      </if>
+      <if test="perosnLawCard != null" >
+        perosn_law_card = #{perosnLawCard,jdbcType=VARCHAR},
+      </if>
+      <if test="personOfficeTel != null" >
+        person_office_tel = #{personOfficeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="perosnTel != null" >
+        perosn_tel = #{perosnTel,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where person_id = #{personId,jdbcType=INTEGER}
+  </update>
+  <select id="findPersonByParams" resultMap="BaseResultMap" parameterType="map">
+    SELECT <include refid="Base_Column_List" />
+    from t_person_info
+    WHERE  1=1
+    <if test="personName != null" >
+        and person_name = #{personName,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

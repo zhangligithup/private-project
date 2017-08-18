@@ -1,0 +1,799 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.CriculateMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Criculate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="qyname" property="qyname" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="scaddress" property="scaddress" jdbcType="CHAR" />
+    <result column="ems" property="ems" jdbcType="CHAR" />
+    <result column="qydelegate" property="qydelegate" jdbcType="CHAR" />
+    <result column="qyphone" property="qyphone" jdbcType="CHAR" />
+    <result column="jjtype" property="jjtype" jdbcType="CHAR" />
+    <result column="email" property="email" jdbcType="CHAR" />
+    <result column="gsorganization" property="gsorganization" jdbcType="CHAR" />
+    <result column="zzcode" property="zzcode" jdbcType="CHAR" />
+    <result column="cldate" property="cldate" jdbcType="CHAR" />
+    <result column="nzyield" property="nzyield" jdbcType="CHAR" />
+    <result column="jyArea" property="jyarea" jdbcType="CHAR" />
+    <result column="propertyOwner" property="propertyowner" jdbcType="CHAR" />
+    <result column="fangWuDate" property="fangwudate" jdbcType="CHAR" />
+    <result column="fangWuWay" property="fangwuway" jdbcType="CHAR" />
+    <result column="department" property="department" jdbcType="CHAR" />
+    <result column="spdelegate" property="spdelegate" jdbcType="CHAR" />
+    <result column="jiandurenyuan" property="jiandurenyuan" jdbcType="CHAR" />
+    <result column="xieguanrenyuan" property="xieguanrenyuan" jdbcType="CHAR" />
+    <result column="scpermit" property="scpermit" jdbcType="VARCHAR" />
+    <result column="fazhengjiguan" property="fazhengjiguan" jdbcType="CHAR" />
+    <result column="fazhengriqi" property="fazhengriqi" jdbcType="CHAR" />
+    <result column="youxiaodate" property="youxiaodate" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="CHAR" />
+    <result column="latitude" property="latitude" jdbcType="CHAR" />
+    <result column="foodMarket" property="foodmarket" jdbcType="CHAR" />
+    <result column="superMarket" property="supermarket" jdbcType="CHAR" />
+    <result column="cvs" property="cvs" jdbcType="CHAR" />
+    <result column="store" property="store" jdbcType="CHAR" />
+    <result column="foodTrade" property="foodtrade" jdbcType="CHAR" />
+    <result column="foodLogistics" property="foodlogistics" jdbcType="CHAR" />
+    <result column="nonStoreFoodBusiness" property="nonstorefoodbusiness" jdbcType="CHAR" />
+    <result column="onlineShop" property="onlineshop" jdbcType="CHAR" />
+    <result column="mailOrder" property="mailorder" jdbcType="CHAR" />
+    <result column="televisedShopping" property="televisedshopping" jdbcType="CHAR" />
+    <result column="automat" property="automat" jdbcType="CHAR" />
+    <result column="piFa" property="pifa" jdbcType="CHAR" />
+    <result column="packFood" property="packfood" jdbcType="CHAR" />
+    <result column="bulkFood" property="bulkfood" jdbcType="CHAR" />
+    <result column="dairyProduct" property="dairyproduct" jdbcType="CHAR" />
+    <result column="hanBaby" property="hanbaby" jdbcType="CHAR" />
+    <result column="noBody" property="nobody" jdbcType="CHAR" />
+    <result column="foodProduct" property="foodproduct" jdbcType="CHAR" />
+    <result column="waterProduct" property="waterproduct" jdbcType="CHAR" />
+    <result column="freshAnimalProduct" property="freshanimalproduct" jdbcType="CHAR" />
+    <result column="healthProduct" property="healthproduct" jdbcType="CHAR" />
+    <result column="retail" property="retail" jdbcType="CHAR" />
+    <result column="lsPackFood" property="lspackfood" jdbcType="CHAR" />
+    <result column="lsBulkFood" property="lsbulkfood" jdbcType="CHAR" />
+    <result column="cookedFood" property="cookedfood" jdbcType="CHAR" />
+    <result column="noCookedFood" property="nocookedfood" jdbcType="CHAR" />
+    <result column="lsDairyProduct" property="lsdairyproduct" jdbcType="CHAR" />
+    <result column="lsHanBaby" property="lshanbaby" jdbcType="CHAR" />
+    <result column="lsNoBody" property="lsnobody" jdbcType="CHAR" />
+    <result column="lsFoodProduct" property="lsfoodproduct" jdbcType="CHAR" />
+    <result column="lsWaterProduct" property="lswaterproduct" jdbcType="CHAR" />
+    <result column="lsFreshAnimalProduct" property="lsfreshanimalproduct" jdbcType="CHAR" />
+    <result column="lsHealthProduct" property="lshealthproduct" jdbcType="CHAR" />
+    <result column="scene" property="scene" jdbcType="CHAR" />
+    <result column="amend" property="amend" jdbcType="CHAR" />
+    <result column="fddelegate" property="fddelegate" jdbcType="CHAR" />
+    <result column="fdphone" property="fdphone" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, qyname, address, scaddress, ems, qydelegate, qyphone, jjtype, email, gsorganization, 
+    zzcode, cldate, nzyield, jyArea, propertyOwner, fangWuDate, fangWuWay, department, 
+    spdelegate, jiandurenyuan, xieguanrenyuan, scpermit, fazhengjiguan, fazhengriqi, 
+    youxiaodate, longitude, latitude, foodMarket, superMarket, cvs, store, foodTrade, 
+    foodLogistics, nonStoreFoodBusiness, onlineShop, mailOrder, televisedShopping, automat, 
+    piFa, packFood, bulkFood, dairyProduct, hanBaby, noBody, foodProduct, waterProduct, 
+    freshAnimalProduct, healthProduct, retail, lsPackFood, lsBulkFood, cookedFood, noCookedFood, 
+    lsDairyProduct, lsHanBaby, lsNoBody, lsFoodProduct, lsWaterProduct, lsFreshAnimalProduct, 
+    lsHealthProduct, scene, amend, fddelegate, fdphone, phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from criculate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from criculate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.Criculate" >
+    insert into criculate (id, qyname, address, 
+      scaddress, ems, qydelegate, 
+      qyphone, jjtype, email, gsorganization, 
+      zzcode, cldate, nzyield, jyArea, 
+      propertyOwner, fangWuDate, fangWuWay, 
+      department, spdelegate, jiandurenyuan, 
+      xieguanrenyuan, scpermit, fazhengjiguan, 
+      fazhengriqi, youxiaodate, longitude, 
+      latitude, foodMarket, superMarket, 
+      cvs, store, foodTrade, foodLogistics, 
+      nonStoreFoodBusiness, onlineShop, mailOrder, 
+      televisedShopping, automat, piFa, 
+      packFood, bulkFood, dairyProduct, 
+      hanBaby, noBody, foodProduct, 
+      waterProduct, freshAnimalProduct, healthProduct, 
+      retail, lsPackFood, lsBulkFood, 
+      cookedFood, noCookedFood, lsDairyProduct, 
+      lsHanBaby, lsNoBody, lsFoodProduct, 
+      lsWaterProduct, lsFreshAnimalProduct, lsHealthProduct, 
+      scene, amend, fddelegate, fdphone, 
+      phone)
+    values (#{id,jdbcType=INTEGER}, #{qyname,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{scaddress,jdbcType=CHAR}, #{ems,jdbcType=CHAR}, #{qydelegate,jdbcType=CHAR}, 
+      #{qyphone,jdbcType=CHAR}, #{jjtype,jdbcType=CHAR}, #{email,jdbcType=CHAR}, #{gsorganization,jdbcType=CHAR}, 
+      #{zzcode,jdbcType=CHAR}, #{cldate,jdbcType=CHAR}, #{nzyield,jdbcType=CHAR}, #{jyarea,jdbcType=CHAR}, 
+      #{propertyowner,jdbcType=CHAR}, #{fangwudate,jdbcType=CHAR}, #{fangwuway,jdbcType=CHAR}, 
+      #{department,jdbcType=CHAR}, #{spdelegate,jdbcType=CHAR}, #{jiandurenyuan,jdbcType=CHAR}, 
+      #{xieguanrenyuan,jdbcType=CHAR}, #{scpermit,jdbcType=VARCHAR}, #{fazhengjiguan,jdbcType=CHAR}, 
+      #{fazhengriqi,jdbcType=CHAR}, #{youxiaodate,jdbcType=VARCHAR}, #{longitude,jdbcType=CHAR}, 
+      #{latitude,jdbcType=CHAR}, #{foodmarket,jdbcType=CHAR}, #{supermarket,jdbcType=CHAR}, 
+      #{cvs,jdbcType=CHAR}, #{store,jdbcType=CHAR}, #{foodtrade,jdbcType=CHAR}, #{foodlogistics,jdbcType=CHAR}, 
+      #{nonstorefoodbusiness,jdbcType=CHAR}, #{onlineshop,jdbcType=CHAR}, #{mailorder,jdbcType=CHAR}, 
+      #{televisedshopping,jdbcType=CHAR}, #{automat,jdbcType=CHAR}, #{pifa,jdbcType=CHAR}, 
+      #{packfood,jdbcType=CHAR}, #{bulkfood,jdbcType=CHAR}, #{dairyproduct,jdbcType=CHAR}, 
+      #{hanbaby,jdbcType=CHAR}, #{nobody,jdbcType=CHAR}, #{foodproduct,jdbcType=CHAR}, 
+      #{waterproduct,jdbcType=CHAR}, #{freshanimalproduct,jdbcType=CHAR}, #{healthproduct,jdbcType=CHAR}, 
+      #{retail,jdbcType=CHAR}, #{lspackfood,jdbcType=CHAR}, #{lsbulkfood,jdbcType=CHAR}, 
+      #{cookedfood,jdbcType=CHAR}, #{nocookedfood,jdbcType=CHAR}, #{lsdairyproduct,jdbcType=CHAR}, 
+      #{lshanbaby,jdbcType=CHAR}, #{lsnobody,jdbcType=CHAR}, #{lsfoodproduct,jdbcType=CHAR}, 
+      #{lswaterproduct,jdbcType=CHAR}, #{lsfreshanimalproduct,jdbcType=CHAR}, #{lshealthproduct,jdbcType=CHAR}, 
+      #{scene,jdbcType=CHAR}, #{amend,jdbcType=CHAR}, #{fddelegate,jdbcType=CHAR}, #{fdphone,jdbcType=CHAR}, 
+      #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Criculate" >
+    insert into criculate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qyname != null" >
+        qyname,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="scaddress != null" >
+        scaddress,
+      </if>
+      <if test="ems != null" >
+        ems,
+      </if>
+      <if test="qydelegate != null" >
+        qydelegate,
+      </if>
+      <if test="qyphone != null" >
+        qyphone,
+      </if>
+      <if test="jjtype != null" >
+        jjtype,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="gsorganization != null" >
+        gsorganization,
+      </if>
+      <if test="zzcode != null" >
+        zzcode,
+      </if>
+      <if test="cldate != null" >
+        cldate,
+      </if>
+      <if test="nzyield != null" >
+        nzyield,
+      </if>
+      <if test="jyarea != null" >
+        jyArea,
+      </if>
+      <if test="propertyowner != null" >
+        propertyOwner,
+      </if>
+      <if test="fangwudate != null" >
+        fangWuDate,
+      </if>
+      <if test="fangwuway != null" >
+        fangWuWay,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="spdelegate != null" >
+        spdelegate,
+      </if>
+      <if test="jiandurenyuan != null" >
+        jiandurenyuan,
+      </if>
+      <if test="xieguanrenyuan != null" >
+        xieguanrenyuan,
+      </if>
+      <if test="scpermit != null" >
+        scpermit,
+      </if>
+      <if test="fazhengjiguan != null" >
+        fazhengjiguan,
+      </if>
+      <if test="fazhengriqi != null" >
+        fazhengriqi,
+      </if>
+      <if test="youxiaodate != null" >
+        youxiaodate,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="foodmarket != null" >
+        foodMarket,
+      </if>
+      <if test="supermarket != null" >
+        superMarket,
+      </if>
+      <if test="cvs != null" >
+        cvs,
+      </if>
+      <if test="store != null" >
+        store,
+      </if>
+      <if test="foodtrade != null" >
+        foodTrade,
+      </if>
+      <if test="foodlogistics != null" >
+        foodLogistics,
+      </if>
+      <if test="nonstorefoodbusiness != null" >
+        nonStoreFoodBusiness,
+      </if>
+      <if test="onlineshop != null" >
+        onlineShop,
+      </if>
+      <if test="mailorder != null" >
+        mailOrder,
+      </if>
+      <if test="televisedshopping != null" >
+        televisedShopping,
+      </if>
+      <if test="automat != null" >
+        automat,
+      </if>
+      <if test="pifa != null" >
+        piFa,
+      </if>
+      <if test="packfood != null" >
+        packFood,
+      </if>
+      <if test="bulkfood != null" >
+        bulkFood,
+      </if>
+      <if test="dairyproduct != null" >
+        dairyProduct,
+      </if>
+      <if test="hanbaby != null" >
+        hanBaby,
+      </if>
+      <if test="nobody != null" >
+        noBody,
+      </if>
+      <if test="foodproduct != null" >
+        foodProduct,
+      </if>
+      <if test="waterproduct != null" >
+        waterProduct,
+      </if>
+      <if test="freshanimalproduct != null" >
+        freshAnimalProduct,
+      </if>
+      <if test="healthproduct != null" >
+        healthProduct,
+      </if>
+      <if test="retail != null" >
+        retail,
+      </if>
+      <if test="lspackfood != null" >
+        lsPackFood,
+      </if>
+      <if test="lsbulkfood != null" >
+        lsBulkFood,
+      </if>
+      <if test="cookedfood != null" >
+        cookedFood,
+      </if>
+      <if test="nocookedfood != null" >
+        noCookedFood,
+      </if>
+      <if test="lsdairyproduct != null" >
+        lsDairyProduct,
+      </if>
+      <if test="lshanbaby != null" >
+        lsHanBaby,
+      </if>
+      <if test="lsnobody != null" >
+        lsNoBody,
+      </if>
+      <if test="lsfoodproduct != null" >
+        lsFoodProduct,
+      </if>
+      <if test="lswaterproduct != null" >
+        lsWaterProduct,
+      </if>
+      <if test="lsfreshanimalproduct != null" >
+        lsFreshAnimalProduct,
+      </if>
+      <if test="lshealthproduct != null" >
+        lsHealthProduct,
+      </if>
+      <if test="scene != null" >
+        scene,
+      </if>
+      <if test="amend != null" >
+        amend,
+      </if>
+      <if test="fddelegate != null" >
+        fddelegate,
+      </if>
+      <if test="fdphone != null" >
+        fdphone,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qyname != null" >
+        #{qyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scaddress != null" >
+        #{scaddress,jdbcType=CHAR},
+      </if>
+      <if test="ems != null" >
+        #{ems,jdbcType=CHAR},
+      </if>
+      <if test="qydelegate != null" >
+        #{qydelegate,jdbcType=CHAR},
+      </if>
+      <if test="qyphone != null" >
+        #{qyphone,jdbcType=CHAR},
+      </if>
+      <if test="jjtype != null" >
+        #{jjtype,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="gsorganization != null" >
+        #{gsorganization,jdbcType=CHAR},
+      </if>
+      <if test="zzcode != null" >
+        #{zzcode,jdbcType=CHAR},
+      </if>
+      <if test="cldate != null" >
+        #{cldate,jdbcType=CHAR},
+      </if>
+      <if test="nzyield != null" >
+        #{nzyield,jdbcType=CHAR},
+      </if>
+      <if test="jyarea != null" >
+        #{jyarea,jdbcType=CHAR},
+      </if>
+      <if test="propertyowner != null" >
+        #{propertyowner,jdbcType=CHAR},
+      </if>
+      <if test="fangwudate != null" >
+        #{fangwudate,jdbcType=CHAR},
+      </if>
+      <if test="fangwuway != null" >
+        #{fangwuway,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=CHAR},
+      </if>
+      <if test="spdelegate != null" >
+        #{spdelegate,jdbcType=CHAR},
+      </if>
+      <if test="jiandurenyuan != null" >
+        #{jiandurenyuan,jdbcType=CHAR},
+      </if>
+      <if test="xieguanrenyuan != null" >
+        #{xieguanrenyuan,jdbcType=CHAR},
+      </if>
+      <if test="scpermit != null" >
+        #{scpermit,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengjiguan != null" >
+        #{fazhengjiguan,jdbcType=CHAR},
+      </if>
+      <if test="fazhengriqi != null" >
+        #{fazhengriqi,jdbcType=CHAR},
+      </if>
+      <if test="youxiaodate != null" >
+        #{youxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=CHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=CHAR},
+      </if>
+      <if test="foodmarket != null" >
+        #{foodmarket,jdbcType=CHAR},
+      </if>
+      <if test="supermarket != null" >
+        #{supermarket,jdbcType=CHAR},
+      </if>
+      <if test="cvs != null" >
+        #{cvs,jdbcType=CHAR},
+      </if>
+      <if test="store != null" >
+        #{store,jdbcType=CHAR},
+      </if>
+      <if test="foodtrade != null" >
+        #{foodtrade,jdbcType=CHAR},
+      </if>
+      <if test="foodlogistics != null" >
+        #{foodlogistics,jdbcType=CHAR},
+      </if>
+      <if test="nonstorefoodbusiness != null" >
+        #{nonstorefoodbusiness,jdbcType=CHAR},
+      </if>
+      <if test="onlineshop != null" >
+        #{onlineshop,jdbcType=CHAR},
+      </if>
+      <if test="mailorder != null" >
+        #{mailorder,jdbcType=CHAR},
+      </if>
+      <if test="televisedshopping != null" >
+        #{televisedshopping,jdbcType=CHAR},
+      </if>
+      <if test="automat != null" >
+        #{automat,jdbcType=CHAR},
+      </if>
+      <if test="pifa != null" >
+        #{pifa,jdbcType=CHAR},
+      </if>
+      <if test="packfood != null" >
+        #{packfood,jdbcType=CHAR},
+      </if>
+      <if test="bulkfood != null" >
+        #{bulkfood,jdbcType=CHAR},
+      </if>
+      <if test="dairyproduct != null" >
+        #{dairyproduct,jdbcType=CHAR},
+      </if>
+      <if test="hanbaby != null" >
+        #{hanbaby,jdbcType=CHAR},
+      </if>
+      <if test="nobody != null" >
+        #{nobody,jdbcType=CHAR},
+      </if>
+      <if test="foodproduct != null" >
+        #{foodproduct,jdbcType=CHAR},
+      </if>
+      <if test="waterproduct != null" >
+        #{waterproduct,jdbcType=CHAR},
+      </if>
+      <if test="freshanimalproduct != null" >
+        #{freshanimalproduct,jdbcType=CHAR},
+      </if>
+      <if test="healthproduct != null" >
+        #{healthproduct,jdbcType=CHAR},
+      </if>
+      <if test="retail != null" >
+        #{retail,jdbcType=CHAR},
+      </if>
+      <if test="lspackfood != null" >
+        #{lspackfood,jdbcType=CHAR},
+      </if>
+      <if test="lsbulkfood != null" >
+        #{lsbulkfood,jdbcType=CHAR},
+      </if>
+      <if test="cookedfood != null" >
+        #{cookedfood,jdbcType=CHAR},
+      </if>
+      <if test="nocookedfood != null" >
+        #{nocookedfood,jdbcType=CHAR},
+      </if>
+      <if test="lsdairyproduct != null" >
+        #{lsdairyproduct,jdbcType=CHAR},
+      </if>
+      <if test="lshanbaby != null" >
+        #{lshanbaby,jdbcType=CHAR},
+      </if>
+      <if test="lsnobody != null" >
+        #{lsnobody,jdbcType=CHAR},
+      </if>
+      <if test="lsfoodproduct != null" >
+        #{lsfoodproduct,jdbcType=CHAR},
+      </if>
+      <if test="lswaterproduct != null" >
+        #{lswaterproduct,jdbcType=CHAR},
+      </if>
+      <if test="lsfreshanimalproduct != null" >
+        #{lsfreshanimalproduct,jdbcType=CHAR},
+      </if>
+      <if test="lshealthproduct != null" >
+        #{lshealthproduct,jdbcType=CHAR},
+      </if>
+      <if test="scene != null" >
+        #{scene,jdbcType=CHAR},
+      </if>
+      <if test="amend != null" >
+        #{amend,jdbcType=CHAR},
+      </if>
+      <if test="fddelegate != null" >
+        #{fddelegate,jdbcType=CHAR},
+      </if>
+      <if test="fdphone != null" >
+        #{fdphone,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.Criculate" >
+    update criculate
+    <set >
+      <if test="qyname != null" >
+        qyname = #{qyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scaddress != null" >
+        scaddress = #{scaddress,jdbcType=CHAR},
+      </if>
+      <if test="ems != null" >
+        ems = #{ems,jdbcType=CHAR},
+      </if>
+      <if test="qydelegate != null" >
+        qydelegate = #{qydelegate,jdbcType=CHAR},
+      </if>
+      <if test="qyphone != null" >
+        qyphone = #{qyphone,jdbcType=CHAR},
+      </if>
+      <if test="jjtype != null" >
+        jjtype = #{jjtype,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=CHAR},
+      </if>
+      <if test="gsorganization != null" >
+        gsorganization = #{gsorganization,jdbcType=CHAR},
+      </if>
+      <if test="zzcode != null" >
+        zzcode = #{zzcode,jdbcType=CHAR},
+      </if>
+      <if test="cldate != null" >
+        cldate = #{cldate,jdbcType=CHAR},
+      </if>
+      <if test="nzyield != null" >
+        nzyield = #{nzyield,jdbcType=CHAR},
+      </if>
+      <if test="jyarea != null" >
+        jyArea = #{jyarea,jdbcType=CHAR},
+      </if>
+      <if test="propertyowner != null" >
+        propertyOwner = #{propertyowner,jdbcType=CHAR},
+      </if>
+      <if test="fangwudate != null" >
+        fangWuDate = #{fangwudate,jdbcType=CHAR},
+      </if>
+      <if test="fangwuway != null" >
+        fangWuWay = #{fangwuway,jdbcType=CHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=CHAR},
+      </if>
+      <if test="spdelegate != null" >
+        spdelegate = #{spdelegate,jdbcType=CHAR},
+      </if>
+      <if test="jiandurenyuan != null" >
+        jiandurenyuan = #{jiandurenyuan,jdbcType=CHAR},
+      </if>
+      <if test="xieguanrenyuan != null" >
+        xieguanrenyuan = #{xieguanrenyuan,jdbcType=CHAR},
+      </if>
+      <if test="scpermit != null" >
+        scpermit = #{scpermit,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengjiguan != null" >
+        fazhengjiguan = #{fazhengjiguan,jdbcType=CHAR},
+      </if>
+      <if test="fazhengriqi != null" >
+        fazhengriqi = #{fazhengriqi,jdbcType=CHAR},
+      </if>
+      <if test="youxiaodate != null" >
+        youxiaodate = #{youxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=CHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=CHAR},
+      </if>
+      <if test="foodmarket != null" >
+        foodMarket = #{foodmarket,jdbcType=CHAR},
+      </if>
+      <if test="supermarket != null" >
+        superMarket = #{supermarket,jdbcType=CHAR},
+      </if>
+      <if test="cvs != null" >
+        cvs = #{cvs,jdbcType=CHAR},
+      </if>
+      <if test="store != null" >
+        store = #{store,jdbcType=CHAR},
+      </if>
+      <if test="foodtrade != null" >
+        foodTrade = #{foodtrade,jdbcType=CHAR},
+      </if>
+      <if test="foodlogistics != null" >
+        foodLogistics = #{foodlogistics,jdbcType=CHAR},
+      </if>
+      <if test="nonstorefoodbusiness != null" >
+        nonStoreFoodBusiness = #{nonstorefoodbusiness,jdbcType=CHAR},
+      </if>
+      <if test="onlineshop != null" >
+        onlineShop = #{onlineshop,jdbcType=CHAR},
+      </if>
+      <if test="mailorder != null" >
+        mailOrder = #{mailorder,jdbcType=CHAR},
+      </if>
+      <if test="televisedshopping != null" >
+        televisedShopping = #{televisedshopping,jdbcType=CHAR},
+      </if>
+      <if test="automat != null" >
+        automat = #{automat,jdbcType=CHAR},
+      </if>
+      <if test="pifa != null" >
+        piFa = #{pifa,jdbcType=CHAR},
+      </if>
+      <if test="packfood != null" >
+        packFood = #{packfood,jdbcType=CHAR},
+      </if>
+      <if test="bulkfood != null" >
+        bulkFood = #{bulkfood,jdbcType=CHAR},
+      </if>
+      <if test="dairyproduct != null" >
+        dairyProduct = #{dairyproduct,jdbcType=CHAR},
+      </if>
+      <if test="hanbaby != null" >
+        hanBaby = #{hanbaby,jdbcType=CHAR},
+      </if>
+      <if test="nobody != null" >
+        noBody = #{nobody,jdbcType=CHAR},
+      </if>
+      <if test="foodproduct != null" >
+        foodProduct = #{foodproduct,jdbcType=CHAR},
+      </if>
+      <if test="waterproduct != null" >
+        waterProduct = #{waterproduct,jdbcType=CHAR},
+      </if>
+      <if test="freshanimalproduct != null" >
+        freshAnimalProduct = #{freshanimalproduct,jdbcType=CHAR},
+      </if>
+      <if test="healthproduct != null" >
+        healthProduct = #{healthproduct,jdbcType=CHAR},
+      </if>
+      <if test="retail != null" >
+        retail = #{retail,jdbcType=CHAR},
+      </if>
+      <if test="lspackfood != null" >
+        lsPackFood = #{lspackfood,jdbcType=CHAR},
+      </if>
+      <if test="lsbulkfood != null" >
+        lsBulkFood = #{lsbulkfood,jdbcType=CHAR},
+      </if>
+      <if test="cookedfood != null" >
+        cookedFood = #{cookedfood,jdbcType=CHAR},
+      </if>
+      <if test="nocookedfood != null" >
+        noCookedFood = #{nocookedfood,jdbcType=CHAR},
+      </if>
+      <if test="lsdairyproduct != null" >
+        lsDairyProduct = #{lsdairyproduct,jdbcType=CHAR},
+      </if>
+      <if test="lshanbaby != null" >
+        lsHanBaby = #{lshanbaby,jdbcType=CHAR},
+      </if>
+      <if test="lsnobody != null" >
+        lsNoBody = #{lsnobody,jdbcType=CHAR},
+      </if>
+      <if test="lsfoodproduct != null" >
+        lsFoodProduct = #{lsfoodproduct,jdbcType=CHAR},
+      </if>
+      <if test="lswaterproduct != null" >
+        lsWaterProduct = #{lswaterproduct,jdbcType=CHAR},
+      </if>
+      <if test="lsfreshanimalproduct != null" >
+        lsFreshAnimalProduct = #{lsfreshanimalproduct,jdbcType=CHAR},
+      </if>
+      <if test="lshealthproduct != null" >
+        lsHealthProduct = #{lshealthproduct,jdbcType=CHAR},
+      </if>
+      <if test="scene != null" >
+        scene = #{scene,jdbcType=CHAR},
+      </if>
+      <if test="amend != null" >
+        amend = #{amend,jdbcType=CHAR},
+      </if>
+      <if test="fddelegate != null" >
+        fddelegate = #{fddelegate,jdbcType=CHAR},
+      </if>
+      <if test="fdphone != null" >
+        fdphone = #{fdphone,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.Criculate" >
+    update criculate
+    set qyname = #{qyname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      scaddress = #{scaddress,jdbcType=CHAR},
+      ems = #{ems,jdbcType=CHAR},
+      qydelegate = #{qydelegate,jdbcType=CHAR},
+      qyphone = #{qyphone,jdbcType=CHAR},
+      jjtype = #{jjtype,jdbcType=CHAR},
+      email = #{email,jdbcType=CHAR},
+      gsorganization = #{gsorganization,jdbcType=CHAR},
+      zzcode = #{zzcode,jdbcType=CHAR},
+      cldate = #{cldate,jdbcType=CHAR},
+      nzyield = #{nzyield,jdbcType=CHAR},
+      jyArea = #{jyarea,jdbcType=CHAR},
+      propertyOwner = #{propertyowner,jdbcType=CHAR},
+      fangWuDate = #{fangwudate,jdbcType=CHAR},
+      fangWuWay = #{fangwuway,jdbcType=CHAR},
+      department = #{department,jdbcType=CHAR},
+      spdelegate = #{spdelegate,jdbcType=CHAR},
+      jiandurenyuan = #{jiandurenyuan,jdbcType=CHAR},
+      xieguanrenyuan = #{xieguanrenyuan,jdbcType=CHAR},
+      scpermit = #{scpermit,jdbcType=VARCHAR},
+      fazhengjiguan = #{fazhengjiguan,jdbcType=CHAR},
+      fazhengriqi = #{fazhengriqi,jdbcType=CHAR},
+      youxiaodate = #{youxiaodate,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=CHAR},
+      latitude = #{latitude,jdbcType=CHAR},
+      foodMarket = #{foodmarket,jdbcType=CHAR},
+      superMarket = #{supermarket,jdbcType=CHAR},
+      cvs = #{cvs,jdbcType=CHAR},
+      store = #{store,jdbcType=CHAR},
+      foodTrade = #{foodtrade,jdbcType=CHAR},
+      foodLogistics = #{foodlogistics,jdbcType=CHAR},
+      nonStoreFoodBusiness = #{nonstorefoodbusiness,jdbcType=CHAR},
+      onlineShop = #{onlineshop,jdbcType=CHAR},
+      mailOrder = #{mailorder,jdbcType=CHAR},
+      televisedShopping = #{televisedshopping,jdbcType=CHAR},
+      automat = #{automat,jdbcType=CHAR},
+      piFa = #{pifa,jdbcType=CHAR},
+      packFood = #{packfood,jdbcType=CHAR},
+      bulkFood = #{bulkfood,jdbcType=CHAR},
+      dairyProduct = #{dairyproduct,jdbcType=CHAR},
+      hanBaby = #{hanbaby,jdbcType=CHAR},
+      noBody = #{nobody,jdbcType=CHAR},
+      foodProduct = #{foodproduct,jdbcType=CHAR},
+      waterProduct = #{waterproduct,jdbcType=CHAR},
+      freshAnimalProduct = #{freshanimalproduct,jdbcType=CHAR},
+      healthProduct = #{healthproduct,jdbcType=CHAR},
+      retail = #{retail,jdbcType=CHAR},
+      lsPackFood = #{lspackfood,jdbcType=CHAR},
+      lsBulkFood = #{lsbulkfood,jdbcType=CHAR},
+      cookedFood = #{cookedfood,jdbcType=CHAR},
+      noCookedFood = #{nocookedfood,jdbcType=CHAR},
+      lsDairyProduct = #{lsdairyproduct,jdbcType=CHAR},
+      lsHanBaby = #{lshanbaby,jdbcType=CHAR},
+      lsNoBody = #{lsnobody,jdbcType=CHAR},
+      lsFoodProduct = #{lsfoodproduct,jdbcType=CHAR},
+      lsWaterProduct = #{lswaterproduct,jdbcType=CHAR},
+      lsFreshAnimalProduct = #{lsfreshanimalproduct,jdbcType=CHAR},
+      lsHealthProduct = #{lshealthproduct,jdbcType=CHAR},
+      scene = #{scene,jdbcType=CHAR},
+      amend = #{amend,jdbcType=CHAR},
+      fddelegate = #{fddelegate,jdbcType=CHAR},
+      fdphone = #{fdphone,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

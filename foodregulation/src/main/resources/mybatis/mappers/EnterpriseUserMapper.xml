@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.EnterpriseUserMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.EnterpriseUser" >
+  	<id column="id" property="id" jdbcType="INTEGER" />
+    <result column="enterprise_name" property="enterpriseName" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="enterpriseTypeCode" property="enterpriseTypeCode" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="findEnterpriseUser" parameterType="map" resultMap="BaseResultMap">
+  	select * from enterprise_user where user_name = #{username} and password = #{password}
+  </select>
+  <select id="findEnterpriseUserById" parameterType="int" resultMap="BaseResultMap">
+  	select * from enterprise_user where id = #{id}
+  </select>
+  <select id="selectEnterpriseUserByUsername" resultMap="BaseResultMap">
+  	select * from enterprise_user where user_name = #{userName}
+  </select>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.EnterpriseUser" >
+    insert into enterprise_user (enterprise_name, user_name, password,enterpriseTypeCode,name
+      )
+    values (#{enterpriseName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{enterpriseTypeCode,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.EnterpriseUser" >
+    insert into enterprise_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="enterpriseName != null" >
+        enterprise_name,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="enterpriseName != null" >
+        #{enterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

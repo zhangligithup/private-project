@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.EnterpriseInfoMapper">
+	<select id="selectEnterpriseInfo" resultType="map">
+	select a.id,a.longitude,a.latitude,a.qyname,a.department,a.address,a.scpermit,a.youxiaodate,a.enterpriseType,a.qydelegate,a.qyphone,a.zzcode,b.t_dictionary_name as addressName,a.create_time,a.scaddress,d1.t_dictionary_name departmentName,a.fazhengriqi,a.fddelegate  from
+		(select
+		id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_1' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from agricultural
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_8' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from cosmetic
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_3' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from criculate
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_9' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from drug
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from food
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from health
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from industry
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from medical
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from production
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_11' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from usemed
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate ,'enterprise_6' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from wine) a 
+		left join t_dictionary b on a.address = b.t_dictionary_code
+		left join t_dictionary d1 on d1.t_dictionary_code=a.department
+		where 1=1
+		<if test="enterpriseName!=null and enterpriseName!=''">
+			and a.qyname = #{enterpriseName,jdbcType=VARCHAR}
+		</if>
+		<if test="enterpriseNameLike!=null and enterpriseNameLike!=''">
+			and a.qyname like  CONCAT('%', #{enterpriseNameLike,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="enterpriseType!=null and enterpriseType!=''">
+			and a.enterpriseType = #{enterpriseType}
+		</if>
+		<if test="checkUnitCode!=null and checkUnitCode!=''">
+			and a.department = #{checkUnitCode}
+		</if>
+		<if test="address!=null and address!=''">
+			and a.address = #{address}
+		</if>
+		<if test="fazhengriqi!=null and fazhengriqi!=''">
+			and a.fazhengriqi = #{fazhengriqi}
+		</if>
+		<if test="department!=null and department!=''">
+			and a.department = #{department}
+		</if>
+		<if test="islola!=null and islola!=''">
+			<![CDATA[ 
+				and a.longitude <> '' and a.latitude <> '' and a.longitude is not null and a.latitude is not null group by a.longitude,a.latitude
+			]]>
+		</if>
+		order by a.create_time desc
+		<if test="startNum!=null and startNum>-1">
+    		limit ${startNum},${limit}
+    	</if>
+	</select>
+	<select id="selectEnterpriseInfoGroupcheckUnit" resultType="map">
+    select count(*) as total,a.department from
+        (select
+        id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_1' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from agricultural
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_8' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from cosmetic
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_3' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from criculate
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_9' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from drug
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from food
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from health
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from industry
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from medical
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from production
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_11' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from usemed
+        union all
+        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate ,'enterprise_6' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from wine) a 
+        left join t_dictionary b on a.address = b.t_dictionary_code
+        left join t_dictionary d1 on d1.t_dictionary_code=a.department
+        where 1=1
+        <if test="enterpriseType!=null and enterpriseType!=''">
+            and a.enterpriseType = #{enterpriseType}
+        </if>
+        group by a.department
+    </select>
+	<select id="selectEnterpriseInfoTotal" resultType="int">
+	select count(*) from
+		(select
+		id,qyname,department,address,scpermit,youxiaodate,'enterprise_1' as enterpriseType,fazhengriqi from agricultural
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_8' as enterpriseType,fazhengriqi from cosmetic
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_3' as enterpriseType,fazhengriqi from criculate
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_9' as enterpriseType,fazhengriqi from drug
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,fazhengriqi from food
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,fazhengriqi from health
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,fazhengriqi from industry
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,fazhengriqi from medical
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,fazhengriqi from production
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_11' as enterpriseType,fazhengriqi from usemed
+		union all
+		select id,qyname,department,address,scpermit,youxiaodate ,'enterprise_6' as enterpriseType,fazhengriqi from wine) a where 1=1
+		<if test="enterpriseName!=null and enterpriseName!=''">
+			and a.qyname = #{enterpriseName,jdbcType=VARCHAR}
+		</if>
+		<if test="enterpriseNameLike!=null and enterpriseNameLike!=''">
+			and a.qyname like  CONCAT('%', #{enterpriseNameLike,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="enterpriseType!=null and enterpriseType!=''">
+			and a.enterpriseType = #{enterpriseType}
+		</if>
+		<if test="checkUnitCode!=null and checkUnitCode!=''">
+			and a.department = #{checkUnitCode}
+		</if>
+		<if test="address!=null and address!=''">
+			and a.address = #{address}
+		</if>
+		<if test="fazhengriqi!=null and fazhengriqi!=''">
+			and a.fazhengriqi = #{fazhengriqi}
+		</if>
+		<if test="department!=null and department!=''">
+			and a.department = #{department}
+		</if>
+		<if test="islola!=null and islola!=''">
+			<![CDATA[ 
+				and a.longitude <> '' and a.latitude <> '' and a.longitude is not null and a.latitude is not null group by a.longitude,a.latitude
+			]]>
+		</if>
+	</select>
+	<select id="enterpriseTypeStatistics" resultType="map">
+		select count(1) as count,enterpriseType from (
+			select
+		id,qyname,address,scpermit,youxiaodate,'enterprise_1' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi  from agricultural
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_8' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from cosmetic
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_3' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from criculate
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_9' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from drug
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from food
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from health
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from industry
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from medical
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from production
+		union all
+		select id,qyname,address,scpermit,youxiaodate,'enterprise_11' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from usemed
+		union all
+		select id,qyname,address,scpermit,youxiaodate ,'enterprise_6' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from wine
+		)  a
+		<where>
+			<if test="startTime!=null">
+			    and fazhengriqi &gt;= #{startTime}
+			</if>
+			<if test="endTime!=null">
+			    and fazhengriqi  &lt;= #{endTime}
+			</if>
+		</where>
+		group by enterpriseType
+	</select>
+	
+		<select id="enterpriseAreaStatistics" resultType="map">
+		select count(1) as count,address from (
+			
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi  from agricultural
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from cosmetic
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from criculate
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from drug
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from food
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from health
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from industry
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from medical
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from production
+		union all
+		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from usemed
+		union all
+		select id,qyname,address,scpermit,youxiaodate ,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from wine
+		)  a
+		<where>
+			<if test="startTime!=null">
+			    and fazhengriqi &gt;= #{startTime}
+			</if>
+			<if test="endTime!=null">
+			    and fazhengriqi  &lt;= #{endTime}
+			</if>
+		</where>
+		group by address
+	</select>
+	
+		<select id="finEnterpriseInfo" resultType="map">
+select a.id,a.longitude,a.latitude,a.qyname,a.department,a.address,a.scpermit,a.youxiaodate,a.enterpriseType,a.qydelegate,a.qyphone,a.zzcode,b.t_dictionary_name as addressName,a.create_time,a.scaddress,d1.t_dictionary_name departmentName,fazhengriqi  from
+		(select
+		id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_1' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from agricultural
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_8' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from cosmetic
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_3' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from criculate
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_9' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from drug
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from food
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from health
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from industry
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from medical
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from production
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_11' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from usemed
+		union all
+		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate ,'enterprise_6' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from wine) a 
+		left join t_dictionary b on a.address = b.t_dictionary_code
+		left join t_dictionary d1 on d1.t_dictionary_code=a.department
+where a.qyname=#{qyname}
+	</select>
+	
+	<select id="enterpriseUnitStatistics" resultType="map">
+		select count(1) as count,department,address from (
+			
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi  from agricultural
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from cosmetic
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from criculate
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from drug
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from food
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from health
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from industry
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from medical
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from production
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from usemed
+		union all
+		select department,id,qyname,address,scpermit,youxiaodate ,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from wine
+		)  a
+		<where>
+			<if test="startTime!=null">
+			    and fazhengriqi &gt;= #{startTime}
+			</if>
+			<if test="endTime!=null">
+			    and fazhengriqi  &lt;= #{endTime}
+			</if>
+		</where>
+		group by department
+	</select>
+
+	<select id="getEnterpriseList" resultType="map">
+		SELECT  a.id,b.t_dictionary_name AS enterpriseTypeName,a.qyname,b.t_dictionary_code AS enterpriseType ,a.address,a.department,c.t_dictionary_name AS region, d.t_dictionary_name AS unitName FROM
+		(SELECT
+		id,qyname,address,department,'enterprise_1' AS enterpriseType  FROM agricultural
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_8' AS enterpriseType FROM cosmetic
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_3' AS enterpriseType  FROM criculate
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_9' AS enterpriseType  FROM drug
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_4' AS enterpriseType  FROM food
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_2' AS enterpriseType FROM production
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_11' AS enterpriseType FROM usemed
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_6' AS enterpriseType FROM wine) a
+		INNER JOIN t_dictionary b ON a.enterpriseType = b.t_dictionary_code
+		INNER JOIN t_dictionary c ON a.address = c.t_dictionary_code
+		INNER JOIN t_dictionary d ON a.department = d.t_dictionary_code
+		WHERE 1=1
+		<if test="enterpriseType!=null and enterpriseType!=''">
+			and a.enterpriseType = #{enterpriseType}
+		</if>
+		<if test="enterpriseName!=null and enterpriseName!=''">
+			and a.qyname like  CONCAT('%', #{enterpriseName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="regionCode!=null and regionCode!=''">
+			and a.address = #{regionCode}
+		</if>
+		<if test="unitCode!=null and unitCode!=''">
+			and a.department = #{unitCode}
+		</if>
+		<if test="startNum!=null and startNum>-1">
+			limit ${startNum},${limit}
+		</if>
+	</select>
+	<select id="getEnterpriseListTotal" resultType="long">
+		SELECT  count(*) FROM
+		(SELECT  a.id,b.t_dictionary_name AS enterpriseTypeName,a.qyname,b.t_dictionary_code AS enterpriseType ,a.address,a.department,c.t_dictionary_name AS region, d.t_dictionary_name AS unitName FROM
+		(SELECT
+		id,qyname,address,department,'enterprise_1' AS enterpriseType  FROM agricultural
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_8' AS enterpriseType FROM cosmetic
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_3' AS enterpriseType  FROM criculate
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_9' AS enterpriseType  FROM drug
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_4' AS enterpriseType  FROM food
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_2' AS enterpriseType FROM production
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_11' AS enterpriseType FROM usemed
+		UNION ALL
+		SELECT id,qyname,address,department,'enterprise_6' AS enterpriseType FROM wine) a
+		INNER JOIN t_dictionary b ON a.enterpriseType = b.t_dictionary_code
+		INNER JOIN t_dictionary c ON a.address = c.t_dictionary_code
+		INNER JOIN t_dictionary d ON a.department = d.t_dictionary_code) co
+		WHERE 1=1
+		<if test="enterpriseType!=null and enterpriseType!=''">
+			and co.enterpriseType = #{enterpriseType}
+		</if>
+		<if test="enterpriseName!=null and enterpriseName!=''">
+			and co.qyname like  CONCAT('%', #{enterpriseName,jdbcType=VARCHAR},'%')
+		</if>
+		<if test="regionCode!=null and regionCode!=''">
+			and co.address = #{regionCode}
+		</if>
+		<if test="unitCode!=null and unitCode!=''">
+			and co.department = #{unitCode}
+		</if>
+	</select>
+	<select id="getEnterpriseNameList" resultType="map">
+		select qyname as id,qyname as text from ${tableName}
+	</select>
+	
+	
+	<select id="selectEnterpriseInfoName" resultType="map">
+		select a.id,a.qyname,a.enterpriseType from
+		(SELECT
+        id,qyname,'enterprise_1' AS enterpriseType  FROM agricultural
+        UNION ALL
+        SELECT id,qyname,'enterprise_8' AS enterpriseType FROM cosmetic
+        UNION ALL
+        SELECT id,qyname,'enterprise_3' AS enterpriseType  FROM criculate
+        UNION ALL
+        SELECT id,qyname,'enterprise_9' AS enterpriseType  FROM drug
+        UNION ALL
+        SELECT id,qyname,'enterprise_4' AS enterpriseType  FROM food
+        UNION ALL
+        SELECT id,qyname,'enterprise_7' AS enterpriseType  FROM health
+        UNION ALL
+        SELECT id,qyname,'enterprise_5' AS enterpriseType  FROM industry
+        UNION ALL
+        SELECT id,qyname,'enterprise_10' AS enterpriseType FROM medical
+        UNION ALL
+        SELECT id,qyname,'enterprise_2' AS enterpriseType FROM production
+        UNION ALL
+        SELECT id,qyname,'enterprise_11' AS enterpriseType FROM usemed
+        UNION ALL
+        SELECT id,qyname,'enterprise_6' AS enterpriseType FROM wine) a 
+        where 1=1
+        <if test="enterpriseType!=null and enterpriseType!=''" >
+            and a.enterpriseType = #{enterpriseType,jdbcType=VARCHAR}
+        </if>
+	</select>
+</mapper>

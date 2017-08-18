@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.ExamRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.ExamRecord" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="examination_id" property="examinationId" jdbcType="BIGINT" />
+    <result column="exam_id" property="examId" jdbcType="BIGINT" />
+    <result column="operator_id" property="operatorId" jdbcType="INTEGER" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="createTime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, examination_id, exam_id, operator_id, answer, createTime
+  </sql>
+  <insert id="insertList" parameterType="com.foodregulation.dao.entity.ExamRecord" >
+    insert into t_exam_record (examination_id, exam_id,operator_id,answer,type
+    )
+    values
+    <foreach collection="list" item="item" index="index" separator="," >
+      (#{item.examinationId},#{item.examId},#{item.operatorId},#{item.answer},#{item.type})
+    </foreach>
+  </insert>
+</mapper>

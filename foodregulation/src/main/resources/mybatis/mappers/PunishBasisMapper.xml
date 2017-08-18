@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.PunishBasisMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.PunishBasis" >
+    <id column="punish_basis_id" property="punishBasisId" jdbcType="INTEGER" />
+    <result column="punish_basis_code" property="punishBasisCode" jdbcType="VARCHAR" />
+    <result column="punish_basis_content" property="punishBasisContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    punish_basis_id, punish_basis_code, punish_basis_content
+  </sql>
+  
+  <select id="selectPunishBasis" resultMap="BaseResultMap"  >
+    select * from t_punish_basis
+    where 1=1
+    <if test="punishBasisCode!=null and punishBasisCode!=''">
+        and punish_basis_code like CONCAT ('%',#{punishBasisCode},'%')
+    </if>
+    <if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+  </select>
+  
+  <select id="selectPunishBasisTotal" resultType="int"  >
+    select count(*) from t_punish_basis
+    where 1=1
+    <if test="punishBasisCode!=null and punishBasisCode!=''">
+        and punish_basis_code like CONCAT ('%',#{punishBasisCode},'%')
+    </if>
+  </select>
+  
+  <select id="findPunishBasis" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_punish_basis
+    where punish_basis_id = #{punishBasisId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deletePunishBasis" parameterType="java.lang.Integer" >
+    delete from t_punish_basis
+    where punish_basis_id = #{punishBasisId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertPunishBasis" parameterType="com.foodregulation.dao.entity.PunishBasis" >
+    insert into t_punish_basis
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="punishBasisCode != null" >
+        punish_basis_code,
+      </if>
+      <if test="punishBasisContent != null" >
+        punish_basis_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="punishBasisCode != null" >
+        #{punishBasisCode,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBasisContent != null" >
+        #{punishBasisContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updatePunishBasis" parameterType="com.foodregulation.dao.entity.PunishBasis" >
+    update t_punish_basis
+    <set >
+      <if test="punishBasisCode != null" >
+        punish_basis_code = #{punishBasisCode,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBasisContent != null" >
+        punish_basis_content = #{punishBasisContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where punish_basis_id = #{punishBasisId,jdbcType=INTEGER}
+  </update>
+</mapper>

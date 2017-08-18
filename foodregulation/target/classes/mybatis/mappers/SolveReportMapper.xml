@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.SolveReportMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.SolveReport" >
+    <id column="solve_report_id" property="solveReportId" jdbcType="BIGINT" />
+    <result column="report_id" property="reportId" jdbcType="BIGINT" />
+    <result column="is_satisfied" property="isSatisfied" jdbcType="VARCHAR" />
+    <result column="is_record" property="isRecord" jdbcType="VARCHAR" />
+    <result column="create_pepole" property="createPepole" jdbcType="VARCHAR" />
+    <result column="solve_situation" property="solveSituation" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    solve_report_id, report_id, is_satisfied, is_record, create_pepole, solve_situation
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from solve_report
+    where solve_report_id = #{solveReportId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from solve_report
+    where solve_report_id = #{solveReportId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.SolveReport" >
+    insert into solve_report (solve_report_id, report_id, is_satisfied, 
+      is_record, create_pepole, solve_situation
+      )
+    values (#{solveReportId,jdbcType=BIGINT}, #{reportId,jdbcType=BIGINT}, #{isSatisfied,jdbcType=VARCHAR}, 
+      #{isRecord,jdbcType=VARCHAR}, #{createPepole,jdbcType=VARCHAR}, #{solveSituation,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.SolveReport" >
+    insert into solve_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="solveReportId != null" >
+        solve_report_id,
+      </if>
+      <if test="reportId != null" >
+        report_id,
+      </if>
+      <if test="isSatisfied != null" >
+        is_satisfied,
+      </if>
+      <if test="isRecord != null" >
+        is_record,
+      </if>
+      <if test="createPepole != null" >
+        create_pepole,
+      </if>
+      <if test="solveSituation != null" >
+        solve_situation,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="solveReportId != null" >
+        #{solveReportId,jdbcType=BIGINT},
+      </if>
+      <if test="reportId != null" >
+        #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="isSatisfied != null" >
+        #{isSatisfied,jdbcType=VARCHAR},
+      </if>
+      <if test="isRecord != null" >
+        #{isRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="createPepole != null" >
+        #{createPepole,jdbcType=VARCHAR},
+      </if>
+      <if test="solveSituation != null" >
+        #{solveSituation,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.SolveReport" >
+    update solve_report
+    <set >
+      <if test="reportId != null" >
+        report_id = #{reportId,jdbcType=BIGINT},
+      </if>
+      <if test="isSatisfied != null" >
+        is_satisfied = #{isSatisfied,jdbcType=VARCHAR},
+      </if>
+      <if test="isRecord != null" >
+        is_record = #{isRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="createPepole != null" >
+        create_pepole = #{createPepole,jdbcType=VARCHAR},
+      </if>
+      <if test="solveSituation != null" >
+        solve_situation = #{solveSituation,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where solve_report_id = #{solveReportId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.SolveReport" >
+    update solve_report
+    set report_id = #{reportId,jdbcType=BIGINT},
+      is_satisfied = #{isSatisfied,jdbcType=VARCHAR},
+      is_record = #{isRecord,jdbcType=VARCHAR},
+      create_pepole = #{createPepole,jdbcType=VARCHAR},
+      solve_situation = #{solveSituation,jdbcType=VARCHAR}
+    where solve_report_id = #{solveReportId,jdbcType=BIGINT}
+  </update>
+  
+  <select id="findHandleReport"  resultMap="BaseResultMap">
+    select * from solve_report where report_id = #{reportId}
+  </select>
+  
+    <delete id="deleteHandleReport" >
+    delete from solve_report
+    where report_id =  #{reportId}
+  </delete>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.MenuMapper" >
+  	<resultMap id="baseResultMap" type="com.foodregulation.dao.entity.LevenOneMenu">
+				<result property="id" column="id" />
+				<result property="name" column="name" />
+				<result property="style" column="style" />
+				<collection property="levenTwoMenu" ofType="com.foodregulation.dao.entity.LevenTwoMenu">  
+           			<result property="id" column="idTwo" />
+					<result property="name" column="nameTwo" />
+					<result property="url" column="urlTwo" />
+					<collection property="levenThreeMenu" ofType="com.foodregulation.dao.entity.levenThreeMenu">  
+           			<result property="id" column="idThree" />
+					<result property="name" column="nameThree" />
+					<result property="url" column="urlThree" />
+                 </collection>
+                 </collection>  
+		</resultMap>
+  <select id="getMenu" resultType="java.util.Map">
+   select id,parent_id as pId,name,'true' as open from menu order by indexNum asc
+  </select>
+
+  <select id="getMenuByIds" resultMap="baseResultMap">
+  		select * from (SELECT m1.id ,m1.name,m1.style,m2.id AS idTwo,m2.name AS nameTwo,m2.`url`AS urlTwo,ifnull(m3.id,0) AS idThree,m3.name AS nameThree,m3.url AS urlThree,m1.indexNum  FROM menu m1 
+  		LEFT JOIN menu m2 ON m1.id=m2.parent_id AND m2.level=2 
+  		LEFT JOIN  menu m3 ON m2.id=m3.parent_id AND m3.`level`=3
+  		WHERE
+  			m1.level=1 ) a 
+  			where
+  				a.id in <foreach item="item" index="index" collection="list" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+                and a.idTwo in  <foreach item="item" index="index" collection="list" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+             
+             and IF(a.idThree=0,a.id,a.idThree)   in  <foreach item="item" index="index" collection="list" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+            order by a.indexNum asc,a.idTwo asc,a.idThree asc
+  </select>
+</mapper>

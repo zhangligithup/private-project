@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.ReportMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Report" >
+    <id column="report_id" property="reportId" jdbcType="INTEGER" />
+    <result column="report_type_id" property="reportTypeId" jdbcType="VARCHAR" />
+    <result column="report_name" property="reportName" jdbcType="VARCHAR" />
+    <result column="report_tel" property="reportTel" jdbcType="VARCHAR" />
+    <result column="report_company" property="reportCompany" jdbcType="VARCHAR" />
+    <result column="report_content" property="reportContent" jdbcType="VARCHAR" />
+    <result column="report_time" property="reportTime" jdbcType="CHAR" />
+    <result column="report_local_id" property="reportLocalId" jdbcType="VARCHAR" />
+    <result column="report_official_person_id" property="reportOfficialPersonId" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="report_type_name" property="reportTypeName" jdbcType="VARCHAR" />
+    <result column="report_official_person_name" property="reportOfficialPersonName" jdbcType="VARCHAR" />
+    <result column="report_local_name" property="reportLocalName" jdbcType="VARCHAR" />
+    <result column="report_address" property="reportAddress" jdbcType="VARCHAR" />
+    <result column="report_administration_address_code" property="reportAdministrationAddressCode" jdbcType="VARCHAR" />
+    <result column="report_administration_address_name" property="reportAdministrationAddressName" jdbcType="VARCHAR" />
+    <result column="report_status" property="reportStatus" jdbcType="CHAR" />
+    <result column="solve_report_id" property="solveReportId" jdbcType="BIGINT" />
+    <result column="is_satisfied" property="isSatisfied" jdbcType="VARCHAR" />
+    <result column="is_record" property="isRecord" jdbcType="VARCHAR" />
+    <result column="create_pepole" property="createPepole" jdbcType="VARCHAR" />
+    <result column="solve_situation" property="solveSituation" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    report_id, report_type_id, report_name, report_tel, report_company, report_content, 
+    report_time, report_local_id, report_official_person_id
+  </sql>
+  
+  <select id="selectReport" resultMap="BaseResultMap"  >
+   select r.*,p.person_name,d.t_dictionary_name report_type_name,d1.t_dictionary_name report_administration_address_name
+from t_report r 
+left join t_person_info p 
+on p.person_id=r.report_official_person_id
+left join t_dictionary d
+on d.id=r.report_type_id
+left join t_dictionary d1
+on d1.t_dictionary_code = r.report_administration_address_code
+	<where>
+	 	<if test="reportCompany!=null and reportCompany!='' ">  
+           and report_company  like CONCAT('%',#{reportCompany},'%')
+        </if>
+        <if test="reportTime!=null and reportTime!='' ">  
+           and report_time=#{reportTime}
+        </if>   
+        <if test="username!=null and username!='' ">  
+           and p.user_name=#{username}
+        </if>   
+    </where>
+    order by report_id desc
+    <if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+  </select>
+  
+   <!-- 分页 -->
+  <select id="selectReportTotal" resultType="int">
+select count(*) from t_report r	
+left join t_person_info p 
+on p.person_id=r.report_official_person_id
+left join t_dictionary d
+on d.id=r.report_type_id
+left join t_dictionary d1
+on d1.t_dictionary_code = r.report_administration_address_code
+	<where>
+	 	<if test="reportCompany!=null and reportCompany!='' ">  
+           and report_company  like CONCAT('%',#{reportCompany},'%')
+        </if>   
+        <if test="reportTime!=null and reportTime!='' ">  
+           and report_time=#{reportTime}
+        </if> 
+        <if test="username!=null and username!='' ">  
+           and p.user_name=#{username}
+        </if> 
+    </where>
+	</select>
+  
+  <select id="findReport" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   select r.*,d.t_dictionary_name report_type_name,d1.t_dictionary_name report_administration_address_name,sr.*
+from t_report r
+left join t_dictionary d
+on d.id=r.report_type_id
+left join t_dictionary d1
+on d1.t_dictionary_code = r.report_administration_address_code
+left join solve_report sr
+on sr.report_id=r.report_id
+    where r.report_id = #{reportId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteReport" parameterType="java.lang.Integer" >
+    delete from t_report
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertReport" parameterType="com.foodregulation.dao.entity.Report" >
+    insert into t_report
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reportTypeId != null" >
+        report_type_id,
+      </if>
+      <if test="reportName != null" >
+        report_name,
+      </if>
+      <if test="reportTel != null" >
+        report_tel,
+      </if>
+      <if test="reportCompany != null" >
+        report_company,
+      </if>
+      <if test="reportContent != null" >
+        report_content,
+      </if>
+      <if test="reportTime != null" >
+         report_time,
+      </if>
+      <if test="reportLocalId != null" >
+        report_local_id,
+      </if>
+      <if test="reportOfficialPersonId != null" >
+        report_official_person_id,
+      </if>
+      <if test="reportAddress != null" >
+        report_address,
+      </if>
+      <if test="reportAdministrationAddressCode != null" >
+        report_administration_address_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reportTypeId != null" >
+        #{reportTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTel != null" >
+        #{reportTel,jdbcType=VARCHAR},
+      </if>
+      <if test="reportCompany != null" >
+        #{reportCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="reportContent != null" >
+        #{reportContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null" >
+        #{reportTime,jdbcType=CHAR},
+      </if>
+      <if test="reportLocalId != null" >
+        #{reportLocalId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportOfficialPersonId != null" >
+        #{reportOfficialPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportAddress != null" >
+        #{reportAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="reportAdministrationAddressCode != null" >
+        #{reportAdministrationAddressCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateReport" parameterType="com.foodregulation.dao.entity.Report" >
+    update t_report
+    <set >
+      <if test="reportTypeId != null" >
+        report_type_id = #{reportTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportName != null" >
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTel != null" >
+        report_tel = #{reportTel,jdbcType=VARCHAR},
+      </if>
+      <if test="reportTime != null" >
+        report_time = #{reportTime,jdbcType=CHAR},
+      </if>
+      <if test="reportCompany != null" >
+        report_company = #{reportCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="reportContent != null" >
+        report_content = #{reportContent,jdbcType=VARCHAR},
+      </if>
+      <if test="reportLocalId != null" >
+        report_local_id = #{reportLocalId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportOfficialPersonId != null" >
+        report_official_person_id = #{reportOfficialPersonId,jdbcType=VARCHAR},
+      </if>
+      <if test="reportAddress != null" >
+        report_address = #{reportAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="reportAdministrationAddressCode != null" >
+        report_administration_address_code = #{reportAdministrationAddressCode,jdbcType=VARCHAR},
+      </if>
+      <if test="reportStatus">
+      	report_status = #{reportStatus},
+      </if>
+      update_time = CURRENT_TIMESTAMP,
+    </set>
+    where report_id = #{reportId,jdbcType=INTEGER}
+  </update>
+  
+  	<select id="reportAreaStatistics" resultType="map">
+  		select count(1) as count, r.report_administration_address_code as address  from t_report r left join  t_dictionary d on d.t_dictionary_code=r.report_administration_address_code and d.t_dictionary_type=3
+  		<where>
+  			<if test="startTime!=null">
+			    and STR_TO_DATE(IFNULL(r.report_time,'1997-01-01'),'%Y-%m-%d') &gt;=DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+			</if>
+			<if test="endTime!=null">
+			    and STR_TO_DATE(IFNULL(r.report_time,'1997-01-01'),'%Y-%m-%d')   &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+			</if>
+			<if test="address!=null and address!=''">
+			    and d.t_dictionary_name LIKE CONCAT('%',#{address},'%') 
+			</if>
+			<if test="reportTypeId!=null and reportTypeId>0">
+			    and r.report_type_id = #{reportTypeId}
+			</if>
+  		</where>
+  		group by r.report_administration_address_code
+  	</select>
+  	
+  	  	<select id="reportTypeStatistics" resultType="map">
+  		select count(1) as count, r.report_type_id from t_report r left join t_dictionary d on d.t_dictionary_code=r.report_administration_address_code and d.t_dictionary_type=3
+  		<where>
+  			<if test="startTime!=null">
+			    and STR_TO_DATE(IFNULL(r.report_time,'1997-01-01'),'%Y-%m-%d') &gt;=DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+			</if>
+			<if test="endTime!=null">
+			    and STR_TO_DATE(IFNULL(r.report_time,'1997-01-01'),'%Y-%m-%d')   &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+			</if>
+			<if test="address!=null and address!=''">
+			    and d.t_dictionary_name LIKE CONCAT('%',#{address},'%') 
+			</if>
+			<if test="reportTypeId!=null and reportTypeId>0">
+			    and r.report_type_id = #{reportTypeId}
+			</if>
+  		</where>
+  		group by  r.report_type_id
+  	</select>
+  	
+  		<select id="reportUnitStatistics" resultType="map">
+  		select count(1) as count, d.t_dictionary_code as supervisory from t_report r left join t_dictionary d on d.id=r.report_local_id and d.t_dictionary_type=2
+  		<where>
+  			<if test="startTime!=null">
+			    and STR_TO_DATE(IFNULL(r.report_time,'1997-01-01'),'%Y-%m-%d') &gt;=DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+			</if>
+			<if test="endTime!=null">
+			    and STR_TO_DATE(IFNULL(r.report_time,'1997-01-01'),'%Y-%m-%d')   &lt;= DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+			</if>
+			<if test="address!=null and address!=''">
+			    and d.t_dictionary_name LIKE CONCAT('%',#{address},'%') 
+			</if>
+			<if test="reportTypeId!=null and reportTypeId>0">
+			    and r.report_type_id = #{reportTypeId}
+			</if>
+  		</where>
+  		group by  r.report_local_id
+  	</select>
+  	
+  	
+  	  <select id="findReportDetail" resultMap="BaseResultMap"  >
+   select r.*,d.t_dictionary_name report_type_name,p.person_name report_official_person_name,d.t_dictionary_name  report_local_name
+from t_report r
+left join t_dictionary d
+on d.id=r.report_type_id
+left join t_dictionary d1
+on d1.id=r.report_local_id
+left join t_person_info p
+on p.person_id=r.report_official_person_id
+    where report_company = #{reportCompany}
+  </select>
+  
+  	<select id="getReport" resultMap="BaseResultMap"  >
+   select r.*,p.person_name,d.t_dictionary_name report_type_name,e.solve_situation
+from t_report r 
+left join t_person_info p 
+on p.person_id=r.report_official_person_id
+left join t_dictionary d 
+on d.id=r.report_type_id 
+left join solve_report e
+on r.report_id = e.report_id
+           where 1=1
+           <if test="reportId!=null and reportId!=''">
+           and r.report_id = #{reportId}
+           </if>
+           <if test="enterpriseName!=null and enterpriseName!=''">
+           and r.report_company=#{enterpriseName} 
+           </if>
+  </select>
+  
+  <select id="getReportList" resultMap="BaseResultMap"  >
+   select r.*,p.person_name,d.t_dictionary_name report_type_name,e.solve_situation
+from t_report r 
+left join t_person_info p 
+on p.person_id=r.report_official_person_id
+left join t_dictionary d 
+on d.id=r.report_type_id 
+left join solve_report e
+on r.report_id = e.report_id
+where 1=1
+<if test="personId!=null">
+and report_official_person_id = #{personId}
+</if>
+    order by update_time desc 
+    <if test="startNum!=null and startNum>-1">
+    		limit ${startNum},${limit}
+    	</if>
+  </select>
+  
+  
+   <update id="updateReportStatus" >
+    update t_report set  report_status = '1' where report_id = #{reportId}
+  </update>
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.CaseFromMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.CaseFrom" >
+    <id column="case_from_id" property="caseFromId" jdbcType="INTEGER" />
+    <result column="case_from_code" property="caseFromCode" jdbcType="VARCHAR" />
+    <result column="case_from_content" property="caseFromContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    case_from_id, case_from_code, case_from_content
+  </sql>
+  
+  <select id="selectCaseFrom" resultMap="BaseResultMap" >
+    select * from t_case_from order by case_from_code
+    <if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+  </select>
+  
+  <!-- 分页 -->
+  <select id="selectCaseFromTotal" resultType="int">
+		select count(*) from t_case_from	
+	</select>
+  
+  <select id="findCaseFrom" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from t_case_from
+    where case_from_id = #{caseFromId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteCaseFrom" parameterType="java.lang.Integer" >
+    delete from t_case_from
+    where case_from_id = #{caseFromId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertCaseFrom" parameterType="com.foodregulation.dao.entity.CaseFrom" >
+    insert into t_case_from
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseFromCode != null" >
+        case_from_code,
+      </if>
+      <if test="caseFromContent != null" >
+        case_from_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseFromCode != null" >
+        #{caseFromCode,jdbcType=VARCHAR},
+      </if>
+      <if test="caseFromContent != null" >
+        #{caseFromContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateCaseFrom" parameterType="com.foodregulation.dao.entity.CaseFrom" >
+    update t_case_from
+    <set >
+      <if test="caseFromCode != null" >
+        case_from_code = #{caseFromCode,jdbcType=VARCHAR},
+      </if>
+      <if test="caseFromContent != null" >
+        case_from_content = #{caseFromContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where case_from_id = #{caseFromId,jdbcType=INTEGER}
+  </update>
+ 
+</mapper>

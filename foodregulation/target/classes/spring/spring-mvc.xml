@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+	<!-- 启用spring mvc 注解 -->
+	<mvc:annotation-driven />
+
+	<!-- 扫描 -->
+	<context:component-scan base-package="com.foodregulation" />
+	<!-- 对controller层事务代理AOP的支持 -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+
+	<!-- session拦截器 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**/**.do" />
+			<mvc:mapping path="/**/**/**.do" />
+			<mvc:exclude-mapping path="/login.do"/> 
+			<mvc:exclude-mapping path="/app/**"/> 
+			<mvc:exclude-mapping path="/supervisionAndCheck/**"/> 
+			<mvc:exclude-mapping path="/dictionary/**"/> 
+			<mvc:exclude-mapping path="/enterpriseInfo/getEnterpriseListTotal.do"/> 
+			<mvc:exclude-mapping path="/enterpriseInfo/getEnterpriseList.do"/> 
+			<bean class="com.foodregulation.interceptor.SessionInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+    <bean id="viewResolverJsp"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.InternalResourceView" />
+		<property name="order" value="1" />
+	</bean>
+	
+	<mvc:annotation-driven validator="validator"
+		conversion-service="conversion-service">
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" />
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html;charset=UTF-8</value>
+						<value>text/plain;charset=UTF-8</value>
+						<value>application/json;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<ref bean="mappingJackson2HttpMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<bean id="mappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>text/plain;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<!--不设置则默认为classpath下的 ValidationMessages.properties -->
+		<!-- <property name="validationMessageSource" ref="validatemessageSource"/> -->
+	</bean>
+
+	<bean id="conversion-service"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="registerDefaultFormatters" value="false" />
+		<property name="formatters">
+			<set>
+				<bean
+					class="org.springframework.format.number.NumberFormatAnnotationFormatterFactory" />
+			</set>
+		</property>
+		<property name="formatterRegistrars">
+			<set>
+				<bean
+					class="org.springframework.format.datetime.joda.JodaTimeFormatterRegistrar">
+					<property name="dateFormatter">
+						<bean
+							class="org.springframework.format.datetime.joda.DateTimeFormatterFactoryBean">
+							<property name="pattern" value="YYYY-MM-DD hh:mm:ss" />
+						</bean>
+					</property>
+				</bean>
+			</set>
+		</property>
+	</bean>
+	<bean id="validatemessageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basename" value="classpath:validatemessages.properties" />
+		<property name="fileEncodings" value="utf-8" />
+		<property name="cacheSeconds" value="120" />
+	</bean>
+	<!-- 文件上传支持 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">  
+        <property name="defaultEncoding" value="utf-8"></property>   
+        <property name="maxUploadSize" value="10485760000"></property>  
+        <property name="maxInMemorySize" value="40960"></property>  
+   </bean> 
+
+</beans>

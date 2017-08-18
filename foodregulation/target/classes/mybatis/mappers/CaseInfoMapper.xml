@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.CaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.CaseInfo" >
+    <id column="case_info_id" property="caseInfoId" jdbcType="INTEGER" />
+    <result column="case_info_company" property="caseInfoCompany" jdbcType="VARCHAR" />
+    <result column="case_info_filing_person" property="caseInfoFilingPerson" jdbcType="VARCHAR" />
+    <result column="case_from_id" property="caseFromId" jdbcType="INTEGER" />
+    <result column="case_info_time" property="caseInfoTime" jdbcType="CHAR" />
+    <result column="case_info_reason" property="caseInfoReason" jdbcType="VARCHAR" />
+    <result column="illegal_clause_ids" property="illegalClauseIds" jdbcType="VARCHAR" />
+    <result column="punish_basis_ids" property="punishBasisIds" jdbcType="VARCHAR" />
+    <result column="punish_basis_detail_content" property="punishBasisDetailContent" jdbcType="VARCHAR" />
+    <result column="illegal_clause_detail_content" property="illegalClauseDetailContent" jdbcType="VARCHAR" />
+    <result column="case_from_content" property="caseFromContent" jdbcType="VARCHAR" />
+    <result column="punish_basis_contents" property="punishBasisContents" jdbcType="VARCHAR" />
+    <result column="illegal_clause_contents" property="illegalClauseContents" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    case_info_id, case_info_company, case_info_filing_person, case_from_id, case_info_time, 
+    case_info_reason, illegal_clause_ids, punish_basis_ids, punish_basis_detail_content, 
+    illegal_clause_detail_content
+  </sql>
+  <select id="selectCaseInfo" resultMap="BaseResultMap" >
+    select ci.*,cf.case_from_content
+from t_case_info ci
+left join t_case_from cf
+on ci.case_from_id=cf.case_from_id 
+	<where>
+	 	<if test="caseInfoCompany!=null and caseInfoCompany!='' ">  
+           and case_info_company=#{caseInfoCompany}
+        </if>
+        <if test="caseInfoFrom!=null and caseInfoFrom!='' ">  
+           and ci.case_from_id=#{caseInfoFrom}
+        </if> 
+        <if test="caseInfoTime!=null and caseInfoTime!='' ">  
+           and case_info_time=#{caseInfoTime}
+        </if>    
+    </where>
+    <if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+  </select>
+  
+  <select id="selectCaseInfoTotal" resultType="int" >
+    select count(*) from t_case_info
+    <where>
+	 	<if test="caseInfoCompany!=null and caseInfoCompany!='' ">  
+           and case_info_company=#{caseInfoCompany}
+        </if>
+        <if test="caseInfoFrom!=null and caseInfoFrom!='' ">  
+           and case_from_id=#{caseInfoFrom}
+        </if> 
+        <if test="caseInfoTime!=null and caseInfoTime!='' ">  
+           and case_info_time=#{caseInfoTime}
+        </if>    
+    </where>
+  </select>
+  
+  <select id="findCaseInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select ci.*,cf.case_from_content
+from t_case_info ci
+left join t_case_from cf
+on ci.case_from_id=cf.case_from_id 
+    where case_info_id = #{caseInfoId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteCaseInfo" parameterType="java.lang.Integer" >
+    delete from t_case_info
+    where case_info_id = #{caseInfoId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertCaseInfo" parameterType="com.foodregulation.dao.entity.CaseInfo" >
+    insert into t_case_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseInfoCompany != null" >
+        case_info_company,
+      </if>
+      <if test="caseInfoFilingPerson != null" >
+        case_info_filing_person,
+      </if>
+      <if test="caseFromId != null" >
+        case_from_id,
+      </if>
+      <if test="caseInfoTime != null" >
+        case_info_time,
+      </if>
+      <if test="caseInfoReason != null" >
+        case_info_reason,
+      </if>
+      <if test="illegalClauseIds != null" >
+        illegal_clause_ids,
+      </if>
+      <if test="punishBasisIds != null" >
+        punish_basis_ids,
+      </if>
+      <if test="punishBasisDetailContent != null" >
+        punish_basis_detail_content,
+      </if>
+      <if test="illegalClauseDetailContent != null" >
+        illegal_clause_detail_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseInfoCompany != null" >
+        #{caseInfoCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="caseInfoFilingPerson != null" >
+        #{caseInfoFilingPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="caseFromId != null" >
+        #{caseFromId,jdbcType=INTEGER},
+      </if>
+      <if test="caseInfoTime != null" >
+        #{caseInfoTime,jdbcType=CHAR},
+      </if>
+      <if test="caseInfoReason != null" >
+        #{caseInfoReason,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalClauseIds != null" >
+        #{illegalClauseIds,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBasisIds != null" >
+        #{punishBasisIds,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBasisDetailContent != null" >
+        #{punishBasisDetailContent,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalClauseDetailContent != null" >
+        #{illegalClauseDetailContent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateCaseInfo" parameterType="com.foodregulation.dao.entity.CaseInfo" >
+    update t_case_info
+    <set >
+      <if test="caseInfoCompany != null" >
+        case_info_company = #{caseInfoCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="caseInfoFilingPerson != null" >
+        case_info_filing_person = #{caseInfoFilingPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="caseFromId != null" >
+        case_from_id = #{caseFromId,jdbcType=INTEGER},
+      </if>
+      <if test="caseInfoTime != null" >
+        case_info_time = #{caseInfoTime,jdbcType=CHAR},
+      </if>
+      <if test="caseInfoReason != null" >
+        case_info_reason = #{caseInfoReason,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalClauseIds != null" >
+        illegal_clause_ids = #{illegalClauseIds,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBasisIds != null" >
+        punish_basis_ids = #{punishBasisIds,jdbcType=VARCHAR},
+      </if>
+      <if test="punishBasisDetailContent != null" >
+        punish_basis_detail_content = #{punishBasisDetailContent,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalClauseDetailContent != null" >
+        illegal_clause_detail_content = #{illegalClauseDetailContent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where case_info_id = #{caseInfoId,jdbcType=INTEGER}
+  </update>
+  
+      <select id="findPunishBasisContents" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+select group_concat(punish_basis_content)punish_basis_contents from (
+select pb.punish_basis_content 
+from t_punish_basis pb
+where  exists 
+(select 0 from t_case_info b where b.case_info_id= #{caseInfoId} and concat(',',b.punish_basis_ids,',') like concat('%,',pb.punish_basis_id,',%'))
+ ) test
+  </select>
+  
+        <select id="findIllegalClauseContents" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+select group_concat(illegal_clause_content)illegal_clause_contents from (
+select ic.illegal_clause_content 
+from t_illegal_clause ic
+where  exists 
+(select 0 from t_case_info b where b.case_info_id=#{caseInfoId} and concat(',',b.illegal_clause_ids,',') like concat('%,',ic.illegal_clause_id,',%'))
+ ) test
+  </select>
+  
+  
+   <select id="findCaseInfoDetail" resultMap="BaseResultMap" >
+    select ci.*,cf.case_from_content
+from t_case_info ci
+left join t_case_from cf
+on ci.case_from_id=cf.case_from_id 
+    where case_info_company = #{caseInfoCompany}
+  </select>
+  
+  <select id="getCaseInfo" resultMap="BaseResultMap" >
+    select * from t_case_info where case_info_company = #{enterpriseName} order by case_info_id desc limit 0,1;
+  </select>
+  
+</mapper>

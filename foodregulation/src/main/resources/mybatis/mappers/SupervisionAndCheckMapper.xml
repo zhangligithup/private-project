@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.SupervisionAndCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.SupervisionAndCheck" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="checked_enterprise_name" property="checkedEnterpriseName" jdbcType="VARCHAR" />
+    <result column="check_person_name" property="checkPersonName" jdbcType="VARCHAR" />
+    <result column="check_person_code" property="checkPersonCode" jdbcType="VARCHAR" />
+    <result column="check_address" property="checkAddress" jdbcType="VARCHAR" />
+    <result column="checked_enterprise_option" property="checkedEnterpriseOption" jdbcType="VARCHAR" />
+    <result column="check_project" property="checkProject" jdbcType="VARCHAR" />
+    <result column="enterprise_type_code" property="enterpriseTypeCode" jdbcType="VARCHAR" />
+    <result column="check_unit_code" property="checkUnitCode" jdbcType="VARCHAR" />
+    <result column="supervisionAndCheckcol" property="supervisionandcheckcol" jdbcType="VARCHAR" />
+    <result column="check_end_time" property="checkEndTime" jdbcType="VARCHAR" />
+    <result column="zhongdian_question" property="zhongdianQuestion" jdbcType="VARCHAR" />
+    <result column="yiban_question" property="yibanQuestion" jdbcType="VARCHAR" />
+    <result column="checked_start_time" property="checkedStartTime" jdbcType="VARCHAR" />
+    <result column="other_question" property="otherQuestion" jdbcType="VARCHAR" />
+    <result column="check_date" property="checkDate" jdbcType="VARCHAR" />
+    <result column="check_result" property="checkResult" jdbcType="VARCHAR" />
+    <result column="result_handle" property="resultHandle" jdbcType="VARCHAR" />
+    <result column="inspection_record_id" property="inspectionRecordId" jdbcType="INTEGER" />
+    <result column="proposal_id" property="proposalId" jdbcType="INTEGER" />
+    <result column="notice_id" property="noticeId" jdbcType="INTEGER" />
+    <result column="taskId" property="taskId" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, checked_enterprise_name, check_person_name, check_person_code, check_address, 
+    checked_enterprise_option, check_project, enterprise_type_code, check_unit_code, 
+    supervisionAndCheckcol, check_end_time, zhongdian_question, yiban_question, checked_start_time, 
+    other_question, check_date,check_result,result_handle,inspection_record_id,proposal_id,notice_id,taskId,img_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from supervisionandcheck
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supervisionandcheck
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.SupervisionAndCheck" >
+    insert into supervisionandcheck (id, checked_enterprise_name, check_person_name, 
+      check_person_code, check_address, checked_enterprise_option, 
+      check_project, enterprise_type_code, check_unit_code, 
+      supervisionAndCheckcol, check_end_time, zhongdian_question, 
+      yiban_question, checked_start_time, other_question, 
+      check_date,taskId)
+    values (#{id,jdbcType=INTEGER}, #{checkedEnterpriseName,jdbcType=VARCHAR}, #{checkPersonName,jdbcType=VARCHAR}, 
+      #{checkPersonCode,jdbcType=VARCHAR}, #{checkAddress,jdbcType=VARCHAR}, #{checkedEnterpriseOption,jdbcType=VARCHAR}, 
+      #{checkProject,jdbcType=VARCHAR}, #{enterpriseTypeCode,jdbcType=VARCHAR}, #{checkUnitCode,jdbcType=VARCHAR}, 
+      #{supervisionandcheckcol,jdbcType=VARCHAR}, #{checkEndTime,jdbcType=VARCHAR}, #{zhongdianQuestion,jdbcType=VARCHAR}, 
+      #{yibanQuestion,jdbcType=VARCHAR}, #{checkedStartTime,jdbcType=VARCHAR}, #{otherQuestion,jdbcType=VARCHAR}, 
+      #{checkDate,jdbcType=VARCHAR},#{taskId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.SupervisionAndCheck" >
+    insert into supervisionandcheck
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="checkedEnterpriseName != null" >
+        checked_enterprise_name,
+      </if>
+      <if test="checkPersonName != null" >
+        check_person_name,
+      </if>
+      <if test="checkPersonCode != null" >
+        check_person_code,
+      </if>
+      <if test="checkAddress != null" >
+        check_address,
+      </if>
+      <if test="checkedEnterpriseOption != null" >
+        checked_enterprise_option,
+      </if>
+      <if test="checkProject != null" >
+        check_project,
+      </if>
+      <if test="enterpriseTypeCode != null" >
+        enterprise_type_code,
+      </if>
+      <if test="checkUnitCode != null" >
+        check_unit_code,
+      </if>
+      <if test="supervisionandcheckcol != null" >
+        supervisionAndCheckcol,
+      </if>
+      <if test="checkEndTime != null" >
+        check_end_time,
+      </if>
+      <if test="zhongdianQuestion != null" >
+        zhongdian_question,
+      </if>
+      <if test="yibanQuestion != null" >
+        yiban_question,
+      </if>
+      <if test="checkedStartTime != null" >
+        checked_start_time,
+      </if>
+      <if test="otherQuestion != null" >
+        other_question,
+      </if>
+      <if test="checkDate != null" >
+        check_date,
+      </if>
+      <if test="checkResult != null" >
+        check_result,
+      </if>
+      <if test="resultHandle != null" >
+        result_handle,
+      </if>
+      <if test="inspectionRecordId != null" >
+        inspection_record_id,
+      </if>
+      <if test="proposalId != null" >
+        proposal_id,
+      </if>
+      <if test="noticeId != null" >
+        notice_id,
+      </if>
+      <if test="taskId != null" >
+        taskId,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="checkedEnterpriseName != null" >
+        #{checkedEnterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPersonName != null" >
+        #{checkPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPersonCode != null" >
+        #{checkPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkAddress != null" >
+        #{checkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="checkedEnterpriseOption != null" >
+        #{checkedEnterpriseOption,jdbcType=VARCHAR},
+      </if>
+      <if test="checkProject != null" >
+        #{checkProject,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseTypeCode != null" >
+        #{enterpriseTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkUnitCode != null" >
+        #{checkUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisionandcheckcol != null" >
+        #{supervisionandcheckcol,jdbcType=VARCHAR},
+      </if>
+      <if test="checkEndTime != null" >
+        #{checkEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="zhongdianQuestion != null" >
+        #{zhongdianQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="yibanQuestion != null" >
+        #{yibanQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="checkedStartTime != null" >
+        #{checkedStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="otherQuestion != null" >
+        #{otherQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        #{checkDate,jdbcType=VARCHAR},
+      </if>
+      <if test="checkResult != null" >
+        #{checkResult,jdbcType=VARCHAR},
+      </if>
+      <if test="resultHandle != null" >
+        #{resultHandle,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectionRecordId != null" >
+        #{inspectionRecordId,jdbcType=INTEGER},
+      </if>
+      <if test="proposalId != null" >
+        #{proposalId,jdbcType=INTEGER},
+      </if>
+      <if test="noticeId != null" >
+        #{noticeId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.SupervisionAndCheck" >
+    update supervisionandcheck
+    <set >
+      <if test="checkedEnterpriseName != null" >
+        checked_enterprise_name = #{checkedEnterpriseName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPersonName != null" >
+        check_person_name = #{checkPersonName,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPersonCode != null" >
+        check_person_code = #{checkPersonCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkAddress != null" >
+        check_address = #{checkAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="checkedEnterpriseOption != null" >
+        checked_enterprise_option = #{checkedEnterpriseOption,jdbcType=VARCHAR},
+      </if>
+      <if test="checkProject != null" >
+        check_project = #{checkProject,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseTypeCode != null" >
+        enterprise_type_code = #{enterpriseTypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="checkUnitCode != null" >
+        check_unit_code = #{checkUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supervisionandcheckcol != null" >
+        supervisionAndCheckcol = #{supervisionandcheckcol,jdbcType=VARCHAR},
+      </if>
+      <if test="checkEndTime != null" >
+        check_end_time = #{checkEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="zhongdianQuestion != null" >
+        zhongdian_question = #{zhongdianQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="yibanQuestion != null" >
+        yiban_question = #{yibanQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="checkedStartTime != null" >
+        checked_start_time = #{checkedStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="otherQuestion != null" >
+        other_question = #{otherQuestion,jdbcType=VARCHAR},
+      </if>
+      <if test="checkDate != null" >
+        check_date = #{checkDate,jdbcType=VARCHAR},
+      </if>
+        inspection_record_id = #{inspectionRecordId,jdbcType=INTEGER},
+        proposal_id = #{proposalId,jdbcType=INTEGER},
+        notice_id = #{noticeId,jdbcType=INTEGER},
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.SupervisionAndCheck" >
+    update supervisionandcheck
+    set checked_enterprise_name = #{checkedEnterpriseName,jdbcType=VARCHAR},
+      check_person_name = #{checkPersonName,jdbcType=VARCHAR},
+      check_person_code = #{checkPersonCode,jdbcType=VARCHAR},
+      check_address = #{checkAddress,jdbcType=VARCHAR},
+      checked_enterprise_option = #{checkedEnterpriseOption,jdbcType=VARCHAR},
+      check_project = #{checkProject,jdbcType=VARCHAR},
+      enterprise_type_code = #{enterpriseTypeCode,jdbcType=VARCHAR},
+      check_unit_code = #{checkUnitCode,jdbcType=VARCHAR},
+      supervisionAndCheckcol = #{supervisionandcheckcol,jdbcType=VARCHAR},
+      check_end_time = #{checkEndTime,jdbcType=VARCHAR},
+      zhongdian_question = #{zhongdianQuestion,jdbcType=VARCHAR},
+      yiban_question = #{yibanQuestion,jdbcType=VARCHAR},
+      checked_start_time = #{checkedStartTime,jdbcType=VARCHAR},
+      other_question = #{otherQuestion,jdbcType=VARCHAR},
+      check_date = #{checkDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectSupervisionCheck" resultMap="BaseResultMap">
+	select distinct a.id,checked_enterprise_name,check_person_name,check_address,check_date,enterprise_type_code,check_end_time,checked_start_time from supervisionandcheck a
+left join 
+(select
+	id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_1' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from agricultural
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_8' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from cosmetic
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_3' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from criculate
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_9' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from drug
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from food
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from health
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from industry
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from medical
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from production
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_11' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from usemed
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate ,'enterprise_6' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from wine) b
+on b.qyname=a.checked_enterprise_name where 1=1
+		<if test="enterpriseName!=null and enterpriseName!=''">
+			and a.checked_enterprise_name like CONCAT('%', #{enterpriseName,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="enterpriseType!=null and enterpriseType!=''">
+			and a.enterprise_type_code = #{enterpriseType}
+		</if>
+		<if test="checkDate!=null and checkDate!=''">
+			and a.check_date = #{checkDate}
+		</if>
+		<if test="address!=null and address!=''">
+			and b.address = #{address}
+		</if>
+		<if test="checkUnitCode!=null and checkUnitCode!=''">
+			and a.check_unit_code = #{checkUnitCode}
+		</if>
+		<if test="taskId!=null">
+			and a.taskId = #{taskId}
+		</if>
+		<if test="startNum!=null and startNum>-1">
+    		limit ${startNum},${limit}
+    	</if>
+	</select>
+	
+	<select id="selectSupervisionCheckTotal" resultType="int">
+	select count(*) from (select distinct a.id,checked_enterprise_name,check_person_name,check_address,check_date,enterprise_type_code,check_end_time,checked_start_time from supervisionandcheck a
+left join 
+(select
+	id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_1' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from agricultural
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_8' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from cosmetic
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_3' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from criculate
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_9' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from drug
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from food
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from health
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from industry
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from medical
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from production
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_11' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from usemed
+	union all
+	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate ,'enterprise_6' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from wine) b
+on b.qyname=a.checked_enterprise_name where 1=1
+		<if test="enterpriseName!=null and enterpriseName!=''">
+			and a.checked_enterprise_name like CONCAT('%', #{enterpriseName,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="enterpriseType!=null and enterpriseType!=''">
+			and a.enterprise_type_code = #{enterpriseType}
+		</if>
+		<if test="checkUnitCode!=null and checkUnitCode!=''">
+			and a.check_unit_code = #{checkUnitCode}
+		</if>
+		<if test="address!=null and address!=''">
+			and b.address = #{address}
+		</if>
+		<if test="checkDate!=null and checkDate!=''">
+			and a.check_date = #{checkDate}
+		</if>
+		<if test="taskId!=null">
+			and a.taskId = #{taskId}
+		</if>
+		) tt
+	</select>
+	
+	<select id="jdjcStatistics" resultType="map">
+    	select count(1) as count,enterpriseType from 
+    	(select distinct enterpriseIds,s.enterpriseType from supervisionandchecktask s 
+    	<where>
+			<if test="startTime!=null">
+			    and STR_TO_DATE(IFNULL(s.check_date,'1997-01-01'),'%Y-%m-%d') &gt;=DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+			</if>
+			<if test="endTime!=null">
+			    and STR_TO_DATE(IFNULL(s.check_date,'1997-01-01'),'%Y-%m-%d') &lt;=DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+			</if>
+		</where>) a
+		group by a.enterpriseType
+		
+	</select>
+	
+	<select id="jdjcUnitStatistics" resultType="map">
+    	select count(1) as count,unitCode from 
+    	(select distinct enterpriseIds,s.unitCode from supervisionandchecktask s 
+    	<where>
+			<if test="startTime!=null">
+			    and STR_TO_DATE(IFNULL(s.check_date,'1997-01-01'),'%Y-%m-%d') &gt;=DATE_FORMAT(#{startTime}, '%Y-%m-%d')
+			</if>
+			<if test="endTime!=null">
+			    and STR_TO_DATE(IFNULL(s.check_date,'1997-01-01'),'%Y-%m-%d') &lt;=DATE_FORMAT(#{endTime}, '%Y-%m-%d')
+			</if>
+			<if test="enType!=null and enType!=''">
+			    and s.enterpriseType = #{enType}
+			</if>
+		</where>) a
+		group by a.unitCode
+		
+	</select>
+    
+    <select id="findSupervisionAndCheckDetail" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from supervisionandcheck
+    where checked_enterprise_name = #{checkedEnterpriseName}
+  </select>
+  
+  
+  <select id="getSupervisionAndCheck" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" /> 
+    from supervisionandcheck 
+    where  checked_enterprise_name = #{enterpriseName}
+    order by check_date desc 
+  </select>
+</mapper>

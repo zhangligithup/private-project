@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.InspectionRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.InspectionRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="accompany_person" property="accompanyPerson" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="record_person" property="recordPerson" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="check_scene" property="checkScene" jdbcType="VARCHAR" />
+    <result column="check_start_time" property="checkStartTime" jdbcType="TIMESTAMP" />
+    <result column="check_end_time" property="checkEndTime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="check_person" property="checkPerson" jdbcType="INTEGER" />
+    
+    <result column="perosn_law_card" property="perosnLawCard" jdbcType="VARCHAR" />
+    <result column="person_company" property="personCompany" jdbcType="VARCHAR" />
+    <result column="person_name" property="personName" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company, legal_person, accompany_person, type, record_person, tel, check_scene, 
+    check_start_time, check_end_time, content, check_person,url,question
+  </sql>
+  
+  
+  <select id="findInspectionRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+select ir.*,p.perosn_law_card,d.t_dictionary_name person_company,p.person_name
+from inspection_record ir
+left join t_person_info p
+on p.person_id = ir.check_person
+left join t_dictionary d
+on d.id=p.person_company_id
+    where ir.id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteInspectionRecord" parameterType="java.lang.Integer" >
+    delete from inspection_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertInspectionRecord" parameterType="com.foodregulation.dao.entity.InspectionRecord"  useGeneratedKeys="true" keyProperty="id">
+    insert into inspection_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="accompanyPerson != null" >
+        accompany_person,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="recordPerson != null" >
+        record_person,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="checkScene != null" >
+        check_scene,
+      </if>
+      <if test="checkStartTime != null" >
+        check_start_time,
+      </if>
+      <if test="checkEndTime != null" >
+        check_end_time,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="checkPerson != null" >
+        check_person,
+      </if>
+      <if test="question != null" >
+        question,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="accompanyPerson != null" >
+        #{accompanyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="recordPerson != null" >
+        #{recordPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="checkScene != null" >
+        #{checkScene,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStartTime != null" >
+        #{checkStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkEndTime != null" >
+        #{checkEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPerson != null" >
+        #{checkPerson,jdbcType=INTEGER},
+      </if>
+      <if test="question != null" >
+        #{question,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateInspectionRecord" parameterType="com.foodregulation.dao.entity.InspectionRecord" >
+    update inspection_record
+    <set >
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="accompanyPerson != null" >
+        accompany_person = #{accompanyPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="recordPerson != null" >
+        record_person = #{recordPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="checkScene != null" >
+        check_scene = #{checkScene,jdbcType=VARCHAR},
+      </if>
+      <if test="checkStartTime != null" >
+        check_start_time = #{checkStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkEndTime != null" >
+        check_end_time = #{checkEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPerson != null" >
+        check_person = #{checkPerson,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="question != null and question!=''" >
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPdfDataById" parameterType="int" resultType="map">
+    select a.*,b.check_person_name as checkPersonName,b.check_person_code as checkPersonCode,c.t_dictionary_name as checkUitName,d.person_name as personName from 
+    inspection_record a
+    left join supervisionandcheck b on a.id = b.inspection_record_id
+    left join t_dictionary c on b.check_unit_code = c.t_dictionary_code
+    left join t_person_info d on  a.check_person = d.person_id
+        where a.id=#{id,jdbcType=INTEGER}
+  </select>
+</mapper>

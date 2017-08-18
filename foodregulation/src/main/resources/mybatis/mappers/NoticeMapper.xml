@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Notice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="illegalIds" property="illegalids" jdbcType="VARCHAR" />
+    <result column="illegalContents" property="illegalcontents" jdbcType="VARCHAR" />
+    <result column="notice_date" property="noticeDate" jdbcType="DATE" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="illegal_activities" property="illegalActivities" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, company, illegalIds, illegalContents, notice_date, content, illegal_activities,url
+  </sql>
+  
+  <select id="findNotice" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from notice
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteNotice" parameterType="java.lang.Integer" >
+    delete from notice
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertNotice" parameterType="com.foodregulation.dao.entity.Notice" useGeneratedKeys="true" keyProperty="id">
+    insert into notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="illegalids != null" >
+        illegalIds,
+      </if>
+      <if test="illegalcontents != null" >
+        illegalContents,
+      </if>
+      <if test="noticeDate != null" >
+        notice_date,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="illegalActivities != null" >
+        illegal_activities,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalids != null" >
+        #{illegalids,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalcontents != null" >
+        #{illegalcontents,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeDate != null" >
+        #{noticeDate,jdbcType=DATE},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalActivities != null" >
+        #{illegalActivities,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateNotice" parameterType="com.foodregulation.dao.entity.Notice" >
+    update notice
+    <set >
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalids != null" >
+        illegalIds = #{illegalids,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalcontents != null" >
+        illegalContents = #{illegalcontents,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeDate != null" >
+        notice_date = #{noticeDate,jdbcType=DATE},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalActivities != null" >
+        illegal_activities = #{illegalActivities,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectPdfDataById" parameterType="int" resultType="map">
+       select a.*,b.check_date   from notice a,supervisionandcheck b where a.id=#{id,jdbcType=INTEGER} and a.id = b.notice_id
+  </select>
+</mapper>

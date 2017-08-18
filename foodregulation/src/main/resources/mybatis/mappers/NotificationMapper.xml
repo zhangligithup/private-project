@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.NotificationMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Notification" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="person_id" property="personId" jdbcType="INTEGER" />
+    <result column="toType" property="toType" jdbcType="CHAR" />
+    <result column="toCode" property="toCode" jdbcType="VARCHAR" />
+    <result column="toCodeName" property="toCodeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, content, time, title,url,person_id,toType,toCode
+  </sql>
+  <select id="findNotification" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select n.id, n.content, n.time, n.title,n.url,n.person_id,n.toType,n.toCode,GROUP_CONCAT(d.t_dictionary_name) as toCodeName from notification n
+    left join t_dictionary d
+    on n.toCode like CONCAT('%',d.t_dictionary_code, '%')
+    where n.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteNotification" parameterType="java.lang.Integer" >
+    delete from notification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.Notification" >
+    insert into notification (id, content, time, 
+      title,url)
+    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Notification" >
+    insert into notification
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="personId != null" >
+        person_id,
+      </if>
+      <if test="toType != null" >
+        toType,
+      </if>
+      <if test="toCode != null" >
+        toCode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="personId != null" >
+        #{personId},
+      </if>
+      <if test="toType != null" >
+        #{toType},
+      </if>
+      <if test="toCode != null" >
+        #{toCode},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateNotification" parameterType="com.foodregulation.dao.entity.Notification" >
+    update notification
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="toType != null" >
+        toType = #{toType},
+      </if>
+      <if test="title != null" >
+        toCode = #{toCode},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+ 
+  <select id="selectByParamApp" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from notification
+    where 1=1
+    <if test="title!=null and title!=''">
+    	and title like CONCAT('%', #{title,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="toCode!=null and toCode!=''">
+    	and toCode like CONCAT('%',#{toCode}, '%')
+    </if>
+     order by id desc
+    <if test="startNum!=null and startNum>-1">
+    	limit ${startNum},${limit}
+    </if>
+  </select>
+  <select id="selectByParam" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from notification
+    where 1=1
+    <if test="title!=null and title!=''">
+        and title like CONCAT('%', #{title,jdbcType=VARCHAR}, '%')
+    </if>
+    and (person_id = #{personId} or toCode like CONCAT('%',#{toCode}, '%'))
+     order by id desc
+    <if test="startNum!=null and startNum>-1">
+        limit ${startNum},${limit}
+    </if>
+  </select>
+  
+  <select id="selectNotificationTotal" resultType="int" >
+    select 
+    count(*)
+    from notification
+    where 1=1
+    <if test="title!=null and title!=''">
+    	and title like CONCAT('%', #{title,jdbcType=VARCHAR}, '%')
+    </if>
+    and (person_id = #{personId} or toCode like CONCAT('%',#{toCode}, '%'))
+  </select>
+  
+</mapper>

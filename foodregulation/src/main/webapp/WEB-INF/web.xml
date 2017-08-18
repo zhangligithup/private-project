@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <display-name>foodregulation</display-name>
+ 
+	<!-- 读spring配置文件 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/spring-conf.xml</param-value>
+	</context-param>
+
+	<!-- spring -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- spring mvc -->
+	<servlet>
+		<servlet-name>springMvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>springMvc</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+  <servlet>
+    <servlet-name>CriculateServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.Criculate.servlet.CriculateServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>CriculateFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.Criculate.servlet.CriculateFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CriculateServlet1</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.Criculate.servlet.CriculateServlet1</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.AdminServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FoodServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.food.servlet.FoodServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ProductionServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.production.servlet.ProductionServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>ProductionFullServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.production.servlet.ProductionFullServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <servlet-name>ProductionFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.production.servlet.ProductionFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ActionServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.action.servlet.ActionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserAdd</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserAdd</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserFindServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserFindServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CriculateFindName</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.Criculate.servlet.CriculateFindName</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserInforServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserInforServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserUpdateServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserUpdateServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserDeleteServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserDeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserDepServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserDepServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.FormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>FoodFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.food.servlet.FoodFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserNameServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserNameServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UserQuitServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserQuitServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>QueryServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.servlet.QueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CriculateFindServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.servlet.CriculateFindServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>addActionServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.action.servlet.addActionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UnitServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.unit.servlet.UnitServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>JdProductionServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.servlet.JdProductionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>userNameExists</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.userNameExists</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>test</servlet-name>
+    <servlet-class>cn.tslanpu.test.test</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>HealthServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.health.servlet.HealthServlet</servlet-class>
+  </servlet>
+   <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>HealthFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.health.servlet.HealthFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>MedicalServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.medical.servlet.MedicalServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>MedicalFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.medical.servlet.MedicalFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>IndustryServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.industry.servlet.IndustryServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>IndustryFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.industry.servlet.IndustryFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UserInitializeServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UserInitializeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdatePassword</servlet-name>
+    <servlet-class>cn.tslanpu.test.admin.servlet.UpdatePassword</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>downloadIndustry</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.servlet.downloadIndustry</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WineServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.wine.servlet.WineServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>WineFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.wine.servlet.WineFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DrugServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.drug.servlet.DrugServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DrugFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.drug.servlet.DrugFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CosmeticServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.cosmetic.servlet.CosmeticServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CosmeticFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.cosmetic.servlet.CosmeticFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UsemedServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.usemed.servlet.UsemedServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UsemedFormServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.usemed.servlet.UsemedFormServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ExeclServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.servlet.ExeclServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AgriculturalServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.agricultural.servlet.AgriculturalServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>QrCode</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.agricultural.servlet.QrCode</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>AgriculturalQrServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.add.agricultural.servlet.AgriculturalQrServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ComplainServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.complain.servlet.ComplainServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.index.servlet.IndexServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>NotificationServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.notification.servlet.NotificationServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>NotificationFindServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.notification.servlet.NotificationFindServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SuperviseFindServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.notification.servlet.SuperviseFindServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>NotificationQueryServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.notification.servlet.NotificationQueryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>NotificationDeleteServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.notification.servlet.NotificationDeleteServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DownloadNotificationServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.notification.servlet.DownloadNotificationServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DrugExamServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.exam.drug.servlet.DrugExamServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>FoodExamServlet</servlet-name>
+    <servlet-class>cn.tslanpu.test.exam.food.servlet.FoodExamServlet</servlet-class>
+  </servlet>
+
+
+  <servlet-mapping>
+    <servlet-name>CriculateServlet</servlet-name>
+    <url-pattern>/CriculateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CriculateServlet1</servlet-name>
+    <url-pattern>/servlet/CriculateServlet1</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/AdminServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FoodServlet</servlet-name>
+    <url-pattern>/FoodServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>FoodFormServlet</servlet-name>
+    <url-pattern>/FoodFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ProductionServlet</servlet-name>
+    <url-pattern>/ProductionServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>ProductionFormServlet</servlet-name>
+    <url-pattern>/ProductionFormServlet</url-pattern>
+  </servlet-mapping>
+      <servlet-mapping>
+    <servlet-name>ProductionFullServlet</servlet-name>
+    <url-pattern>/ProductionFullServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ActionServlet</servlet-name>
+    <url-pattern>/ActionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserFindServlet</servlet-name>
+    <url-pattern>/UserFindServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserAdd</servlet-name>
+    <url-pattern>/UserAdd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CriculateFindName</servlet-name>
+    <url-pattern>/CriculateFindName</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserInforServlet</servlet-name>
+    <url-pattern>/UserInforServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserUpdateServlet</servlet-name>
+    <url-pattern>/UserUpdateServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserDeleteServlet</servlet-name>
+    <url-pattern>/UserDeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserDepServlet</servlet-name>
+    <url-pattern>/UserDepServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FormServlet</servlet-name>
+    <url-pattern>/FormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CriculateFormServlet</servlet-name>
+    <url-pattern>/CriculateFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserNameServlet</servlet-name>
+    <url-pattern>/UserNameServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserQuitServlet</servlet-name>
+    <url-pattern>/UserQuitServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QueryServlet</servlet-name>
+    <url-pattern>/QueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CriculateFindServlet</servlet-name>
+    <url-pattern>/CriculateFindServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>addActionServlet</servlet-name>
+    <url-pattern>/addActionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UnitServlet</servlet-name>
+    <url-pattern>/UnitServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>JdProductionServlet</servlet-name>
+    <url-pattern>/JdProductionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>userNameExists</servlet-name>
+    <url-pattern>/userNameExists</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>test</servlet-name>
+    <url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>HealthServlet</servlet-name>
+    <url-pattern>/HealthServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>HealthFormServlet</servlet-name>
+    <url-pattern>/HealthFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MedicalServlet</servlet-name>
+    <url-pattern>/MedicalServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>MedicalFormServlet</servlet-name>
+    <url-pattern>/MedicalFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IndustryServlet</servlet-name>
+    <url-pattern>/IndustryServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>IndustryFormServlet</servlet-name>
+    <url-pattern>/IndustryFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserInitializeServlet</servlet-name>
+    <url-pattern>/UserInitializeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePassword</servlet-name>
+    <url-pattern>/UpdatePassword</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>downloadIndustry</servlet-name>
+    <url-pattern>/downloadIndustry</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>WineServlet</servlet-name>
+    <url-pattern>/WineServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>WineFormServlet</servlet-name>
+    <url-pattern>/WineFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DrugServlet</servlet-name>
+    <url-pattern>/DrugServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>DrugFormServlet</servlet-name>
+    <url-pattern>/DrugFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CosmeticServlet</servlet-name>
+    <url-pattern>/CosmeticServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>CosmeticFormServlet</servlet-name>
+    <url-pattern>/CosmeticFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UsemedFormServlet</servlet-name>
+    <url-pattern>/UsemedFormServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>UsemedServlet</servlet-name>
+    <url-pattern>/UsemedServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExeclServlet</servlet-name>
+    <url-pattern>/ExeclServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AgriculturalServlet</servlet-name>
+    <url-pattern>/AgriculturalServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>QrCode</servlet-name>
+    <url-pattern>/QrCode</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AgriculturalQrServlet</servlet-name>
+    <url-pattern>/AgriculturalQrServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ComplainServlet</servlet-name>
+    <url-pattern>/ComplainServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <url-pattern>/IndexServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NotificationServlet</servlet-name>
+    <url-pattern>/NotificationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NotificationFindServlet</servlet-name>
+    <url-pattern>/NotificationFindServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SuperviseFindServlet</servlet-name>
+    <url-pattern>/SuperviseFindServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NotificationQueryServlet</servlet-name>
+    <url-pattern>/NotificationQueryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NotificationDeleteServlet</servlet-name>
+    <url-pattern>/NotificationDeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DownloadNotificationServlet</servlet-name>
+    <url-pattern>/DownloadNotificationServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DrugExamServlet</servlet-name>
+    <url-pattern>/DrugExamServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>FoodExamServlet</servlet-name>
+    <url-pattern>/FoodExamServlet</url-pattern>
+  </servlet-mapping>
+	<!-- spring 字符集过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+  <welcome-file-list>
+    <welcome-file>/login.jsp</welcome-file>
+  </welcome-file-list>
+  <session-config>
+        <session-timeout>240</session-timeout>
+  </session-config>
+</web-app>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.ExamPublishMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.ExamPublish" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="examinationId" property="examinationid" jdbcType="BIGINT" />
+    <result column="person_company_id" property="personCompanyId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, examinationId, person_company_id, type, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select
+    <include refid="Base_Column_List" />
+    from t_exam_publish
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_exam_publish
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.ExamPublish" >
+    insert into t_exam_publish (id, examinationId, person_company_id,
+    type, create_time)
+    values (#{id,jdbcType=BIGINT}, #{examinationid,jdbcType=BIGINT}, #{personCompanyId,jdbcType=INTEGER},
+    #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.ExamPublish" >
+    insert into t_exam_publish
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="examinationid != null" >
+        examinationId,
+      </if>
+      <if test="personCompanyId != null" >
+        person_company_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="examinationid != null" >
+        #{examinationid,jdbcType=BIGINT},
+      </if>
+      <if test="personCompanyId != null" >
+        #{personCompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.ExamPublish" >
+    update t_exam_publish
+    <set >
+      <if test="examinationid != null" >
+        examinationId = #{examinationid,jdbcType=BIGINT},
+      </if>
+      <if test="personCompanyId != null" >
+        person_company_id = #{personCompanyId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.ExamPublish" >
+    update t_exam_publish
+    set examinationId = #{examinationid,jdbcType=BIGINT},
+    person_company_id = #{personCompanyId,jdbcType=INTEGER},
+    type = #{type,jdbcType=VARCHAR},
+    create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="existPublish" parameterType="com.foodregulation.dao.entity.ExamPublish" resultType="int" >
+    select count(*) from t_exam_publish
+    where 1=1
+    and examinationId = #{examinationid,jdbcType=BIGINT}
+      and type=#{type,jdbcType=VARCHAR}
+      and person_company_id=#{personCompanyId,jdbcType=INTEGER}
+
+  </select>
+</mapper>

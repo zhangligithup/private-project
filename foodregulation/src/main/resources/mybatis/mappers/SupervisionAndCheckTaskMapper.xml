@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.SupervisionAndCheckTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.SupervisionAndCheckTask" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="enterpriseType" property="enterprisetype" jdbcType="VARCHAR" />
+    <result column="enterprisetypeName" property="enterprisetypeName" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="unitCode" property="unitcode" jdbcType="VARCHAR" />
+    <result column="createUnitCode" property="createUnitCode" jdbcType="VARCHAR" />
+    <result column="unitcodeName" property="unitcodeName" jdbcType="VARCHAR" />
+    <result column="createPersonUser" property="createPersonUser" jdbcType="VARCHAR" />
+    <result column="checkFrequencyCode" property="checkFrequencyCode" jdbcType="VARCHAR" />
+    <result column="checkFrequencyCodeName" property="checkFrequencyCodeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.foodregulation.dao.entity.SupervisionAndCheckTask" extends="BaseResultMap" >
+    <result column="enterpriseIds" property="enterpriseids" jdbcType="LONGVARCHAR" />
+    <result column="enterpriseNames" property="enterpriseNames" jdbcType="LONGVARCHAR" />
+    <result column="supervisionCheckCount" property="supervisionCheckCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, enterpriseType, startTime, endTime, unitCode,checkFrequencyCode
+  </sql>
+  <sql id="Blob_Column_List" >
+    enterpriseIds
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from supervisionandchecktask
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectSupervisionCheckTask" resultMap="ResultMapWithBLOBs">
+    select * from (select a.createUnitCode,a.id, a.enterpriseType, a.startTime, a.endTime, a.unitCode,a.checkFrequencyCode,a.enterpriseIds,a.enterpriseNames,b.t_dictionary_name as enterprisetypeName,c.t_dictionary_name as unitcodeName,d.t_dictionary_name as checkFrequencyCodeName,
+    (select count(*) from supervisionandcheck e where e.taskId = a.id) as supervisionCheckCount
+    from supervisionandchecktask a
+    left join t_dictionary b on a.enterpriseType = b.t_dictionary_code
+    left join t_dictionary c on a.unitCode = c.t_dictionary_code
+    left join t_dictionary d on a.checkFrequencyCode = d.t_dictionary_code
+    where 1=1
+    <if test="enterpriseType != null and enterpriseType != ''" >
+        and enterpriseType = #{enterpriseType,jdbcType=VARCHAR}
+    </if>
+    <if test="checkFrequencyCode != null and checkFrequencyCode!=''" >
+        and checkFrequencyCode = #{checkFrequencyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="checkUnitCode != null and checkUnitCode!=''" >
+      	and unitCode = #{checkUnitCode,jdbcType=TIMESTAMP}
+    </if>
+    <if test="enterpriseNames != null and enterpriseNames!=''" >
+      	and enterpriseNames  LIKE CONCAT('%', #{enterpriseNames}, '%')     
+    </if>
+    <if test="startCheckDate != null and startCheckDate!=''" >
+      	and startTime &gt;= #{startCheckDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endCheckDate != null and endCheckDate!=''" >
+      	and endTime &lt;= #{endCheckDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="currentUnitCode != null and currentUnitCode!=''" >
+      	and (a.unitCode = #{currentUnitCode,jdbcType=VARCHAR} or a.createUnitCode = #{currentUnitCode,jdbcType=VARCHAR})
+    </if>
+     order by a.id desc) w order by w.supervisionCheckCount asc
+     <if test="startNum!=null and startNum>-1">
+    		limit ${startNum},${limit}
+    </if>
+  </select>
+  <select id="selectSupervisionCheckTaskTotal" resultType="int">
+    select count(*)
+    from supervisionandchecktask a
+     where 1=1
+    <if test="enterpriseType != null and enterpriseType!=''" >
+        and enterpriseType = #{enterpriseType,jdbcType=VARCHAR}
+    </if>
+    <if test="enterpriseNames != null and enterpriseNames!=''" >
+      	and enterpriseNames  LIKE CONCAT('%', #{enterpriseNames}, '%')     
+    </if>
+    <if test="checkFrequencyCode != null and checkFrequencyCode!=''" >
+        and checkFrequencyCode = #{checkFrequencyCode,jdbcType=VARCHAR}
+    </if>
+    <if test="checkUnitCode != null and checkUnitCode!=''" >
+      	and unitCode = #{checkUnitCode,jdbcType=TIMESTAMP}
+    </if>
+    <if test="startCheckDate != null and startCheckDate!=''" >
+      	and startTime &gt;= #{startCheckDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endCheckDate != null and endCheckDate!=''" >
+      	and endTime &lt;= #{endCheckDate,jdbcType=TIMESTAMP}
+    </if>
+    <if test="currentUnitCode != null and currentUnitCode!=''" >
+      	and (a.unitCode = #{currentUnitCode,jdbcType=VARCHAR} or a.createUnitCode = #{currentUnitCode,jdbcType=VARCHAR})
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from supervisionandchecktask
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.SupervisionAndCheckTask" >
+    insert into supervisionandchecktask (createPersonUser,createUnitCode,enterpriseType, startTime, 
+      endTime, unitCode, enterpriseIds,checkFrequencyCode,enterpriseNames
+      )
+    values (#{createPersonUser,jdbcType=VARCHAR},#{createUnitCode,jdbcType=VARCHAR},#{enterprisetype,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, 
+      #{endtime,jdbcType=TIMESTAMP}, #{unitcode,jdbcType=VARCHAR}, #{enterpriseids,jdbcType=LONGVARCHAR}, #{checkFrequencyCode,jdbcType=VARCHAR}, #{enterpriseNames,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.SupervisionAndCheckTask" >
+    insert into supervisionandchecktask
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="enterprisetype != null" >
+        enterpriseType,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="endtime != null" >
+        endTime,
+      </if>
+      <if test="unitcode != null" >
+        unitCode,
+      </if>
+      <if test="enterpriseids != null" >
+        enterpriseIds,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterprisetype != null" >
+        #{enterprisetype,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unitcode != null" >
+        #{unitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseids != null" >
+        #{enterpriseids,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.SupervisionAndCheckTask" >
+    update supervisionandchecktask
+    <set >
+      <if test="enterprisetype != null" >
+        enterpriseType = #{enterprisetype,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endTime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unitcode != null" >
+        unitCode = #{unitcode,jdbcType=VARCHAR},
+      </if>
+      <if test="enterpriseids != null" >
+        enterpriseIds = #{enterpriseids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.foodregulation.dao.entity.SupervisionAndCheckTask" >
+    update supervisionandchecktask
+    set enterpriseType = #{enterprisetype,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      unitCode = #{unitcode,jdbcType=VARCHAR},
+      enterpriseIds = #{enterpriseids,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.SupervisionAndCheckTask" >
+    update supervisionandchecktask
+    set enterpriseType = #{enterprisetype,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=TIMESTAMP},
+      unitCode = #{unitcode,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

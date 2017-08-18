@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.WineMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Wine" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="qyname" property="qyname" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="scaddress" property="scaddress" jdbcType="VARCHAR" />
+    <result column="ems" property="ems" jdbcType="VARCHAR" />
+    <result column="qydelegate" property="qydelegate" jdbcType="VARCHAR" />
+    <result column="qyphone" property="qyphone" jdbcType="VARCHAR" />
+    <result column="zzcode" property="zzcode" jdbcType="VARCHAR" />
+    <result column="cldate" property="cldate" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="spdelegate" property="spdelegate" jdbcType="VARCHAR" />
+    <result column="jiandurenyuan" property="jiandurenyuan" jdbcType="VARCHAR" />
+    <result column="xieguanrenyuan" property="xieguanrenyuan" jdbcType="VARCHAR" />
+    <result column="scpermit" property="scpermit" jdbcType="VARCHAR" />
+    <result column="fazhengjiguan" property="fazhengjiguan" jdbcType="VARCHAR" />
+    <result column="fazhengriqi" property="fazhengriqi" jdbcType="VARCHAR" />
+    <result column="youxiaodate" property="youxiaodate" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="jytype" property="jytype" jdbcType="VARCHAR" />
+    <result column="jyrange" property="jyrange" jdbcType="VARCHAR" />
+    <result column="amend" property="amend" jdbcType="VARCHAR" />
+    <result column="lerepre" property="lerepre" jdbcType="VARCHAR" />
+    <result column="lephone" property="lephone" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, qyname, address, scaddress, ems, qydelegate, qyphone, zzcode, cldate, department, 
+    spdelegate, jiandurenyuan, xieguanrenyuan, scpermit, fazhengjiguan, fazhengriqi, 
+    youxiaodate, longitude, latitude, jytype, jyrange, amend, lerepre, lephone, phone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from wine
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wine
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.Wine" >
+    insert into wine (id, qyname, address, 
+      scaddress, ems, qydelegate, 
+      qyphone, zzcode, cldate, 
+      department, spdelegate, jiandurenyuan, 
+      xieguanrenyuan, scpermit, fazhengjiguan, 
+      fazhengriqi, youxiaodate, longitude, 
+      latitude, jytype, jyrange, 
+      amend, lerepre, lephone, 
+      phone)
+    values (#{id,jdbcType=INTEGER}, #{qyname,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{scaddress,jdbcType=VARCHAR}, #{ems,jdbcType=VARCHAR}, #{qydelegate,jdbcType=VARCHAR}, 
+      #{qyphone,jdbcType=VARCHAR}, #{zzcode,jdbcType=VARCHAR}, #{cldate,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{spdelegate,jdbcType=VARCHAR}, #{jiandurenyuan,jdbcType=VARCHAR}, 
+      #{xieguanrenyuan,jdbcType=VARCHAR}, #{scpermit,jdbcType=VARCHAR}, #{fazhengjiguan,jdbcType=VARCHAR}, 
+      #{fazhengriqi,jdbcType=VARCHAR}, #{youxiaodate,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{jytype,jdbcType=VARCHAR}, #{jyrange,jdbcType=VARCHAR}, 
+      #{amend,jdbcType=VARCHAR}, #{lerepre,jdbcType=VARCHAR}, #{lephone,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Wine" >
+    insert into wine
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="qyname != null" >
+        qyname,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="scaddress != null" >
+        scaddress,
+      </if>
+      <if test="ems != null" >
+        ems,
+      </if>
+      <if test="qydelegate != null" >
+        qydelegate,
+      </if>
+      <if test="qyphone != null" >
+        qyphone,
+      </if>
+      <if test="zzcode != null" >
+        zzcode,
+      </if>
+      <if test="cldate != null" >
+        cldate,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="spdelegate != null" >
+        spdelegate,
+      </if>
+      <if test="jiandurenyuan != null" >
+        jiandurenyuan,
+      </if>
+      <if test="xieguanrenyuan != null" >
+        xieguanrenyuan,
+      </if>
+      <if test="scpermit != null" >
+        scpermit,
+      </if>
+      <if test="fazhengjiguan != null" >
+        fazhengjiguan,
+      </if>
+      <if test="fazhengriqi != null" >
+        fazhengriqi,
+      </if>
+      <if test="youxiaodate != null" >
+        youxiaodate,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="jytype != null" >
+        jytype,
+      </if>
+      <if test="jyrange != null" >
+        jyrange,
+      </if>
+      <if test="amend != null" >
+        amend,
+      </if>
+      <if test="lerepre != null" >
+        lerepre,
+      </if>
+      <if test="lephone != null" >
+        lephone,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="qyname != null" >
+        #{qyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scaddress != null" >
+        #{scaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ems != null" >
+        #{ems,jdbcType=VARCHAR},
+      </if>
+      <if test="qydelegate != null" >
+        #{qydelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="qyphone != null" >
+        #{qyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="zzcode != null" >
+        #{zzcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cldate != null" >
+        #{cldate,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="spdelegate != null" >
+        #{spdelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="jiandurenyuan != null" >
+        #{jiandurenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="xieguanrenyuan != null" >
+        #{xieguanrenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="scpermit != null" >
+        #{scpermit,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengjiguan != null" >
+        #{fazhengjiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengriqi != null" >
+        #{fazhengriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="youxiaodate != null" >
+        #{youxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="jytype != null" >
+        #{jytype,jdbcType=VARCHAR},
+      </if>
+      <if test="jyrange != null" >
+        #{jyrange,jdbcType=VARCHAR},
+      </if>
+      <if test="amend != null" >
+        #{amend,jdbcType=VARCHAR},
+      </if>
+      <if test="lerepre != null" >
+        #{lerepre,jdbcType=VARCHAR},
+      </if>
+      <if test="lephone != null" >
+        #{lephone,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.Wine" >
+    update wine
+    <set >
+      <if test="qyname != null" >
+        qyname = #{qyname,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="scaddress != null" >
+        scaddress = #{scaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ems != null" >
+        ems = #{ems,jdbcType=VARCHAR},
+      </if>
+      <if test="qydelegate != null" >
+        qydelegate = #{qydelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="qyphone != null" >
+        qyphone = #{qyphone,jdbcType=VARCHAR},
+      </if>
+      <if test="zzcode != null" >
+        zzcode = #{zzcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cldate != null" >
+        cldate = #{cldate,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="spdelegate != null" >
+        spdelegate = #{spdelegate,jdbcType=VARCHAR},
+      </if>
+      <if test="jiandurenyuan != null" >
+        jiandurenyuan = #{jiandurenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="xieguanrenyuan != null" >
+        xieguanrenyuan = #{xieguanrenyuan,jdbcType=VARCHAR},
+      </if>
+      <if test="scpermit != null" >
+        scpermit = #{scpermit,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengjiguan != null" >
+        fazhengjiguan = #{fazhengjiguan,jdbcType=VARCHAR},
+      </if>
+      <if test="fazhengriqi != null" >
+        fazhengriqi = #{fazhengriqi,jdbcType=VARCHAR},
+      </if>
+      <if test="youxiaodate != null" >
+        youxiaodate = #{youxiaodate,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="jytype != null" >
+        jytype = #{jytype,jdbcType=VARCHAR},
+      </if>
+      <if test="jyrange != null" >
+        jyrange = #{jyrange,jdbcType=VARCHAR},
+      </if>
+      <if test="amend != null" >
+        amend = #{amend,jdbcType=VARCHAR},
+      </if>
+      <if test="lerepre != null" >
+        lerepre = #{lerepre,jdbcType=VARCHAR},
+      </if>
+      <if test="lephone != null" >
+        lephone = #{lephone,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.Wine" >
+    update wine
+    set qyname = #{qyname,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      scaddress = #{scaddress,jdbcType=VARCHAR},
+      ems = #{ems,jdbcType=VARCHAR},
+      qydelegate = #{qydelegate,jdbcType=VARCHAR},
+      qyphone = #{qyphone,jdbcType=VARCHAR},
+      zzcode = #{zzcode,jdbcType=VARCHAR},
+      cldate = #{cldate,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      spdelegate = #{spdelegate,jdbcType=VARCHAR},
+      jiandurenyuan = #{jiandurenyuan,jdbcType=VARCHAR},
+      xieguanrenyuan = #{xieguanrenyuan,jdbcType=VARCHAR},
+      scpermit = #{scpermit,jdbcType=VARCHAR},
+      fazhengjiguan = #{fazhengjiguan,jdbcType=VARCHAR},
+      fazhengriqi = #{fazhengriqi,jdbcType=VARCHAR},
+      youxiaodate = #{youxiaodate,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      jytype = #{jytype,jdbcType=VARCHAR},
+      jyrange = #{jyrange,jdbcType=VARCHAR},
+      amend = #{amend,jdbcType=VARCHAR},
+      lerepre = #{lerepre,jdbcType=VARCHAR},
+      lephone = #{lephone,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

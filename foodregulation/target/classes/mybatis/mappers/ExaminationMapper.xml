@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.ExaminationMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.Examination" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="template_name" property="templateName" jdbcType="VARCHAR" />
+    <result column="choice_count" property="choiceCount" jdbcType="VARCHAR" />
+    <result column="choice_score" property="choiceScore" jdbcType="VARCHAR" />
+    <result column="choice_time" property="choiceTime" jdbcType="VARCHAR" />
+    <result column="judgment_count" property="judgmentCount" jdbcType="VARCHAR" />
+    <result column="judgment_score" property="judgmentScore" jdbcType="VARCHAR" />
+    <result column="judgment_time" property="judgmentTime" jdbcType="VARCHAR" />
+    <result column="completion_count" property="completionCount" jdbcType="VARCHAR" />
+    <result column="completion_score" property="completionScore" jdbcType="VARCHAR" />
+    <result column="completion_time" property="completionTime" jdbcType="VARCHAR" />
+    <result column="enterpriseCount" property="enterpriseCount" jdbcType="BIGINT"/>
+    <result column="completeCount" property="completeCount" jdbcType="BIGINT"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, template_name, choice_count, choice_score, judgment_count, judgment_score, completion_count, 
+    completion_score,choice_time,judgment_time,completion_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_examination
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectExaminationTotal" resultType="long">
+    select count(*) from t_examination
+  </select>
+
+  <select id="selectExamination" resultMap="BaseResultMap" parameterType="Map">
+    select
+    <include refid="Base_Column_List" />
+    from t_examination t
+	order by t.id desc
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_examination
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert"  useGeneratedKeys="true" keyProperty="id" parameterType="com.foodregulation.dao.entity.Examination" >
+    insert into t_examination (id, template_name, choice_count, 
+      choice_score, judgment_count, judgment_score, 
+      completion_count, completion_score,choice_time,judgment_time,completion_time)
+    values (#{id,jdbcType=BIGINT}, #{templateName,jdbcType=VARCHAR}, #{choiceCount,jdbcType=VARCHAR}, 
+      #{choiceScore,jdbcType=VARCHAR}, #{judgmentCount,jdbcType=VARCHAR}, #{judgmentScore,jdbcType=VARCHAR}, 
+      #{completionCount,jdbcType=VARCHAR}, #{completionScore,jdbcType=VARCHAR},#{choiceTime,jdbcType=VARCHAR},#{judgmentTime,jdbcType=VARCHAR},#{completionTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.Examination" >
+    insert into t_examination
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="templateName != null" >
+        template_name,
+      </if>
+      <if test="choiceCount != null" >
+        choice_count,
+      </if>
+      <if test="choiceScore != null" >
+        choice_score,
+      </if>
+      <if test="judgmentCount != null" >
+        judgment_count,
+      </if>
+      <if test="judgmentScore != null" >
+        judgment_score,
+      </if>
+      <if test="completionCount != null" >
+        completion_count,
+      </if>
+      <if test="completionScore != null" >
+        completion_score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="templateName != null" >
+        #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceCount != null" >
+        #{choiceCount,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceScore != null" >
+        #{choiceScore,jdbcType=VARCHAR},
+      </if>
+      <if test="judgmentCount != null" >
+        #{judgmentCount,jdbcType=VARCHAR},
+      </if>
+      <if test="judgmentScore != null" >
+        #{judgmentScore,jdbcType=VARCHAR},
+      </if>
+      <if test="completionCount != null" >
+        #{completionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="completionScore != null" >
+        #{completionScore,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.Examination" >
+    update t_examination
+    <set >
+      <if test="templateName != null" >
+        template_name = #{templateName,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceCount != null" >
+        choice_count = #{choiceCount,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceScore != null" >
+        choice_score = #{choiceScore,jdbcType=VARCHAR},
+      </if>
+      <if test="judgmentCount != null" >
+        judgment_count = #{judgmentCount,jdbcType=VARCHAR},
+      </if>
+      <if test="judgmentScore != null" >
+        judgment_score = #{judgmentScore,jdbcType=VARCHAR},
+      </if>
+      <if test="completionCount != null" >
+        completion_count = #{completionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="completionScore != null" >
+        completion_score = #{completionScore,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.Examination" >
+    update t_examination
+    set template_name = #{templateName,jdbcType=VARCHAR},
+      choice_count = #{choiceCount,jdbcType=VARCHAR},
+      choice_score = #{choiceScore,jdbcType=VARCHAR},
+      judgment_count = #{judgmentCount,jdbcType=VARCHAR},
+      judgment_score = #{judgmentScore,jdbcType=VARCHAR},
+      completion_count = #{completionCount,jdbcType=VARCHAR},
+      completion_score = #{completionScore,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findExaminationList" resultMap="BaseResultMap">
+
+    SELECT DISTINCT ex.id,ex.template_name,ex.create_time,IF(ISNULL(vv.completeCount),0,vv.completeCount) AS completeCount
+    FROM t_examination ex
+    LEFT JOIN t_exam_publish p    ON ex.id=p.examinationId
+    LEFT JOIN(
+    SELECT examinationId,COUNT(*) AS completeCount FROM ( SELECT examinationId,SUM(score) AS score
+    FROM (
+    SELECT r.examination_id as examinationId,r.`operator_id` AS operatorId,
+    CASE ex_type
+    WHEN '选择题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`choice_score` FROM t_examination a WHERE a.`id`=examinationId),0)
+    WHEN '填空题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`completion_score` FROM t_examination a WHERE a.`id`=examinationId),0)
+    WHEN '判断题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`judgment_score` FROM t_examination a WHERE a.`id`=examinationId),0) END AS score
+    FROM t_exam_record r
+    INNER JOIN t_exam e ON r.exam_id=e.id
+    WHERE 1=1
+    ) d  GROUP BY examinationId,operatorId
+    )AS bb  GROUP BY examinationId
+    )
+    AS vv
+    ON ex.id=vv.examinationId
+	
+	order by ex.id desc
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+  </select>
+
+  <select id="findAccountType" parameterType="int" resultType="String">
+    select d.t_dictionary_type as accountType
+     from user a,t_person_info b LEFT JOIN t_dictionary d ON b.person_company_id=d.id
+     where b.person_id=${id} and a.username = b.user_name
+  </select>
+
+  <select id="findCongYeScore" resultType="map">
+
+
+    SELECT examinationId,enterpriseType,enterpriseTypeName,componyName,operatorId,personName,createTime,SUM(score) AS score
+
+    FROM (
+
+    SELECT r.examination_id AS examinationId,b.`t_dictionary_code` AS enterpriseType,p.enterprise_name AS componyName,b.t_dictionary_name AS enterpriseTypeName,p.name AS personName,r.`operator_id` AS operatorId,r.createTime,
+    CASE ex_type
+    WHEN '选择题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`choice_score` FROM t_examination a WHERE a.`id`=examinationId),0)
+    WHEN '填空题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`completion_score` FROM t_examination a WHERE a.`id`=examinationId),0)
+    WHEN '判断题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`judgment_score` FROM t_examination a WHERE a.`id`=examinationId),0) END AS score
+    FROM t_exam_record r
+    INNER JOIN t_exam e ON r.exam_id=e.id
+    INNER JOIN enterprise_user p ON p.id=r.operator_id
+    LEFT JOIN t_dictionary b ON  b.t_dictionary_code=p.enterpriseTypeCode
+    WHERE  b.t_dictionary_type='1' and r.examination_id=${examinationId}
+    and r.type='0'
+    <if test="enterpriseType!=null and enterpriseType!=''">
+      and b.id = #{enterpriseType}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      and p.enterprise_name like  CONCAT('%', #{enterpriseName,jdbcType=VARCHAR},'%')
+    </if>
+      ) d GROUP BY operatorId
+
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+  </select>
+
+  <select id="findCongYeScoreTotal" resultType="long">
+
+    SELECT COUNT(*) FROM (
+
+    SELECT examinationId,enterpriseType,enterpriseTypeName,componyName,operatorId,personName,createTime,SUM(score) AS score
+
+    FROM (
+
+    SELECT r.examination_id as examinationId,b.`t_dictionary_code` AS enterpriseType,p.company_name AS componyName,b.t_dictionary_name AS enterpriseTypeName,p.physical_name AS personName,r.`operator_id` AS operatorId,r.createTime,
+    CASE ex_type
+    WHEN '选择题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`choice_score` FROM t_examination a WHERE a.`id`=examinationId),0)
+    WHEN '填空题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`completion_score` FROM t_examination a WHERE a.`id`=examinationId),0)
+    WHEN '判断题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`judgment_score` FROM t_examination a WHERE a.`id`=examinationId),0) END AS score
+    FROM t_exam_record r
+    INNER JOIN t_exam e ON r.exam_id=e.id
+    LEFT JOIN  t_physical p ON r.operator_id=p.user_id
+    LEFT JOIN t_dictionary b ON p.enterprise_type_id = b.id
+    WHERE  b.t_dictionary_type='1' and r.examination_id=${examinationId}
+    and r.type='0'
+    <if test="enterpriseType!=null and enterpriseType!=''">
+      and p.enterprise_type_id = #{enterpriseType}
+    </if>
+    <if test="enterpriseName!=null and enterpriseName!=''">
+      and p.company_name like  CONCAT('%', #{enterpriseName,jdbcType=VARCHAR},'%')
+    </if>
+    ) d GROUP BY operatorId
+    ) mm
+
+  </select>
+  <select id="findJianGuanScore" resultType="map">
+
+    SELECT examinationId,enterpriseType,enterpriseTypeName,operatorId,personName,createTime,SUM(score) AS
+    score
+    FROM (
+
+    SELECT r.examination_id as examinationId,b.`t_dictionary_code` AS enterpriseType,b.t_dictionary_name
+    AS enterpriseTypeName,p.person_name AS personName,r.`operator_id` AS operatorId,r.createTime,
+    CASE ex_type
+    WHEN '选择题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`choice_score` FROM t_examination a
+    WHERE a.`id`=examinationId),0)
+    WHEN '填空题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`completion_score` FROM t_examination
+    a WHERE a.`id`=examinationId),0)
+    WHEN '判断题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`judgment_score` FROM t_examination a
+    WHERE a.`id`=examinationId),0) END AS score
+    FROM t_exam_record r
+    INNER JOIN t_exam e ON r.exam_id=e.id
+    LEFT JOIN t_person_info p ON r.operator_id=p.person_id
+    LEFT JOIN t_dictionary b ON p.person_company_id = b.id
+    WHERE b.t_dictionary_type='2'
+       and r.examination_id=${examinationId}
+    and r.type='1'
+    <if test="unitId!=null and unitId!=0">
+      and b.id=${unitId}
+    </if>
+    <if test="personName!=null and personName!=''">
+      and p.person_name like  CONCAT('%', #{personName,jdbcType=VARCHAR},'%')
+    </if>
+    ) d GROUP BY operatorId
+
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+  </select>
+
+  <select id="findJianGuanScoreTotal" resultType="long">
+
+    SELECT COUNT(*) FROM (
+
+    SELECT examinationId,enterpriseType,enterpriseTypeName,operatorId,personName,createTime,SUM(score) AS
+    score
+    FROM (
+
+    SELECT r.examination_id as examinationId,b.`t_dictionary_code` AS enterpriseType,b.t_dictionary_name
+    AS enterpriseTypeName,p.person_name AS personName,r.`operator_id` AS operatorId,r.createTime,
+    CASE ex_type
+    WHEN '选择题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`choice_score` FROM t_examination a
+    WHERE a.`id`=examinationId),0)
+    WHEN '填空题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`completion_score` FROM t_examination
+    a WHERE a.`id`=examinationId),0)
+    WHEN '判断题' THEN IF(IF(r.`answer`=e.`answer`,'true','false')='true', (SELECT a.`judgment_score` FROM t_examination a
+    WHERE a.`id`=examinationId),0) END AS score
+    FROM t_exam_record r
+    INNER JOIN t_exam e ON r.exam_id=e.id
+    LEFT JOIN t_person_info p ON r.operator_id=p.person_id
+    LEFT JOIN t_dictionary b ON p.person_company_id = b.id
+    WHERE b.t_dictionary_type='2'
+    and r.examination_id=${examinationId}
+    and r.type='1'
+    <if test="unitId!=null and unitId!=0">
+      and b.id=${unitId}
+    </if>
+    <if test="personName!=null and personName!=''">
+      and p.person_name like  CONCAT('%', #{personName,jdbcType=VARCHAR},'%')
+    </if>
+    ) d GROUP BY operatorId
+    ) mm
+
+  </select>
+
+  <select id="findMyExamination" resultType="map" parameterType="map">
+    SELECT * FROM (
+    SELECT ex.id as examinationId,ex.`template_name` AS templateName,#{name} AS personName,ep.`create_time` AS publishTime,
+    IF(
+    (SELECT COUNT(*) FROM t_exam_record r WHERE r.type=#{type} and r.examination_id=ep.examinationId AND r.`operator_id`=${personId})>0
+    ,"已完成","未完成") AS completeState,
+    re.createTime AS completeTime
+    FROM t_exam_publish ep
+    INNER JOIN t_examination ex ON ep.`examinationId`=ex.`id`
+    left join t_exam_record re ON re.examination_id=ep.examinationId AND re.`operator_id`=${personId}
+
+    WHERE ep.`person_company_id` = ${personCompanyId} GROUP BY ex.id
+    ) myex WHERE 1=1
+    <if test="completeState!=null and completeState!=''">
+      AND myex.completeState=#{completeState,jdbcType=VARCHAR}
+    </if>
+    <if test="templateName!=null and templateName!=''">
+      and myex.templateName like  CONCAT('%', #{templateName,jdbcType=VARCHAR},'%')
+    </if>
+     ORDER BY myex.publishTime DESC
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+  </select>
+
+  <select id="findExamAndMyAnswer" resultType="map" parameterType="map">
+            SELECT
+              rl.`examinationId`,
+              rl.`examId`,
+              e.`ex_type` AS exType,
+              e.`content`,
+              e.title,
+              e.id,
+              IF(
+                rl.examinationId = r.examination_id,
+                r.answer,
+                ""
+              ) AS answer
+            FROM
+              t_exam_relation rl
+              INNER JOIN t_exam e
+                ON rl.`examId` = e.`id`
+
+                INNER JOIN t_exam_publish ep
+                ON ep.`examinationId`=rl.`examinationId`
+
+                INNER JOIN t_person_info p
+                ON p.`person_company_id`=ep.`person_company_id`
+                      LEFT JOIN t_exam_record r
+                ON rl.`examId` = r.`exam_id`  AND rl.`examinationId`=r.`examination_id` AND r.`operator_id`=p.person_id  and r.type='1'
+            WHERE rl.`examinationId` = ${examinationId}
+              AND p.`person_id` = ${personId}
+
+            ORDER BY e.`id`
+  </select>
+
+  <select id="findComExamAndMyAnswer" resultType="map" parameterType="map">
+            SELECT
+              rl.`examinationId`,
+              rl.`examId`,
+              e.`ex_type` AS exType,
+              e.`content`,
+              e.title,
+              e.id,
+              IF(
+                rl.examinationId = r.examination_id,
+                r.answer,
+                ""
+              ) AS answer
+            FROM
+              t_exam_relation rl
+              INNER JOIN t_exam e ON rl.`examId` = e.`id`
+              INNER JOIN t_exam_publish ep ON ep.`examinationId`=rl.`examinationId`
+              LEFT JOIN t_exam_record r ON rl.`examId` = r.`exam_id`  AND rl.`examinationId`=r.`examination_id` AND r.`operator_id`=${personId} and r.type='0'
+            WHERE rl.`examinationId` = ${examinationId}
+              AND ep.`person_company_id`= ${personCompanyId}
+
+            ORDER BY e.`id`
+  </select>
+
+
+
+
+  <select id="findPersonExamScire" resultType="map" parameterType="map">
+    SELECT sc.score,
+    (SELECT ex.template_name FROM t_examination ex WHERE ex.id=${examinationId}) AS templateName FROM(
+    SELECT examinationId,SUM(score) AS score FROM (
+    SELECT d.examination_id as examinationId,d.`operator_id` AS operatorId,d.createTime,
+    CASE ex_type
+    WHEN '选择题' THEN IF(IF(d.`answer`=ti.`answer`,'true','false')='true', (SELECT a.`choice_score` FROM t_examination a
+    WHERE a.`id`=examinationId),0)
+    WHEN '填空题' THEN IF(IF(d.`answer`=ti.`answer`,'true','false')='true', (SELECT a.`completion_score` FROM t_examination
+    a WHERE a.`id`=examinationId),0)
+    WHEN '判断题' THEN IF(IF(d.`answer`=ti.`answer`,'true','false')='true', (SELECT a.`judgment_score` FROM t_examination a
+    WHERE a.`id`=examinationId),0) END AS score
+    FROM t_exam_record d
+    INNER JOIN t_exam ti ON d.exam_id=ti.id
+    WHERE d.`operator_id`=${personId}  AND d.examination_id=${examinationId}
+    and d.type=${type}
+    ) d  ) sc
+  </select>
+
+
+  <select id="findCongyeExamList" resultType="map" parameterType="map">
+
+    SELECT * FROM (
+    SELECT ep.examinationId AS examinationId,ex.`template_name` AS templateName,e.id AS personId,e.name AS personName,ep.`create_time` AS publishTime,
+      IF(
+    (SELECT COUNT(*) FROM t_exam_record r WHERE r.`examination_id`=ep.examinationId AND r.`operator_id`=e.`id`)>0
+      ,"已完成","未完成") AS completeState
+      FROM t_exam_publish ep
+      INNER JOIN t_examination ex ON ep.`examinationId`=ex.`id`
+      INNER JOIN t_dictionary d ON ep.`person_company_id`=d.`id`
+      INNER JOIN enterprise_user e ON d.t_dictionary_code=e.enterpriseTypeCode
+
+      WHERE d.`t_dictionary_type`='1'
+     AND ep.`type`='1'
+      <if test="templateName!=null and templateName!=''">
+        and ex.template_name=#{templateName}
+      </if>
+      <if test="personName!=null and personName!=''">
+        and e.name=#{personName}
+      </if>
+
+      order by ep.create_time desc
+    ) c WHERE 1=1
+    <if test="completeState!=null and completeState!=''">
+    and c.completeState=#{completeState}
+  </if>
+
+
+    <if test="startNum!=null and startNum>-1">
+      limit ${startNum},${limit}
+    </if>
+  </select>
+
+  <select id="findCongyeExamListTotal" resultType="long" parameterType="map">
+    SELECT count(*) FROM (
+    SELECT ep.examinationId AS examinationId,ex.`template_name` AS templateName,e.id AS personId,e.name AS personName,ep.`create_time` AS publishTime,
+    IF(
+    (SELECT COUNT(*) FROM t_exam_record r WHERE r.`examination_id`=ep.examinationId AND r.`operator_id`=e.`id`)>0
+    ,"已完成","未完成") AS completeState
+    FROM t_exam_publish ep
+    INNER JOIN t_examination ex ON ep.`examinationId`=ex.`id`
+    INNER JOIN t_dictionary d ON ep.`person_company_id`=d.`id`
+    INNER JOIN enterprise_user e ON d.t_dictionary_code=e.enterpriseTypeCode
+
+    WHERE d.`t_dictionary_type`='1'
+    AND ep.`type`='1'
+    <if test="templateName!=null and templateName!=''">
+      and ex.template_name=#{templateName}
+    </if>
+    <if test="personName!=null and personName!=''">
+      and e.name=#{personName}
+    </if>
+
+    order by ep.create_time desc
+    ) c WHERE 1=1
+    <if test="completeState!=null and completeState!=''">
+      and c.completeState=#{completeState}
+    </if>
+
+  </select>
+
+</mapper>
