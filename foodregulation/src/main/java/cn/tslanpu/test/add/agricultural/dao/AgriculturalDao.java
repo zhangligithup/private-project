@@ -34,27 +34,31 @@ public class AgriculturalDao {
 	// 增加信息
 	public void add(Agricultural agricultural) throws SQLException {
 		String sql = "insert into agricultural(qyname, address, scaddress, qydelegate, qyphone, zzcode, scpermit, jyType, itemsOfBusiness, longitude, "
-				+ "latitude,department,spdelegate,jiandurenyuan,xieguanrenyuan, amend) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "latitude,department,spdelegate,jiandurenyuan,xieguanrenyuan, amend,idNumber,numberOfEmployees,recordDate,recordEffectiveDate,recordOrgan,recordCardNumber,mainBody,businessScope,businessLicense,smallStallregistrationCard,healthCertificate)"
+				+ " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 		Object[] params = { agricultural.getQyname(), agricultural.getAddress(), agricultural.getScaddress(),
 				agricultural.getQydelegate(), agricultural.getQyphone(), agricultural.getZzcode(),
 				agricultural.getScpermit(), agricultural.getJyType(), agricultural.getItemsOfBusiness(),
 				agricultural.getLongitude(), agricultural.getLatitude(), agricultural.getDepartment(),
 				agricultural.getSpdelegate(), agricultural.getJiandurenyuan(), agricultural.getXieguanrenyuan(),
-				agricultural.getAmend() };
+				agricultural.getAmend(),agricultural.getIdNumber(),agricultural.getNumberOfEmployees(),agricultural.getRecordDate(),agricultural.getRecordEffectiveDate(),agricultural.getRecordOrgan(),agricultural.getRecordCardNumber(),agricultural.getMainBody()
+				,agricultural.getBusinessScope(),agricultural.getBusinessLicense(),agricultural.getSmallStallregistrationCard(),agricultural.getHealthCertificate()};
 		qr.update(sql, params);
 	}
 
 	// 更新信息
 	public void agriculturalUpdate(int id, Agricultural agricultural) throws SQLException {
 		String sql = "update agricultural set qyname=?, address=?, scaddress=?, qydelegate=?, qyphone=?, zzcode=?, scpermit=?, jyType=?, itemsOfBusiness=?, longitude=?, "
-				+ "latitude=?,department=?,spdelegate=?,jiandurenyuan=?,xieguanrenyuan=?, amend=? where id=?";
+				+ "latitude=?,department=?,spdelegate=?,jiandurenyuan=?,xieguanrenyuan=?, amend=?,idNumber=?,numberOfEmployees=?,recordDate=?,recordEffectiveDate=?,"
+				+ "recordOrgan=?,recordCardNumber=?,mainBody=?,businessScope=?,businessLicense=?,smallStallregistrationCard=?,healthCertificate=? where id=?";
 		Object[] params = { agricultural.getQyname(), agricultural.getAddress(), agricultural.getScaddress(),
 				agricultural.getQydelegate(), agricultural.getQyphone(), agricultural.getZzcode(),
 				agricultural.getScpermit(), agricultural.getJyType(), agricultural.getItemsOfBusiness(),
 				agricultural.getLongitude(), agricultural.getLatitude(), agricultural.getDepartment(),
 				agricultural.getSpdelegate(), agricultural.getJiandurenyuan(), agricultural.getXieguanrenyuan(),
-				agricultural.getAmend(), id };
+				agricultural.getAmend(),agricultural.getIdNumber(),agricultural.getNumberOfEmployees(),agricultural.getRecordDate(),agricultural.getRecordEffectiveDate(),agricultural.getRecordOrgan(),agricultural.getRecordCardNumber(),agricultural.getMainBody()
+				,agricultural.getBusinessScope(),agricultural.getBusinessLicense(),agricultural.getSmallStallregistrationCard(),agricultural.getHealthCertificate(), id };
 		qr.update(sql, params);
 	}
 

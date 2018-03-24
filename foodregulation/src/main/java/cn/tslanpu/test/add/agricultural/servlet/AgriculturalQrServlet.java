@@ -42,7 +42,7 @@ public class AgriculturalQrServlet extends HttpServlet {
 		//二维码封装的链接
 		String text = request.getRequestURL().toString();
 	    text = text.substring(0, text.indexOf("AgriculturalQrServlet"));
-	    text = text + "/AgriculturalServlet?method=forCode&enterpriseId=";
+	    text = text + "AgriculturalServlet?method=forCode&enterpriseId=";
         int width = 300;  
         int height = 300;  
         //二维码的图片格式  

@@ -1,5 +1,7 @@
 package cn.tslanpu.test.add.agricultural.domain;
 
+import java.util.Date;
+
 public class Agricultural {
 	
 	private int id;
@@ -22,8 +24,88 @@ public class Agricultural {
 	private String longitude;	 //经度
 	private String latitude;	 //维度      28
 	
+	private String idNumber;
+	private String numberOfEmployees;
+	private Date recordDate;
+	private Date recordEffectiveDate;
+	private String recordOrgan;
+	private String recordCardNumber;
+	private String mainBody;//主体业态
+	private String businessScope;//经营范围
+	
 	private String amend;		 //最后修改人
 	
+	private String businessLicense;
+	private String smallStallregistrationCard;
+	private String healthCertificate;
+	
+	
+	public String getIdNumber() {
+		return idNumber;
+	}
+	public void setIdNumber(String idNumber) {
+		this.idNumber = idNumber;
+	}
+	public String getNumberOfEmployees() {
+		return numberOfEmployees;
+	}
+	public void setNumberOfEmployees(String numberOfEmployees) {
+		this.numberOfEmployees = numberOfEmployees;
+	}
+	public Date getRecordDate() {
+		return recordDate;
+	}
+	public void setRecordDate(Date recordDate) {
+		this.recordDate = recordDate;
+	}
+	public Date getRecordEffectiveDate() {
+		return recordEffectiveDate;
+	}
+	public void setRecordEffectiveDate(Date recordEffectiveDate) {
+		this.recordEffectiveDate = recordEffectiveDate;
+	}
+	public String getRecordOrgan() {
+		return recordOrgan;
+	}
+	public void setRecordOrgan(String recordOrgan) {
+		this.recordOrgan = recordOrgan;
+	}
+	public String getRecordCardNumber() {
+		return recordCardNumber;
+	}
+	public void setRecordCardNumber(String recordCardNumber) {
+		this.recordCardNumber = recordCardNumber;
+	}
+	public String getMainBody() {
+		return mainBody;
+	}
+	public void setMainBody(String mainBody) {
+		this.mainBody = mainBody;
+	}
+	public String getBusinessScope() {
+		return businessScope;
+	}
+	public void setBusinessScope(String businessScope) {
+		this.businessScope = businessScope;
+	}
+	public String getBusinessLicense() {
+		return businessLicense;
+	}
+	public void setBusinessLicense(String businessLicense) {
+		this.businessLicense = businessLicense;
+	}
+	public String getSmallStallregistrationCard() {
+		return smallStallregistrationCard;
+	}
+	public void setSmallStallregistrationCard(String smallStallregistrationCard) {
+		this.smallStallregistrationCard = smallStallregistrationCard;
+	}
+	public String getHealthCertificate() {
+		return healthCertificate;
+	}
+	public void setHealthCertificate(String healthCertificate) {
+		this.healthCertificate = healthCertificate;
+	}
 	public String getDepartment() {
 		return department;
 	}

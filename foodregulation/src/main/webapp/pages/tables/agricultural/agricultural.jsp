@@ -17,6 +17,8 @@
 			var qyname = $("#qyname").val();
 			var zzcode = $("#zzcode").val();
 			var qydelegate = $("#qydelegate").val();
+			var recordDate = $("#recordDate").val();
+	        var recordEffectiveDate = $("#recordEffectiveDate").val();
 			if(qyname.trim() == ""){
 				alert("请填写企业名称");
 				return false;
@@ -24,7 +26,7 @@
 				alert("请选择行政区域");
 				return false;
 			}else if(qydelegate.trim() == ""){
-				alert("请填写负责人");
+				alert("请填写经营人");
 				return false;
 			}else if(zzcode.trim() == ""){
 				alert("请填写注册号");
@@ -32,7 +34,13 @@
 			}else if(val == 0){
 				alert("请选择监管单位");
 				return false;
-			}else{
+			}else if(recordDate.trim() == ""){
+                alert("请填写备案日期");
+                return false;
+            }else if(recordEffectiveDate.trim() == ""){
+                alert("请填写备案有效日期");
+                return false;
+            }else{
 				$.ajax({
     				url:"${pageContext.request.contextPath }/AgriculturalServlet",
     				type:"post",
@@ -40,28 +48,46 @@
     				data:$('#validateForm1').serialize(),
     				success : function(data) {
     					if(data>0){
-    						alertEase("添加成功",'alert_succ');
-    						queryEnterprise();
+    						alertEase("添加成功",'0');
+    						//queryEnterprise();
     					}else{
-    						alertEase("添加失败",'alert_err');
+    						alertEase("添加失败",'1');
     					}
     				}
     			}); 
 			}
 		}
 		
-		//打印
-    	function print(){
-    		location.href="./downloadAgricultural.jsp";
+		var temp = "";
+    	function uploadImg(idStr){
+    		 temp = idStr;
+    		 $("#"+idStr).click();
     	}
-		
+    	function previewImg(ele){
+    		var formData = new FormData();
+            formData.append('fileselect',ele.files[0]);    //将文件转成二进制形式
+            $.ajax({
+                type:"post",
+                url:"${pageContext.request.contextPath}/supervisionAndCheck/upload.do",
+                async:false,
+                contentType: false,    //这个一定要写
+                processData: false, //这个也一定要写，不然会报错
+                data:formData,
+                dataType:'text',    //返回类型，有json，text，HTML。
+                success : function(data) {
+                	var url = data;
+                	$("#"+temp+"Img").attr("src","http://lanpubucket1.oss-cn-beijing.aliyuncs.com/"+url);
+                	$("input[name='"+temp+"']").val(url);
+                  }
+                });
+    	}
    	</script>
         <section class="content">
           <div class="row" style="text-align:center">
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3>食用农产品经营户信息登记表</h3>
+                  <h3>食品小摊点经营户信息登记表</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                <form id="validateForm1" action="javascript:void(0)" method="post">
@@ -91,17 +117,19 @@
                         <td>经营场所地址(具体到摊位号)</td>
                         <td><input id="scaddress" type="text" style="width:280px" name="scaddress" class="" onblur="searchAddress('aglongitude','aglatitude')"/>
                         </td>
-                        <td>负责人</td>
+                        <td>经营者姓名</td>
                         <td><input id="qydelegate" type="text" style="width:280px" name="qydelegate" class=""/></td>                   
                       </tr>
 					  <tr>
+					    <td>经营者身份证号</td>
+                        <td><input id="idNumber" type="text" style="width:280px" name="idNumber" class=""/></td>
                         <td>联系电话</td>
                         <td><input id="qyphone" type="text" style="width:280px" name="qyphone" class=""/></td>
-						<td>注册号/统一社会信用代码</td>
-                        <td><input id="zzcode" type="text" style="width:280px" name="zzcode" class=""/></td>
                       </tr>
                       
                       <tr>
+                        <td>注册号/统一社会信用代码</td>
+                        <td><input id="zzcode" type="text" style="width:280px" name="zzcode" class=""/></td>
                         <td>监管单位</td>
                       	<td><select style="width:280px" id="department" name="department">
                       			<option value="0">请选择</option>
@@ -110,65 +138,101 @@
                         		</c:forEach>
                             </select>
                         </td>
+                      </tr>
+					  <tr>                        
+                        <td>从业人员数量</td>
+                        <td><input id="numberOfEmployees" type="text" style="width:280px" name="numberOfEmployees" class=""/></td>
 						<td>监管人员</td>
                         <td><input id="spdelegate" type="text" style="width:280px" name="spdelegate" class=""/></td>
                       </tr>
-                      
-                      <tr>
-                        <td>监督人员</td>
-                        <td><input id="jiandurenyuan" type="text" style="width:280px" class="" name="jiandurenyuan" /></td>
-						<td>协管人员</td>
-                        <td><input id="xieguanrenyuan" type="text" style="width:280px" class="" name="xieguanrenyuan" /></td>
+                      <tr>                        
+                        <td>备案日期</td>
+                        <td>
+                            <div id="recordDateBox1" style="position:relative">
+                                <input id="recordDate" name="recordDate" class="bg_calender" style="width:280px" size="16" type="text" value="">
+                            </div>
+                        </td>
+                        <td>备案有效日期</td>
+                        <td>
+                            <div id="recordEffectiveDateBox2" style="position:relative">
+                                <input id="recordEffectiveDate" name="recordEffectiveDate" style="width:280px" class="bg_calender" size="16" type="text" value="">
+                            </div>
+                        </td>
+                      </tr>
+                      <tr>                        
+                        <td>备案机关</td>
+                        <td><input id="recordOrgan" type="text" style="width:280px" name="recordOrgan" class=""/></td>
+                        <td>备案卡编号</td>
+                        <td><input id="recordCardNumber" type="text" style="width:280px" name="recordCardNumber" class=""/></td>
                       </tr>
                       
-                      
-					  <tr>                        
-                        <td>食品经营许可证</td>
-                        <td><input id="scpermit" type="text" style="width:280px" name="scpermit" class=""/></td>
-						<td>经度</td>
-                        <td><input id="aglongitude" type="text" style="width:280px" name="longitude" class=""/></td>
-                      </tr>
-                      
-                       <tr>                        
+                       <tr>    
+                        <td>经度</td>
+                        <td><input id="aglongitude" type="text" style="width:280px" name="longitude" class=""/></td>                    
 						<td>纬度</td>
                         <td><input id="aglatitude" type="text" style="width:280px" name="latitude" class=""/></td>
                       </tr>
                       
 					 
 					  <tr>
-                        <td><b>二、经营方式</b></td>                 
+                        <td><b>二、主体业态</b></td>                 
                       </tr>
 					  <tr>
-                        <td><input id="jyType" type="checkbox" value="批发" name="jyType">&nbsp&nbsp&nbsp批发</td>
-                        <td><input id="hacccpapprove" type="checkbox" value="零售" name="jyType">&nbsp&nbsp&nbsp零售</td>
-                        <td><input id="wghapprove" type="checkbox" value="批发兼零售" name="jyType">&nbsp&nbsp&nbsp批发兼零售</td>                        
+                        <td><input type="checkbox" value="流动摊点" name="mainBody">&nbsp&nbsp&nbsp流动摊点</td>
+                        <td><input type="checkbox" value="固定摊点" name="mainBody">&nbsp&nbsp&nbsp固定摊点</td>
+                        <td><input type="checkbox" value="小食杂店" name="mainBody">&nbsp&nbsp&nbsp小食杂店</td>                        
+                        <td><input type="checkbox" value="市场内摊点" name="mainBody">&nbsp&nbsp&nbsp市场内摊点</td>                        
+                      </tr>
+					  <tr>
+                        <td><b>三、经营范围</b></td>                 
+                      </tr>
+					  <tr>
+                        <td><input type="checkbox" value="食品销售 " name="businessScope">&nbsp&nbsp&nbsp食品销售 </td>
+                        <td><input type="checkbox" value="餐饮服务" name="businessScope">&nbsp&nbsp&nbsp餐饮服务</td>
                       </tr>
                       
-                      
-                       <tr>
-                        <td><b>三、经营项目</b></td>                 
-                      </tr>
-					  <tr>
-                        <td><input id="jyType" type="checkbox" value="预包装食品" name="itemsOfBusiness">&nbsp&nbsp&nbsp预包装食品</td>
-                        <td><input id="hacccpapprove" type="checkbox" value="散装食品" name="itemsOfBusiness">&nbsp&nbsp&nbsp散装食品</td>
-                        <td><input id="wghapprove" type="checkbox" value="熟食" name="itemsOfBusiness">&nbsp&nbsp&nbsp熟食</td> 
-                        <td><input id="lsapprove" type="checkbox" value="乳制品" name="itemsOfBusiness">&nbsp&nbsp&nbsp乳制品</td>                       
-                      </tr>
-					  <tr>
-						<td><input id="yjapprove" type="checkbox" value="食用农产品" name="itemsOfBusiness">&nbsp&nbsp&nbsp食用农产品</td>
-						<td><input id="lsapprove" type="checkbox" value="水产品" name="itemsOfBusiness">&nbsp&nbsp&nbsp水产品</td>
-						<td><input id="yjapprove" type="checkbox" value="冷鲜畜禽产品" name=itemsOfBusiness>&nbsp&nbsp&nbsp冷鲜畜禽产品</td>
-                      </tr>
                       
                       <tr>
-                        <td><input id="lsapprove" type="checkbox" value="保健食品" name="itemsOfBusiness">&nbsp&nbsp&nbsp保健食品</td>
-						<td><input id="yjapprove" type="checkbox" value="现场制售" name="itemsOfBusiness">&nbsp&nbsp&nbsp现场制售</td>
+                        <td><b>四、经营项目</b></td>                 
                       </tr>
-                      
-                      
+					  <tr>
+                        <td><input type="checkbox" value="预包装食品销售" name="itemsOfBusiness">&nbsp&nbsp&nbsp预包装食品销售</td>
+                        <td><input type="checkbox" value="散装食品销售" name="itemsOfBusiness">&nbsp&nbsp&nbsp散装食品销售</td>
+                        <td><input type="checkbox" value="食用农产品销售" name="itemsOfBusiness">&nbsp&nbsp&nbsp食用农产品销售</td> 
+                        <td><input type="checkbox" value="热食类食品制售" name="itemsOfBusiness">&nbsp&nbsp&nbsp热食类食品制售</td>                       
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" value="冷食类食品制售" name="itemsOfBusiness">&nbsp&nbsp&nbsp冷食类食品制售</td>
+						<td><input type="checkbox" value="生食类食品制售" name="itemsOfBusiness">&nbsp&nbsp&nbsp生食类食品制售</td>
+						<td><input type="checkbox" value="糕点类食品制售" name="itemsOfBusiness">&nbsp&nbsp&nbsp糕点类食品制售</td>
+                        <td><input type="checkbox" value="自制饮品制售" name=itemsOfBusiness>&nbsp&nbsp&nbsp自制饮品制售</td>
+                        <td><input type="checkbox" value="其它" name=itemsOfBusiness>&nbsp&nbsp&nbsp其它</td>
+                      </tr>
+                      <tr>
+                        <td><b>五、相关证照</b></td>                 
+                      </tr>
+                      <tr>
+                        <td style="width:200px;text-align: left">
+                             <input type="hidden" name="businessLicense">
+                             <input type="file" style="display:none;"  id="businessLicense" onchange="previewImg(this);">
+                             <img src="" style="width:150px;display:block" id="businessLicenseImg"/>
+                             <input type="button" value="上传营业执照" onclick="uploadImg('businessLicense')">
+                        </td>
+                        <td style="width:200px;text-align: left">
+                             <input type="hidden" name="smallStallregistrationCard">
+                             <input type="file" style="display:none;"  id="smallStallregistrationCard" onchange="previewImg(this);">
+                             <img src="" style="width:150px;display:block" id="smallStallregistrationCardImg"/>
+                             <input type="button" value="上传小摊点备案卡" onclick="uploadImg('smallStallregistrationCard')">
+                        </td>
+                        <td style="width:200px;text-align: left">
+                             <input type="hidden" name="healthCertificate">
+                             <input type="file" style="display:none;"  id="healthCertificate" onchange="previewImg(this);">
+                             <img src="" style="width:150px;display:block" id="healthCertificateImg"/>
+                             <input type="button" value="上传健康证" onclick="uploadImg('healthCertificate')">
+                        </td>
+                      </tr>
 						<tr>
 						<td colspan="2" align="right"><input type="button" onclick="_click()" class="btn btn-primary" width="30px" value="保存"/></td>
-									<td><input type="button" onclick="print()" class="btn btn-primary"  width="50px" value="打印"/></td>						
                       </tr>											  
                     </tbody>
                   </table>	
@@ -190,6 +254,28 @@
           "ordering": true,
           "info": true,
           "autoWidth": false
+        });
+        $('#recordDate').datetimepicker({
+            container:'#recordDateBox1',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            format:'yyyy-mm-dd'
+        });
+        $('#recordEffectiveDate').datetimepicker({
+            container:'#recordEffectiveDateBox2',
+            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0,
+            format:'yyyy-mm-dd'
         });
       });
     </script>

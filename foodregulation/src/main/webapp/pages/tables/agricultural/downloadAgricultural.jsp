@@ -30,7 +30,7 @@
   <div id="ddd" class="tablec">
                   	<table border="1" id="" class="table table-condensed" >                   
                     	<tbody>
-                    		<tr><td colspan="4" align="center"><b>食用农产品经营户信用档案</b></td></tr>
+                    		<tr><td colspan="4" align="center"><b>食品小摊点经营户信息登记表</b></td></tr>
 							 <tr>
                         <td colspan="4"><b>一、基本情况</b></td>
                      </tr>

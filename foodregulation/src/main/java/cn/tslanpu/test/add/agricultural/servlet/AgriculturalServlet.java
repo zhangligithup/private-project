@@ -71,6 +71,7 @@ public class AgriculturalServlet extends BaseServlet {
 			request.setAttribute("agricultural", agricultural);
 			out.println(1);
 		} catch (Exception e) {
+			e.printStackTrace();
 			out.println(0);
 		}
 	}
@@ -150,6 +151,6 @@ public class AgriculturalServlet extends BaseServlet {
 		Agricultural agricultural = this.agriculturalService.agriculturalFind(id);
 
 		request.setAttribute("agricultural", agricultural);
-		request.getRequestDispatcher("/forCode/forCode.jsp").forward(request, response);
+		request.getRequestDispatcher("/forCode/agriculturalforCode.jsp").forward(request, response);
 	}
 }

@@ -30,7 +30,8 @@ public class AdminDao {
         }
         	   sql+="and a.username = b.user_name";
         if(StringUtils.isNotBlank(password)){	
-        	return qr.query(sql, new BeanHandler<Admin>(Admin.class), username, password);
+        	Admin admin = qr.query(sql, new BeanHandler<Admin>(Admin.class), username, password);
+        	return admin;
         }else{
         	return qr.query(sql, new BeanHandler<Admin>(Admin.class), username);
         }
