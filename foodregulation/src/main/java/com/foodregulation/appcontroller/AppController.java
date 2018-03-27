@@ -36,7 +36,6 @@ import com.foodregulation.dao.entity.ExamRecord;
 import com.foodregulation.dao.entity.Examination;
 import com.foodregulation.dao.entity.Food;
 import com.foodregulation.dao.entity.Health;
-import com.foodregulation.dao.entity.Industry;
 import com.foodregulation.dao.entity.KeepRecord;
 import com.foodregulation.dao.entity.Medical;
 import com.foodregulation.dao.entity.Notification;
@@ -137,16 +136,14 @@ public class AppController {
 				info.setEnterpriseTypeName("");
 				if (map.get("enterpriseType") != null) {
 					if (map.get("enterpriseType").toString().equals("enterprise_1")) {
-						info.setEnterpriseTypeName("食用农产品经营户");
+						info.setEnterpriseTypeName("食品小摊点经营户");
 					} else if (map.get("enterpriseType").toString().equals("enterprise_2")) {
 						info.setEnterpriseTypeName("食品生产企业");
 					} else if (map.get("enterpriseType").toString().equals("enterprise_3")) {
 						info.setEnterpriseTypeName("食品销售企业");
 					} else if (map.get("enterpriseType").toString().equals("enterprise_4")) {
 						info.setEnterpriseTypeName("食品餐饮企业");
-					} else if (map.get("enterpriseType").toString().equals("enterprise_5")) {
-						info.setEnterpriseTypeName("食品五小行业");
-					} else if (map.get("enterpriseType").toString().equals("enterprise_6")) {
+					}else if (map.get("enterpriseType").toString().equals("enterprise_6")) {
 						info.setEnterpriseTypeName("酒类销售企业");
 					} else if (map.get("enterpriseType").toString().equals("enterprise_7")) {
 						info.setEnterpriseTypeName("保健食品销售企业");
@@ -484,7 +481,7 @@ public class AppController {
 			return ResultUtil.appJsonObject(false, "请填写监督单位");
 		}
 		try {
-			if (enterpriseType.equals("食用农产品经营户")) {// 食用农产品经营户
+			if (enterpriseType.equals("食品小摊点经营户")) {// 食品小摊点经营户
 				Agricultural a = new Agricultural();
 				a.setQyname(qyname);
 				a.setAddress(address);
@@ -532,19 +529,7 @@ public class AppController {
 				a.setYouxiaodate(youxiaodate);
 				a.setDepartment(department);
 				appService.insertFood(a);
-			} else if (enterpriseType.equals("食品五小行业")) {// 食品五小行业
-				Industry a = new Industry();
-				a.setQyname(qyname);
-				a.setAddress(address);
-				a.setScaddress(scaddress);
-				a.setQydelegate(qydelegate);
-				a.setQyphone(qyphone);
-				a.setZzcode(zzcode);
-				a.setScpermit(scpermit);
-				a.setYouxiaodate(youxiaodate);
-				a.setDepartment(department);
-				appService.insertIndustry(a);
-			} else if (enterpriseType.equals("酒类销售企业")) {// 酒类销售企业
+			}else if (enterpriseType.equals("酒类销售企业")) {// 酒类销售企业
 				Wine a = new Wine();
 				a.setQyname(qyname);
 				a.setAddress(address);
@@ -1608,15 +1593,13 @@ public class AppController {
 				info.setYouxiaodate(map.get("youxiaodate") == null ? "" : map.get("youxiaodate").toString());
 				info.setScaddress(map.get("scaddress") == null ? "" : map.get("scaddress").toString());
 				if (map.get("enterpriseType").toString().equals("enterprise_1")) {
-					info.setEnterpriseType("食用农产品经营户");
+					info.setEnterpriseType("食品小摊点经营户");
 				} else if (map.get("enterpriseType").toString().equals("enterprise_2")) {
 					info.setEnterpriseType("食品生产企业");
 				} else if (map.get("enterpriseType").toString().equals("enterprise_3")) {
 					info.setEnterpriseType("食品销售企业");
 				} else if (map.get("enterpriseType").toString().equals("enterprise_4")) {
 					info.setEnterpriseType("食品餐饮企业");
-				} else if (map.get("enterpriseType").toString().equals("enterprise_5")) {
-					info.setEnterpriseType("食品五小行业");
 				} else if (map.get("enterpriseType").toString().equals("enterprise_6")) {
 					info.setEnterpriseType("酒类销售企业");
 				} else if (map.get("enterpriseType").toString().equals("enterprise_7")) {

@@ -54,7 +54,6 @@ public enum SamplingType {
                 "enterprise_2".equalsIgnoreCase(entType)||
                 "enterprise_3".equalsIgnoreCase(entType)||
                 "enterprise_4".equalsIgnoreCase(entType)||
-                "enterprise_5".equalsIgnoreCase(entType)||
                 "enterprise_6".equalsIgnoreCase(entType)){
             return 1;
         }

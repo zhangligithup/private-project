@@ -134,41 +134,38 @@
     </div>
 </div>
 <script>
-$(document).ready(function(){
-	 $('#start_calenderOne').datetimepicker({
-	        container:'#start_calenderOneBox1',
-	        weekStart: 1,
-	        todayBtn:  1,
-	        autoclose: 1,
-	        todayHighlight: 1,
-	        startView: 2,
-	        minView: 2,
-	        forceParse: 0,
-	        format:'yyyy-mm-dd'
-	    });
-	    $('#end_calenderOne').datetimepicker({
-	        container:'#end_calenderOneBox1',
-	        weekStart: 1,
-	        todayBtn:  1,
-	        autoclose: 1,
-	        todayHighlight: 1,
-	        startView: 2,
-	        minView: 2,
-	        forceParse: 0,
-	        format:'yyyy-mm-dd'
-	    });
-    $('#samTask_date_calender').datetimepicker({
-        container:'#samTask_date_calenderOneBox',
-        format: 'yyyy-mm-dd',
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-    });
-	querySamTaskBasic();
+$('#start_calenderOne').datetimepicker({
+    container:'#start_calenderOneBox1',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0,
+    format:'yyyy-mm-dd'
+});
+$('#end_calenderOne').datetimepicker({
+    container:'#end_calenderOneBox1',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0,
+    format:'yyyy-mm-dd'
+});
+$('#samTask_date_calender').datetimepicker({
+container:'#samTask_date_calenderOneBox',
+format: 'yyyy-mm-dd',
+weekStart: 1,
+todayBtn:  1,
+autoclose: 1,
+todayHighlight: 1,
+startView: 2,
+minView: 2,
+forceParse: 0
 });
 
 //清空表单 
@@ -349,4 +346,5 @@ function processSamTask() {
 function seeSampleTaskResult(id) {
     creatTabPage("cyjc-list-"+id,'${pageContext.request.contextPath }/samplingInspection/index.do?taskId='+id);
 }
+querySamTaskBasic();
 </script>

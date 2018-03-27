@@ -27,4 +27,9 @@ public class UnitDao {
 		String sql = "select id,t_dictionary_code as tDictionaryCode,t_dictionary_name as tDictionaryName,t_dictionary_type as tDictionaryType from t_dictionary where t_dictionary_type = 5";
 		return qr.query(sql, new BeanListHandler<Dictionary>(Dictionary.class));
 	}
+	
+	public List<Dictionary> queryQuickcheckproject() throws SQLException{
+		String sql = "select id,t_dictionary_code as tDictionaryCode,t_dictionary_name as tDictionaryName,t_dictionary_type as tDictionaryType from t_dictionary where t_dictionary_type = 8";
+		return qr.query(sql, new BeanListHandler<Dictionary>(Dictionary.class));
+	}
 }

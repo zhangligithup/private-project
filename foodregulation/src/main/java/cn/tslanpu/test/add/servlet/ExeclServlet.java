@@ -20,8 +20,6 @@ import cn.tslanpu.test.add.food.domain.Food;
 import cn.tslanpu.test.add.food.service.FoodService;
 import cn.tslanpu.test.add.health.domain.Health;
 import cn.tslanpu.test.add.health.service.HealthService;
-import cn.tslanpu.test.add.industry.domain.Industry;
-import cn.tslanpu.test.add.industry.service.IndustryService;
 import cn.tslanpu.test.add.medical.domain.Medical;
 import cn.tslanpu.test.add.medical.service.MedicalService;
 import cn.tslanpu.test.add.production.domain.Production;
@@ -103,12 +101,6 @@ public class ExeclServlet extends HttpServlet {
 				
 				request.setAttribute("list", list);
 				request.getRequestDispatcher("/pages/tables/medical/execalMedical.jsp").forward(request, response);
-			}else if(category.equals("食品五小行业")){
-				
-				IndustryService industryService = new IndustryService();
-				List<Industry> list = industryService.queryAll(name.trim(), address, department, fddelegate, zzcode);
-				request.setAttribute("list", list);
-				request.getRequestDispatcher("/pages/tables/industry/execalIndustry.jsp").forward(request, response);
 			}else if(category.equals("酒类销售企业")){
 				
 				WineService wineService = new WineService();

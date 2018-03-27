@@ -322,16 +322,6 @@ $(function(){
         	  				var fddelegate = jsonData.byqynameFood.fddelegate;//法定代表人
         	  				var ems = jsonData.byqynameFood.ems;//邮编
     	  					}
-    	  				else if(jsonData.byqynameIndustry!=null){
-    	  					var qyname = jsonData.byqynameIndustry.qyname;//被抽检单位
-        	  				var scaddress = jsonData.byqynameIndustry.scaddress;//生产地址
-        	  				var qyphone = jsonData.byqynameIndustry.qyphone; //企业负责人手机号
-        	  				var qydelegate = jsonData.byqynameIndustry.qydelegate;//企业负责人
-        	  				var scpermit = jsonData.byqynameIndustry.scpermit;//食品生产许可证编号
-        	  				var zzcode = jsonData.byqynameIndustry.zzcode;//注册号
-        	  				var fddelegate = jsonData.byqynameIndustry.fddelegate;
-        	  				var ems = jsonData.byqynameIndustry.ems;//邮编
-    	  					}
     	  				else if(jsonData.byqynameCriculate!=null){
         	  				var qyname = jsonData.byqynameCriculate.qyname;//被抽检单位
             	  			var scaddress = jsonData.byqynameCriculate.scaddress;//生产地址

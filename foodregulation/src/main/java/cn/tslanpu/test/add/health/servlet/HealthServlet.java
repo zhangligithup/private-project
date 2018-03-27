@@ -15,12 +15,9 @@ import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 
 import cn.itcast.commons.CommonUtils;
-import cn.tslanpu.test.add.Criculate.domain.Criculate;
 import cn.tslanpu.test.add.health.domain.Health;
 import cn.tslanpu.test.add.health.domain.Health_jdjc;
 import cn.tslanpu.test.add.health.service.HealthService;
-import cn.tslanpu.test.add.industry.domain.Industry;
-import cn.tslanpu.test.add.production.domain.Production;
 import cn.tslanpu.test.admin.domain.Admin;
 import cn.tslanpu.test.utils.BaseServlet;
 

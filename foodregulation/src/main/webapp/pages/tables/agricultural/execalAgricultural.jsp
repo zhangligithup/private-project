@@ -27,7 +27,7 @@ response.setHeader("Content-Disposition","inline;filename=" + "excel.xls");
   <body>
   <div id="ddd" class="tablec">
 		<table id="" border="1" cellpadding="0" cellspacing="0" >
-			<tr><td colspan="15" align="center"><font size="6"><b>食用农产品经营户信用档案</b></font></td></tr>
+			<tr><td colspan="15" align="center"><font size="6"><b>食品小摊点经营户信用档案</b></font></td></tr>
 			<tr>
 				<td><font size="4" >经营户名称</font></td>
 				<td><font size="4" >所属行政区域</font> </td>

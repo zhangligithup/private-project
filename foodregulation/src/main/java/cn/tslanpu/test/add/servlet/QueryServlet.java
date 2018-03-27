@@ -23,8 +23,6 @@ import cn.tslanpu.test.add.food.domain.Food;
 import cn.tslanpu.test.add.food.service.FoodService;
 import cn.tslanpu.test.add.health.domain.Health;
 import cn.tslanpu.test.add.health.service.HealthService;
-import cn.tslanpu.test.add.industry.domain.Industry;
-import cn.tslanpu.test.add.industry.service.IndustryService;
 import cn.tslanpu.test.add.medical.domain.Medical;
 import cn.tslanpu.test.add.medical.service.MedicalService;
 import cn.tslanpu.test.add.production.domain.Production;
@@ -110,15 +108,6 @@ public class QueryServlet extends HttpServlet {
 				int pageCode = getPageCode(request);
 				MedicalService medocalService = new MedicalService();
 				PageBean<Medical> pb = medocalService.queryZ(name.trim(), address, department, fddelegate, zzcode,pageCode);
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("pb", pb);
-				JSON jsonData = JSONObject.fromObject(map);
-				response.getWriter().print(jsonData);
-			}else if(category.equals("食品五小行业")){
-				
-				int pageCode = getPageCode(request);
-				IndustryService industryService = new IndustryService();
-				PageBean<Industry> pb = industryService.queryZ(name.trim(), address, department, fddelegate, zzcode,pageCode);
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("pb", pb);
 				JSON jsonData = JSONObject.fromObject(map);

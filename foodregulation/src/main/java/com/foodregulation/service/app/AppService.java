@@ -12,7 +12,6 @@ import com.foodregulation.dao.entity.Criculate;
 import com.foodregulation.dao.entity.Drug;
 import com.foodregulation.dao.entity.Food;
 import com.foodregulation.dao.entity.Health;
-import com.foodregulation.dao.entity.Industry;
 import com.foodregulation.dao.entity.Medical;
 import com.foodregulation.dao.entity.Production;
 import com.foodregulation.dao.entity.Report;
@@ -46,9 +45,6 @@ public interface AppService {
 	void insertCriculate(Criculate a);
 
 	void insertFood(Food a);
-
-	void insertIndustry(Industry a);
-
 
 	void insertHealth(Health a);
 

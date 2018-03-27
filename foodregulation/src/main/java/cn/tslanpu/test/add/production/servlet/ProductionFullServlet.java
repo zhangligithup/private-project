@@ -21,8 +21,6 @@ package cn.tslanpu.test.add.production.servlet;
 	import cn.tslanpu.test.add.food.service.FoodService;
 	import cn.tslanpu.test.add.health.domain.Health;
 	import cn.tslanpu.test.add.health.service.HealthService;
-	import cn.tslanpu.test.add.industry.domain.Industry;
-	import cn.tslanpu.test.add.industry.service.IndustryService;
 	import cn.tslanpu.test.add.medical.domain.Medical;
 	import cn.tslanpu.test.add.medical.service.MedicalService;
 	import cn.tslanpu.test.add.production.domain.Production;

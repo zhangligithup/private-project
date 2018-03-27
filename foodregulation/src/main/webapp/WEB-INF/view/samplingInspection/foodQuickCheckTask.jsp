@@ -22,286 +22,259 @@
         <tr>
             <!-- 隐藏域 登录人单位code -->
             <input type="hidden" id="taskUnitCode" value="${uitcode}">
-            <th>企业名称</th>
+            <th>样品名称</th>
             <th>
                 <div class="search_parent">
-                    <input type="text" class="search_input" id="enterpriseNamSam">
+                    <input type="text" class="search_input" id="sampleName">
                 </div>
             </th>
-            <th>企业类别</th>
+            <th>检测项目</th>
             <th>
-                <select class="select_style1" id="enterpriseTypeSam">
+                <select class="select_style1" id="quickcheckproject">
                     <option value="" selected>请选择</option>
-                    <c:forEach  items="${enterpriseTypeList}" var="enterpriseType">
-                        <option  value="${enterpriseType.tDictionaryCode}" >${enterpriseType.tDictionaryName}</option>
+                    <c:forEach  items="${quickcheckprojectList}" var="quickcheckproject">
+                        <option  value="${quickcheckproject.tDictionaryCode}" >${quickcheckproject.tDictionaryName}</option>
                     </c:forEach >
                 </select>
             </th>
-            <th>抽检开始日期</th>
+            <th>检测日期</th>
             <th>
-                <div id="start_calenderOneBox1" style="position:relative">
-                    <input id="start_calenderOne" class="bg_calender" size="16" type="text" value="">
+                <div id="start_quickCheckBox1" style="position:relative">
+                    <input id="start_quickCheck" class="bg_calender" size="16" type="text" value="">
                 </div>
             </th>
-            <th>抽检结束日期</th>
+            <th>至</th>
             <th>
-                <div id="end_calenderOneBox1" style="position:relative">
-                    <input id="end_calenderOne" class="bg_calender" size="16" type="text" value="">
+                <div id="end_quickCheckBox1" style="position:relative">
+                    <input id="end_quickCheck" class="bg_calender" size="16" type="text" value="">
                 </div>
             </th>
-            <th><a class="form_btn" href="#" onclick="querySamTaskBasic()">筛选</a></th>
         </tr>
         <tr>
-            <!-- 隐藏域 登录人单位code -->
-            <input type="hidden" id="taskUnitCode" value="${uitcode}">
-            <th>企业名称</th>
+            <th>被检企业</th>
             <th>
                 <div class="search_parent">
-                    <input type="text" class="search_input" id="enterpriseNamSam">
+                    <input type="text" class="search_input" id="detectionedEnterprise">
                 </div>
             </th>
-            <th>企业类别</th>
+            <th>检测单位</th>
             <th>
-                <select class="select_style1" id="enterpriseTypeSam">
+                <select class="select_style1" id="detectionUnitCode">
                     <option value="" selected>请选择</option>
-                    <c:forEach  items="${enterpriseTypeList}" var="enterpriseType">
-                        <option  value="${enterpriseType.tDictionaryCode}" >${enterpriseType.tDictionaryName}</option>
+                    <c:forEach  items="${unitList}" var="unit">
+                        <option  value="${unit.tDictionaryCode}" >${unit.tDictionaryName}</option>
                     </c:forEach >
                 </select>
             </th>
-            <th>抽检开始日期</th>
-            <th>
-                <div id="start_calenderOneBox1" style="position:relative">
-                    <input id="start_calenderOne" class="bg_calender" size="16" type="text" value="">
-                </div>
-            </th>
-            <th>抽检结束日期</th>
-            <th>
-                <div id="end_calenderOneBox1" style="position:relative">
-                    <input id="end_calenderOne" class="bg_calender" size="16" type="text" value="">
-                </div>
-            </th>
-            <th><a class="form_btn" href="#" onclick="querySamTaskBasic()">筛选</a></th>
+            <th><a class="form_btn" href="#" onclick="queryQuickCheckBasic()">搜索</a></th>
         </tr>
         </thead>
     </table>
     <div class="btn_box marb10" >
         <div class="pull-left ">
             <ul>
-                <li id='li-add_samTask_tab'>
-                    <a href="javascript:void (0)" class="form_btn2" onclick="addBtnProcessSamTask()"><img src="${pageContext.request.contextPath }/images/ioc/add.png"> 添加抽样检验任务</a>
+                <li id='li-add_quickCheck_tab'>
+                    <a href="javascript:void (0)" class="form_btn2" data-toggle='modal' data-target='#mymodal_process_quickCheck'><img src="${pageContext.request.contextPath }/images/ioc/add.png"> 添加食品快检</a>
                 </li>
             </ul>
           
         </div>
         <div class="pull-right">
-           <div class="r_txt">共有数据 <font id="total_samTask"></font>条</div>
+           <div class="r_txt">共有数据 <font id="total_quickCheck"></font>条</div>
         </div>
     </div>
     <table class="table table-bordered table2">
         <thead>
         <tr>
             <th class="width60">序号</th>
-            <th>企业名称</th>
-            <th>抽检时间</th>
-            <th>抽检批次</th>
-            <th>委托单位</th>
-            <th>状态</th>
-            <th>操作</th>
+            <th>样品名称</th>
+            <th>检测项目</th>
+            <th>检测结果</th>
+            <th>被检企业</th>
+            <th>检测单位</th>
+            <th>检测日期</th>
         </tr>
         </thead>
-        <tbody id="dataListTbody_samTask">
+        <tbody id="dataListTbody_quickCheck">
         
         </tbody>
     </table>
-    <div id="page_samTask"></div>
+    <div id="page_quickCheck"></div>
 </div>
 
 
 
-<div class="modal fade addsource_modal" id="mymodal_process_samTask" aria-hidden="true" data-backdrop="static" style="overflow-y:inherit">
-    <div class="modal-dialog">
+<div class="modal fade addsource_modal" id="mymodal_process_quickCheck" aria-hidden="true" data-backdrop="static" style="overflow-y:inherit">
+    <div class="modal-dialog" style="width:1052px">
         <div class="modal-content">
             <!-- 模态弹出窗内容 -->
             <div class="modal-header">
-                <div class="modal-title" id="title_SamTask"><img src="${pageContext.request.contextPath }/images/ioc/add_2.png" alt="">处理抽样检验任务</div>
+                <div class="modal-title" id="title_quickCheck"><img src="${pageContext.request.contextPath }/images/ioc/add_2.png" alt="">添加食品快检</div>
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             </div>
-            <form id="data_samTask">
-            <table class="table search_box marb10">
-                <input type="hidden" id="process_task_qyname">
-                <input type="hidden" id="process_task_type">
-                <input type="hidden" id="process_task_id">
-                <input type="hidden" id="process_task_batch">
-                <input type="hidden" id="process_task_ent_type">
-                <thead>
-                <tr>
-                    <td  class="width60 noborder title_font">抽检时间</td>
-                    <td class="width220 ">
-                        <div id="samTask_date_calenderOneBox" style="position:relative">
-                            <input id="samTask_date_calender" class="login_input bg_calender  width260" size="16" type="text" name="physicalDateStr" readonly value="">
-                        </div>
-                    </td>
-                </tr>
-                </thead>
-            </table>
-
-                <table class="table table3 marb0">
+             <table class="table search_box marb10">
+		        <thead>
+			        <tr>
+			            <th style="width:200px">检测日期</th>
+			            <th style="width:200px">
+			                <div id="detectionDateOneBox1" style="position:relative;display:inline;">
+			                    <input id="detectionDateOne" name = "detectionDate" class="bg_calender" size="16" type="text" value="">  
+			                </div>
+			            </th>
+			            <th style="width:200px"></th>
+			            <th style="width:200px"></th>
+			            <th style="width:200px"></th>
+			        </tr>
+		        </thead>
+	        </table>
+                <table class="table table-bordered table2" style="width:1050px" id="addQuickTable">
+                    <thead>
+			        <tr>
+			            <th style="width:150px">样品名称</th>
+			            <th style="width:150px">检测项目</th>
+			            <th style="width:150px">检测结果</th>
+			            <th style="width:150px">被检企业</th>
+			            <th style="width:150px">检测单位</th>
+			            <th style="width:150px"><a class="form_btn" href="#" onclick="addLine()">增加一行</a></th>
+			        </tr>
+			        </thead>
                     <tbody>
                     <tr>
-                        <td class="noborder title_font" ></td>
-                        <td style="text-align: left" colspan="3">
-                            <ul><li><a href="javascript:void(0)" class="form_btn  width140 title_font"  data-dismiss="modal" onclick="processSamTask()">开始添加</a></li></ul>
-
+                        <td style="width:150px"><input type="text" class="search_input" name="sampleName"></td>
+                        <td style="width:150px">
+                        <select class="select_style1" name="quickcheckproject">
+		                    <option value="" selected>请选择</option>
+		                    <c:forEach  items="${quickcheckprojectList}" var="quickcheckproject">
+		                        <option  value="${quickcheckproject.tDictionaryCode}" >${quickcheckproject.tDictionaryName}</option>
+		                    </c:forEach >
+                        </select>
                         </td>
-
+                        <td style="width:150px">
+                            <div class="myradio radio-inline marr10">
+	                            <label>
+	                                <input type="radio"  value="合格" name="result" checked>合格
+	                            </label>
+                            </div>
+	                        <div class="myradio radio-inline">
+	                            <label>
+	                                <input type="radio"  value="不合格" name="result">不合格
+	                            </label>
+	                        </div>
+                        </td>
+                        <td style="width:150px"><input value="" onblur="checkIsHave(this)" type="text" class="search_input" name="detectionedEnterprise"></td>
+                        <td style="width:150px">
+                            ${unitName}${enterpriseName}
+                        </td>
+                        <td style="width:150px"><a class="form_btn" href="#" onclick="deleteLine(this)">删除</a></td>
                     </tr>
                     </tbody>
                 </table>
-
-                <div class="modal-footer">
+                <input type="hidden" id="enterpriseName" value="${enterpriseName}">
+                <input type="hidden" id="unitCode" value="${unitCode}">
+                <div class="modal-footer" style="text-align:center">
+                <a class="form_btn" href="#" onclick="saveQuickCheck()">保存</a>
                 </div>
-            </form>
         </div>
     </div>
 </div>
 <script>
-$(document).ready(function(){
-	 $('#start_calenderOne').datetimepicker({
-	        container:'#start_calenderOneBox1',
-	        weekStart: 1,
-	        todayBtn:  1,
-	        autoclose: 1,
-	        todayHighlight: 1,
-	        startView: 2,
-	        minView: 2,
-	        forceParse: 0,
-	        format:'yyyy-mm-dd'
-	    });
-	    $('#end_calenderOne').datetimepicker({
-	        container:'#end_calenderOneBox1',
-	        weekStart: 1,
-	        todayBtn:  1,
-	        autoclose: 1,
-	        todayHighlight: 1,
-	        startView: 2,
-	        minView: 2,
-	        forceParse: 0,
-	        format:'yyyy-mm-dd'
-	    });
-    $('#samTask_date_calender').datetimepicker({
-        container:'#samTask_date_calenderOneBox',
-        format: 'yyyy-mm-dd',
-        weekStart: 1,
-        todayBtn:  1,
-        autoclose: 1,
-        todayHighlight: 1,
-        startView: 2,
-        minView: 2,
-        forceParse: 0
-    });
-	querySamTaskBasic();
+$('#start_quickCheck').datetimepicker({
+    container:'#start_quickCheckBox1',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0,
+    format:'yyyy-mm-dd'
+});
+$('#end_quickCheck').datetimepicker({
+    container:'#end_quickCheckBox1',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0,
+    format:'yyyy-mm-dd'
+});
+$('#detectionDateOne').datetimepicker({
+    container:'#detectionDateOneBox1',
+    weekStart: 1,
+    todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0,
+    format:'yyyy-mm-dd'
 });
 
-//清空表单 
-function emptyFormSamTask(){
-	$("#data_samTask").find("input[type='text']").each(function () {//清空表单
-        $(this).val("");
-    });
-}
-
-function querySamTaskBasic(curr){
-	$("#dataListTbody_samTask tr").remove();
-    var enterpriseName=$("#enterpriseNamSam").val();
-    var enterpriseType=$("#enterpriseTypeSam").val();
-    var unitCode=$("#taskUnitCode").val();
-    var startCalenderOne = $("#start_calenderOne").val();
-    var endCalenderOne = $("#end_calenderOne").val();
+function queryQuickCheckBasic(curr){
+	$("#dataListTbody_quickCheck tr").remove();
+    var sampleName=$("#sampleName").val();
+    var quickcheckproject=$("#quickcheckproject").val();
+    var start_calenderOne=$("#start_quickCheck").val();
+    var end_calenderOne = $("#end_quickCheck").val();
+    var detectionedEnterprise = $("#detectionedEnterprise").val();
+    var detectionUnitCode = $("#detectionUnitCode").val();
 
 	var pageNum = 1;
 	if(!curr){
 		//初始化分页
 		$.ajax({
-			url : "${pageContext.request.contextPath}/samplingInspection/findSampTaskListTotal.do",
+			url : "${pageContext.request.contextPath}/foodQuickCheck/findQuickCheckTotal.do",
 			type : "post",
 			dataType : "json",
 			async: false,
             data:{
-                enterpriseName:enterpriseName,
-                enterpriseType:enterpriseType,
-                unitCode:unitCode,
-                startCalenderOne:startCalenderOne,
-                endCalenderOne:endCalenderOne
+            	sampleName:sampleName,
+            	quickcheckproject:quickcheckproject,
+            	start_calenderOne:start_calenderOne,
+            	end_calenderOne:end_calenderOne,
+            	detectionedEnterprise:detectionedEnterprise,
+            	detectionUnitCode:detectionUnitCode
             },
 			success : function(total) {
-				$("#total_samTask").html(total);
-				page("page_samTask",total,10,10,querySamTaskBasic);
+				$("#total_quickCheck").html(total);
+				page("page_quickCheck",total,10,10,queryQuickCheckBasic);
 			}
 		});
 	}else{
 		pageNum = curr;
 	}
 	$.ajax({
-		url:"${pageContext.request.contextPath}/samplingInspection/findSampTaskList.do",
+		url:"${pageContext.request.contextPath}/foodQuickCheck/findQuickCheck.do",
 		type:"post",
 		dataType:"json",
 		data:{
-            enterpriseName:enterpriseName,
-            enterpriseType:enterpriseType,
-            unitCode:unitCode,
-            startCalenderOne:startCalenderOne,
-            endCalenderOne:endCalenderOne,
+			sampleName:sampleName,
+            quickcheckproject:quickcheckproject,
+            start_calenderOne:start_calenderOne,
+            end_calenderOne:end_calenderOne,
+            detectionedEnterprise:detectionedEnterprise,
+            detectionUnitCode:detectionUnitCode,
             startNum:(pageNum-1)*10,//分页参数，将要显示的分页数
 			limit:10//每页显示的条数
 		},
 		success : function(json) {
 			var tr="";
 			for(var i=0;i<json.length;i++) {
-				if(json[i].state=="未完成") {
-				    tr+="<tr style='color:red'>";
-				}else{
-				    tr+="<tr>";
-				}
-			    tr+="<td>"+(i+1)+"</td><td>"+json[i].qyname+"</td><td>"+json[i].checkDate+"</td><td>"+json[i].batch+"</td><td>"+json[i].unitName+"</td><td>"+json[i].state+"</td>"
-                        +"<td><ul class='list-inline'>" ;
-			    if(json[i].state=="未完成") {
-                    tr += "<li id='li-cyjc-500100" + json[i].sampling_type + "'><a href='javascript:void(0)' class='editer_btns look_btn' data-toggle='modal' data-target='#mymodal_process_samTask' " +
-                        "onclick=\"processSam('" + json[i].qyname+"','"+json[i].sampling_type + "','" + json[i].batch + "'," + json[i].id + ",'" + json[i].enterprise_type + "')\">处理</a></li>";
-                }
-                 tr+="<li id='li-cyjc-list-" + json[i].id + "'><a href='javascript:void(0)' class='editer_btns look_btn' onclick='seeSampleTaskResult(" + json[i].id + ")'>查看处理详情</a></li>"
-                 tr+="<li><a href='javascript:void(0)' class='editer_btns del_btn' onclick='deleteSamTask("+json[i].id+")'>删除</a></li></ul></td></tr>";
+			    tr+="<tr><td>"+(i+1)+"</td><td>"+json[i].sampleName+"</td><td>"+json[i].projectName+"</td><td>"+json[i].result+"</td><td>"+json[i].detectionedEnterprise+"</td><td>"+json[i].detectionUnitName+json[i].detectionEnterpriseName+"</td>"
+                        +"<td>"+json[i].detectionDate+"</td></tr>" ;
 			}
-			$("#dataListTbody_samTask").append(tr);
+			$("#dataListTbody_quickCheck").append(tr);
 		}
 });
 }
 
-
-
-
-function addBtnProcessSamTask(){
-//	$("#save_samTask").show();
-//	$("#update_samTask").hide();
-//	emptyFormSamTask();
-//	$("#title_SamTask").html("添加记录");
-//    querySamTaskEnterprise1();
-
-    creatTabPage("add_samTask_tab",'${pageContext.request.contextPath }/samplingInspection/addTask.do?random='+Math.random());
-
-}
-
-
-function formatDateD (strTime) {
-    var date = new Date(strTime);
-    return date.getFullYear()+"年/"+(date.getMonth()+1)+"月/"+date.getDate()+"日";
-}
-
-
-function deleteSamTask(id){
+function deleteQuickCheck(id){
 	confirmMessage('con_Examination','你确实要删除吗',{width:300,height:150,sure:callBack});
 	function callBack(){
 		$.ajax({
-			url:"${pageContext.request.contextPath}/samplingInspection/delSampTask.do",
+			url:"${pageContext.request.contextPath}/foodQuickCheck/delSampTask.do",
 			type:"post",
 			dataType:"json",
 			data:{
@@ -313,72 +286,112 @@ function deleteSamTask(id){
 				}else{
 					alertEase("删除信息失败",'alert_err');
 				}
-				querySamTaskBasic();
+				queryQuickCheckBasic(); 
 			}
 		});	
 	}
 }
 
-function publishExam() {
-    var data=[];
-    $("input[name='enterpriseId']:checked").each(function () {
-        var pub ={
-            examinationid:$("#pubexaminationId").val(),
-            enterpriseid:this.value,
-            enterprisetype:$(this).attr("enterpriseType")
-        };
-        data.push(pub);
-    });
+function addLine(){
+	var num = $("#addQuickTable tr").length;
+    var tr = $("#addQuickTable tr").eq(num-1).clone();
+    var result = $("#addQuickTable tr").eq(num-1).find("input[type='radio']").val();
+    $("#addQuickTable").append(tr);
+    if(result == "合格"){
+        $("#addQuickTable tr").eq(num-1).find("input[type='radio']:eq(0)").attr("checked","checked");
+    }else{
+        $("#addQuickTable tr").eq(num-1).find("input[type='radio']:eq(1)").attr("checked","checked");
+    }
+    $("#addQuickTable tr").eq(num).find("input[type='radio']").attr("name",Math.random());
+}
+function deleteLine(td){
+	var num = $("#addQuickTable tr").length;
+	if(num>2){
+	   $(td).parents("tr").remove();
+	}else{
+		alert("至少保留一行");
+	}
+}
 
-    if(data.length==0)
-        return;
-
-    $.ajax({
-        url:"${pageContext.request.contextPath}/exam/publish.do",
+function saveQuickCheck(){
+	var detectionDate = $("#detectionDateOne").val();
+	var detectionUnitCode = $("#unitCode").val();
+	var detectionEnterpriseName = $("#enterpriseName").val();
+	if(!detectionDate){
+		alertEase("检测日期不能为空",2);
+		return;
+	}
+	var num = $("#addQuickTable tr").length;
+	var params = "";
+	for(var i=1;i<num;i++){
+		var tr = $("#addQuickTable tr").eq(i);
+		var sampleName = $(tr).find("input[name='sampleName']").val().trim();
+		if(!sampleName){
+	        alertEase("第"+i+"行样品名称不能为空",2);
+	        return;
+	    }
+		var quickcheckproject = $(tr).find("select[name='quickcheckproject']").val();
+		if(!quickcheckproject){
+            alertEase("第"+i+"行检测项目不能为空",2);
+            return;
+        }
+		var result = $(tr).find("input[type='radio']").val().trim();
+		if(!result){
+            alertEase("第"+i+"行检测结果不能为空",2);
+            return;
+        }
+		var detectionedEnterprise = $(tr).find("input[name='detectionedEnterprise']").val().trim();
+		if(!detectionedEnterprise){
+            alertEase("第"+i+"行被检测企业不能为空",2);
+            return;
+        }
+		if(i == 1){
+			params = params + sampleName+","+quickcheckproject+","+result+","+detectionedEnterprise
+		}else{
+	        params = params +":"+sampleName+","+quickcheckproject+","+result+","+detectionedEnterprise
+		}
+	}
+	$.ajax({
+        url:"${pageContext.request.contextPath}/foodQuickCheck/batchAdd.do",
         type:"post",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+        dataType:"text",
+        data:{
+        	detectionDate:detectionDate,
+        	detectionEnterpriseName:detectionEnterpriseName,
+        	detectionUnitCode:detectionUnitCode,
+        	params:params
         },
-        dataType:"json",
-        data:JSON.stringify(data),
-        success : function(data) {
-            if(data.result=="true"){
-                alertEase("发布成功",'alert_succ');
-                emptyFormSamTask();
-                querySamTaskBasic();
+        success : function(result) {
+            if(result){
+            	alertEase("保存成功",1);
+            	$('#mymodal_process_quickCheck').modal('hide');
+                queryQuickCheckBasic();
             }else{
-                alertEase("发布失败! "+data.msg,'alert_err');
+            	alertEase("保存失败",2);
             }
         }
-    });
-
+    }); 
+	
 }
-
-function processSam(qyname,type,batch,id,entType) {
-    $("#process_task_qyname").val(qyname);
-    $("#process_task_type").val(type);
-    $("#process_task_batch").val(batch);
-    $("#process_task_id").val(id);
-    $("#process_task_ent_type").val(entType);
+function checkIsHave(ele){
+	var detectionEnterpriseName = $(ele).val().trim();
+	$(ele).val(detectionEnterpriseName);
+	if(detectionEnterpriseName){
+		$.ajax({
+	        url:"${pageContext.request.contextPath}/foodQuickCheck/checkEnterpriseIsHave.do",
+	        type:"post",
+	        dataType:"text",
+	        data:{
+	            detectionEnterpriseName:detectionEnterpriseName
+	        },
+	        success : function(result) {
+	            if(result==0){
+	                alertEase("企业不存在",2);
+	                $(ele).focus();
+	            }
+	        }
+	    });
+	}
 }
-
-function processSamTask() {
-    var qyname=$("#process_task_qyname").val();
-    var type=$("#process_task_type").val();
-    var batch=$("#process_task_batch").val();
-    var id=$("#process_task_id").val();
-    var time=$("#samTask_date_calender").val();
-    var entType=$("#process_task_ent_type").val();
-    if(time.length==0){
-        alertEase("请选择处理时间",2);
-        return;
-    }
-    time=time.replace("年/", "-").replace("月/", "-").replace("日", "");
-    creatTabPage("cyjc-500100"+type,'${pageContext.request.contextPath }/samplingInspection/jump.do?url=chooseSample'+type+'&random='+Math.random()+'&taskId='+id+'&time='+time+'&batch='+batch+'&entType='+entType+'&entName='+qyname);
-}
-
-function seeSampleTaskResult(id) {
-    creatTabPage("cyjc-list-"+id,'${pageContext.request.contextPath }/samplingInspection/index.do?taskId='+id);
-}
+queryQuickCheckBasic();
 </script>

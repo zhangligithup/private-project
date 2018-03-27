@@ -81,9 +81,6 @@ public class SupervisionAndCheckController {
 		case "enterprise_4":
 			url = "supervisionAndCheckFood";
 			break;// 食品餐饮企业
-		case "enterprise_5":
-			url = "supervisionAndCheckIndustry";
-			break;// 食品五小行业
 		case "enterprise_6":
 			url = "supervisionAndCheckWine";
 			break;// 酒类销售企业
@@ -172,9 +169,6 @@ public class SupervisionAndCheckController {
 			break;
 		case "enterprise_4":
 			url = "supervisionAndCheckFoodQuery";
-			break;
-		case "enterprise_5":
-			url = "supervisionAndCheckIndustryQuery";
 			break;
 		case "enterprise_6":
 			url = "supervisionAndCheckWineQuery";

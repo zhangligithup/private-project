@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.ImageIcon;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
@@ -19,17 +18,10 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
 
 import cn.itcast.commons.CommonUtils;
-import cn.tslanpu.test.add.industry.domain.Industry_jdjc;
-import cn.tslanpu.test.add.industry.service.IndustryService;
-import cn.tslanpu.test.add.production.domain.Production_jdjc;
-import cn.tslanpu.test.add.production.service.ProductionService;
 import cn.tslanpu.test.add.wine.domain.Wine_jdjc;
 import cn.tslanpu.test.add.wine.service.WineService;
-import cn.tslanpu.test.admin.domain.Admin;
-import cn.tslanpu.test.utils.TokenProccessor;
 
 public class WineFormServlet extends HttpServlet {
 

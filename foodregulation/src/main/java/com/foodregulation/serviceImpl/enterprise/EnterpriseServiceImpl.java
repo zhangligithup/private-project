@@ -117,4 +117,9 @@ public class EnterpriseServiceImpl implements EnterpriseService {
 		return enterpriseInfoMapper.selectEnterpriseInfoGroupcheckUnit(enterpriseType);
 	}
 
+	@Override
+	public Integer selectEnterpriseCountByName(String qyname) {
+		return enterpriseInfoMapper.selectEnterpriseCountByName(qyname);
+	}
+
 }

@@ -21,4 +21,6 @@ public interface EnterpriseService {
     List<Map<String, Object>> getEnterpriseNameList(String tableName);
 
     List<Map<String, Object>> selectEnterpriseInfoGroupcheckUnit(String enterpriseType);
+    
+    Integer selectEnterpriseCountByName(@Param("qyname")String qyname);
 }

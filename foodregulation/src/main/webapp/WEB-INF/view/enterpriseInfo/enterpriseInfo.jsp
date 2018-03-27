@@ -164,7 +164,6 @@ function edit(divId,id,type){
 		case "enterprise_2":url="ProductionServlet";break;
 		case "enterprise_3":url="servlet/CriculateServlet1";break;
 		case "enterprise_4":url="FoodServlet";break;
-		case "enterprise_5":url="IndustryServlet";break;
 		case "enterprise_6":url="WineServlet";break;
 		case "enterprise_7":url="HealthServlet";break;
 		case "enterprise_8":url="CosmeticServlet";break;
@@ -181,7 +180,6 @@ function del(id,type){
 		case "enterprise_2":url="ProductionServlet";break;
 		case "enterprise_3":url="servlet/CriculateServlet1";break;
 		case "enterprise_4":url="FoodServlet";break;
-		case "enterprise_5":url="IndustryServlet";break;
 		case "enterprise_6":url="WineServlet";break;
 		case "enterprise_7":url="HealthServlet";break;
 		case "enterprise_8":url="CosmeticServlet";break;

@@ -17,12 +17,7 @@ import cn.itcast.commons.CommonUtils;
 import cn.tslanpu.test.add.Criculate.domain.Criculate;
 import cn.tslanpu.test.add.Criculate.domain.Criculate_jdjc;
 import cn.tslanpu.test.add.Criculate.service.CriculateService;
-import cn.tslanpu.test.add.industry.domain.Industry;
-import cn.tslanpu.test.add.production.domain.Production;
-import cn.tslanpu.test.add.production.domain.Production_jdjc;
-import cn.tslanpu.test.admin.domain.Admin;
 import cn.tslanpu.test.utils.BaseServlet;
-import cn.tslanpu.test.utils.TokenProccessor;
 
 
 public class CriculateServlet extends BaseServlet {

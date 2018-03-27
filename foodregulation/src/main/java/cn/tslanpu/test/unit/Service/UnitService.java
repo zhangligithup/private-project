@@ -31,4 +31,12 @@ public class UnitService {
 			throw new RuntimeException();
 		}
 	}
+	
+	public List<Dictionary> queryQuickcheckproject(){
+		try {
+			return unitDao.queryQuickcheckproject();
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}
+	}
 }

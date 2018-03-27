@@ -19,11 +19,6 @@ public class EnterpriseTypeStatistics {
     private int spcyqyNum;
 
     /**
-     * 食品五小行业
-     */
-    private int spwxhyNum;
-
-    /**
      * 酒类销售企业
      */
     private int jlxsqyNum;
@@ -54,7 +49,7 @@ public class EnterpriseTypeStatistics {
     private int ylqxsyqyNum;
 
     /**
-     * 食用农产品经营户
+     * 食品小摊点经营户
      */
     private int syncpjyhNum;
 
@@ -86,16 +81,6 @@ public class EnterpriseTypeStatistics {
 
     public void setSpcyqyNum(int spcyqyNum) {
         this.spcyqyNum = spcyqyNum;
-    }
-
-
-    public int getSpwxhyNum() {
-        return spwxhyNum;
-    }
-
-
-    public void setSpwxhyNum(int spwxhyNum) {
-        this.spwxhyNum = spwxhyNum;
     }
 
 

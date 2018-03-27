@@ -9,6 +9,8 @@ public class User {
     private String password;
 
     private String menuIds;
+    
+    private String enterpriseName;
 
 
     public Integer getId() {
@@ -51,5 +53,15 @@ public class User {
     public void setMenuIds(String menuIds) {
         this.menuIds = menuIds;
     }
+
+
+	public String getEnterpriseName() {
+		return enterpriseName;
+	}
+
+
+	public void setEnterpriseName(String enterpriseName) {
+		this.enterpriseName = enterpriseName;
+	}
 
 }

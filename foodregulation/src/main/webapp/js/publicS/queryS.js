@@ -21,9 +21,6 @@
   			}else if(category == "医疗器械销售企业"){
   	  			$("#idM").attr("value",id);
   	  			$("#formMedical").submit();
-  			}else if(category == "食品五小行业"){
-  	  			$("#idI").attr("value",id);
-  	  			$("#formIndustry").submit();
   			}else if(category == "酒类销售企业"){
   	  			$("#idW").attr("value",id);
   	  			$("#formWine").submit();
@@ -359,36 +356,6 @@
   						htmlStr +="<tr><td colspan='6'>企业总数	:	"+ tr +"</td></tr>"
 	  					$("table").html(htmlStr);
   						
-				}else if(category == "食品五小行业"){
-  					
-  					if(jsonData.pb.datas.length == 0){
-						htmlStr = "";
-						htmlStr += "<tr align='center'><td><b>您查找的信息为空<a href='${pageContext.request.contextPath }/pages/tables/industry/industry.jsp'>" +
-								   "现在去添加</a></b></td></tr>";
-					}else{
-						var htmlStr = "";
-						htmlStr += "<tr><td colspan='6'><b>一、五小食品业态信息登记表</b></td></tr>"
-  		  					htmlStr += "<tr>" + "<th width='10%' align='left'>序号</th>" + 
-  		  											"<th width='18%' align='left'>企业名称</th>" +
-  		  											"<th width='18%' align='left'>监管单位</th>" +
-  		  											"<th width='18%' align='left'>企业地址</th>" + 
-  		  											"<th width='18%' align='left'>法定代表人</th>" + 
-  		  											"<th width='18%' align='left'>注册号/统一社会信用代码</th></tr>"
-	  		  				for(var i = 0; i < jsonData.pb.datas.length;){
-	  		  					htmlStr += "<tr onclick='onclick1(" +  jsonData.pb.datas[i].id  + ")' style='cursor:pointer;'>";
-	  		  					htmlStr +=
-	  		  							  "<td>" + ((pc-1)*10 + i+1) + "</td>"
-	  		  							 +"<td>" + jsonData.pb.datas[i].qyname + "</td>"
-	  		  					         +"<td>" + jsonData.pb.datas[i].department + "</td>"
-	  		  					         +"<td>" + jsonData.pb.datas[i].address + "</td>"
-	  		  					         +"<td>" + jsonData.pb.datas[i].fddelegate + "</td>"
-	  		  					         +"<td>" + jsonData.pb.datas[i].zzcode + "</td>"
-	  		  					htmlStr +="</tr>"
-	  		  					i += 1;
-	  		  				}
-  						}
-  						htmlStr +="<tr><td colspan='6'>企业总数	:	"+ tr +"</td></tr>"
-	  					$("table").html(htmlStr);
 				}else if(category == "酒类销售企业"){
   					
   					if(jsonData.pb.datas.length == 0){

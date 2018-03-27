@@ -16,8 +16,6 @@
 		union all
 		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from health
 		union all
-		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from industry
-		union all
 		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from medical
 		union all
 		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from production
@@ -74,8 +72,6 @@
         union all
         select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate  from health
         union all
-        select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from industry
-        union all
         select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from medical
         union all
         select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi,fddelegate from production
@@ -105,8 +101,6 @@
 		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,fazhengriqi from food
 		union all
 		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,fazhengriqi from health
-		union all
-		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,fazhengriqi from industry
 		union all
 		select id,qyname,department,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,fazhengriqi from medical
 		union all
@@ -157,8 +151,6 @@
 		union all
 		select id,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from health
 		union all
-		select id,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from industry
-		union all
 		select id,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from medical
 		union all
 		select id,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from production
@@ -192,8 +184,6 @@
 		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from food
 		union all
 		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from health
-		union all
-		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from industry
 		union all
 		select id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from medical
 		union all
@@ -229,8 +219,6 @@ select a.id,a.longitude,a.latitude,a.qyname,a.department,a.address,a.scpermit,a.
 		union all
 		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from health
 		union all
-		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from industry
-		union all
 		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from medical
 		union all
 		select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from production
@@ -257,8 +245,6 @@ where a.qyname=#{qyname}
 		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from food
 		union all
 		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from health
-		union all
-		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from industry
 		union all
 		select department,id,qyname,address,scpermit,youxiaodate,STR_TO_DATE(IFNULL(fazhengriqi,'1997-01-01'),'%Y-%m-%d') as fazhengriqi from medical
 		union all
@@ -293,8 +279,6 @@ where a.qyname=#{qyname}
 		SELECT id,qyname,address,department,'enterprise_4' AS enterpriseType  FROM food
 		UNION ALL
 		SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
-		UNION ALL
-		SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
 		UNION ALL
 		SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
 		UNION ALL
@@ -338,8 +322,6 @@ where a.qyname=#{qyname}
 		SELECT id,qyname,address,department,'enterprise_4' AS enterpriseType  FROM food
 		UNION ALL
 		SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
-		UNION ALL
-		SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
 		UNION ALL
 		SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
 		UNION ALL
@@ -385,8 +367,6 @@ where a.qyname=#{qyname}
         UNION ALL
         SELECT id,qyname,'enterprise_7' AS enterpriseType  FROM health
         UNION ALL
-        SELECT id,qyname,'enterprise_5' AS enterpriseType  FROM industry
-        UNION ALL
         SELECT id,qyname,'enterprise_10' AS enterpriseType FROM medical
         UNION ALL
         SELECT id,qyname,'enterprise_2' AS enterpriseType FROM production
@@ -399,4 +379,29 @@ where a.qyname=#{qyname}
             and a.enterpriseType = #{enterpriseType,jdbcType=VARCHAR}
         </if>
 	</select>
+	
+	<select id="selectEnterpriseCountByName" resultType="int">
+        select count(*) from
+        (SELECT
+        id,qyname,'enterprise_1' AS enterpriseType  FROM agricultural
+        UNION ALL
+        SELECT id,qyname,'enterprise_8' AS enterpriseType FROM cosmetic
+        UNION ALL
+        SELECT id,qyname,'enterprise_3' AS enterpriseType  FROM criculate
+        UNION ALL
+        SELECT id,qyname,'enterprise_9' AS enterpriseType  FROM drug
+        UNION ALL
+        SELECT id,qyname,'enterprise_4' AS enterpriseType  FROM food
+        UNION ALL
+        SELECT id,qyname,'enterprise_7' AS enterpriseType  FROM health
+        UNION ALL
+        SELECT id,qyname,'enterprise_10' AS enterpriseType FROM medical
+        UNION ALL
+        SELECT id,qyname,'enterprise_2' AS enterpriseType FROM production
+        UNION ALL
+        SELECT id,qyname,'enterprise_11' AS enterpriseType FROM usemed
+        UNION ALL
+        SELECT id,qyname,'enterprise_6' AS enterpriseType FROM wine) a 
+        where a.qyname = #{qyname,jdbcType=VARCHAR}
+    </select>
 </mapper>

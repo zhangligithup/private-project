@@ -32,4 +32,6 @@ public interface EnterpriseInfoMapper {
     List<Map<String, Object>> getEnterpriseNameList(@Param("tableName")String tableName);
     
     List<Map<String, Object>> selectEnterpriseInfoName(Map<String, Object> map);
+    
+    Integer selectEnterpriseCountByName(@Param("qyname")String qyname);
 }

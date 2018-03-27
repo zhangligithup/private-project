@@ -15,7 +15,6 @@ import com.foodregulation.dao.entity.Drug;
 import com.foodregulation.dao.entity.EnterpriseUser;
 import com.foodregulation.dao.entity.Food;
 import com.foodregulation.dao.entity.Health;
-import com.foodregulation.dao.entity.Industry;
 import com.foodregulation.dao.entity.Medical;
 import com.foodregulation.dao.entity.Production;
 import com.foodregulation.dao.entity.Report;
@@ -35,7 +34,6 @@ import com.foodregulation.dao.mapper.EnterpriseInfoMapper;
 import com.foodregulation.dao.mapper.EnterpriseUserMapper;
 import com.foodregulation.dao.mapper.FoodMapper;
 import com.foodregulation.dao.mapper.HealthMapper;
-import com.foodregulation.dao.mapper.IndustryMapper;
 import com.foodregulation.dao.mapper.MedicalMapper;
 import com.foodregulation.dao.mapper.ProductionMapper;
 import com.foodregulation.dao.mapper.ReportMapper;
@@ -68,8 +66,6 @@ public class AppServiceImpl implements AppService{
 	CriculateMapper criculateMapper;
 	@Autowired
 	FoodMapper foodMapper;
-	@Autowired
-	IndustryMapper industryMapper;
 	@Autowired
 	HealthMapper healthMapper;
 	@Autowired
@@ -105,6 +101,7 @@ public class AppServiceImpl implements AppService{
 				User user = new User();
 				user.setUsername(enterpriseUser.getUserName());
 				user.setId(enterpriseUser.getId());
+				user.setEnterpriseName(enterpriseUser.getEnterpriseName());
 				return user;
 			}
 		}
@@ -160,12 +157,6 @@ public class AppServiceImpl implements AppService{
 	@Override
 	public void insertFood(Food a) {
 		foodMapper.insertSelective(a);
-		
-	}
-
-	@Override
-	public void insertIndustry(Industry a) {
-		industryMapper.insertSelective(a);
 		
 	}
 

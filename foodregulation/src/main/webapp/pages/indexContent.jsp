@@ -48,11 +48,6 @@
                 <span class="rspan"><a href="javascript:void(0)" class="editer_btns look_btn" onclick="creatTabPage(46,'${pageContext.request.contextPath }/enterpriseInfo/show.do')">查看</a></span>
             </li>
             <li>
-                <span class="lspan2 "><a href="javascript:void(0)">食品五小行业</a></span>
-                <span class="cspan" id="span_industry"></span>
-                <span class="rspan"><a href="javascript:void(0)" class="editer_btns look_btn" onclick="creatTabPage(46,'${pageContext.request.contextPath }/enterpriseInfo/show.do')">查看</a></span>
-            </li>
-            <li>
                 <span class="lspan2 "><a href="javascript:void(0)">酒类销售企业</a></span>
                 <span class="cspan" id="span_wine"></span>
                 <span class="rspan"><a href="javascript:void(0)" class="editer_btns look_btn" onclick="creatTabPage(46,'${pageContext.request.contextPath }/enterpriseInfo/show.do')">查看</a></span>
@@ -83,7 +78,7 @@
                 <span class="rspan"><a href="javascript:void(0)" class="editer_btns look_btn" onclick="creatTabPage(46,'${pageContext.request.contextPath }/enterpriseInfo/show.do')">查看</a></span>
             </li>
             <li>
-                <span class="lspan2 "><a href="javascript:void(0)">食用农产品经营户</a></span>
+                <span class="lspan2 "><a href="javascript:void(0)">食品小摊点经营户</a></span>
                 <span class="cspan" id="span_agricultural"></span>
                 <span class="rspan"><a href="javascript:void(0)" class="editer_btns look_btn" onclick="creatTabPage(46,'${pageContext.request.contextPath }/enterpriseInfo/show.do')">查看</a></span>
             </li>
@@ -203,7 +198,6 @@ $(document).ready(function(){
 	$("#span_production").html(selectDataCount("production"));
 	$("#span_criculate").html(selectDataCount("criculate"));
 	$("#span_food").html(selectDataCount("food"));
-	//$("#span_industry").html(selectDataCount("industry"));
 	$("#span_wine").html(selectDataCount("wine"));
 	$("#span_health").html(selectDataCount("health"));
 	$("#span_cosmetic").html(selectDataCount("cosmetic"));
@@ -211,7 +205,7 @@ $(document).ready(function(){
 	$("#span_medical").html(selectDataCount("medical"));
 	$("#span_usemed").html(selectDataCount("usemed"));
 	$("#totalCount").html("食药监管企业（"+(parseInt(selectDataCount('usemed'))+parseInt(selectDataCount('production'))+parseInt(selectDataCount('agricultural'))
-			+parseInt(selectDataCount('criculate'))+parseInt(selectDataCount('food'))+parseInt(selectDataCount('industry'))+parseInt(selectDataCount('wine'))
+			+parseInt(selectDataCount('criculate'))+parseInt(selectDataCount('food'))+parseInt(selectDataCount('wine'))
 			+parseInt(selectDataCount('health'))+parseInt(selectDataCount('cosmetic'))+parseInt(selectDataCount('drug'))+parseInt(selectDataCount('medical')))+"家）");
 });
 //查询加载公告

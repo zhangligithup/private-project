@@ -126,7 +126,6 @@ public class EnterpriseInfoController {
 			list.addAll(enterpriseService.getEnterpriseNameList("drug"));
 			list.addAll(enterpriseService.getEnterpriseNameList("food"));
 			list.addAll(enterpriseService.getEnterpriseNameList("health"));
-			list.addAll(enterpriseService.getEnterpriseNameList("industry"));
 			list.addAll(enterpriseService.getEnterpriseNameList("medical"));
 			list.addAll(enterpriseService.getEnterpriseNameList("production"));
 			list.addAll(enterpriseService.getEnterpriseNameList("usemed"));
@@ -141,7 +140,6 @@ public class EnterpriseInfoController {
 			case "enterprise_9":tableName="drug";break;
 			case "enterprise_4":tableName="food";break;
 			case "enterprise_7":tableName="health";break;
-			case "enterprise_5":tableName="industry";break;
 			case "enterprise_10":tableName="medical";break;
 			case "enterprise_2":tableName="production";break;
 			case "enterprise_11":tableName="usemed";break;

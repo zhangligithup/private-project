@@ -173,18 +173,6 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>IndustryServlet</servlet-name>
-    <servlet-class>cn.tslanpu.test.add.industry.servlet.IndustryServlet</servlet-class>
-  </servlet>
-    <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>IndustryFormServlet</servlet-name>
-    <servlet-class>cn.tslanpu.test.add.industry.servlet.IndustryFormServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>UserInitializeServlet</servlet-name>
     <servlet-class>cn.tslanpu.test.admin.servlet.UserInitializeServlet</servlet-class>
   </servlet>
@@ -193,12 +181,6 @@
     <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>UpdatePassword</servlet-name>
     <servlet-class>cn.tslanpu.test.admin.servlet.UpdatePassword</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>downloadIndustry</servlet-name>
-    <servlet-class>cn.tslanpu.test.add.servlet.downloadIndustry</servlet-class>
   </servlet>
   <servlet>
     <description>This is the description of my J2EE component</description>
@@ -459,24 +441,12 @@
     <url-pattern>/MedicalFormServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>IndustryServlet</servlet-name>
-    <url-pattern>/IndustryServlet</url-pattern>
-  </servlet-mapping>
-    <servlet-mapping>
-    <servlet-name>IndustryFormServlet</servlet-name>
-    <url-pattern>/IndustryFormServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>UserInitializeServlet</servlet-name>
     <url-pattern>/UserInitializeServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>UpdatePassword</servlet-name>
     <url-pattern>/UpdatePassword</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>downloadIndustry</servlet-name>
-    <url-pattern>/downloadIndustry</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>WineServlet</servlet-name>

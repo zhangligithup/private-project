@@ -50,12 +50,6 @@
                 	<input type="hidden" id="idM" name="idM">
                 </form>
                 
-              	<!-- 食品五小行业 -->
-                <form id="formIndustry" action="${pageContext.request.contextPath }/IndustryServlet" method="post">
-                	<input type="hidden" name="method" value="infor">
-                	<input type="hidden" id="idI" name="idI">
-                </form>
-                
                 <!-- 酒类销售企业 -->
                 <form id="formWine" action="${pageContext.request.contextPath }/WineServlet" method="post">
                 	<input type="hidden" name="method" value="infor">
@@ -101,14 +95,13 @@
                   			      <option value="食品生产企业">食品生产企业</option>
                   			      <option value="食品流通企业">食品流通企业</option>
                   			      <option value="食品餐饮企业">食品餐饮企业</option>
-                  			      <option value="食品五小行业">食品五小行业</option>
                   			      <option value="酒类销售企业">酒类销售企业</option>
                   			      <option value="保健食品销售企业">保健食品销售企业</option>
                   			      <option value="化妆品销售企业">化妆品销售企业</option>
                   			      <option value="药品零售企业">药品零售企业</option>
                   			      <option value="医疗器械销售企业">医疗器械销售企业</option>
                   			      <option value="医疗器械使用企业">医疗器械使用企业</option>
-                  			      <option value="食品经营户">食用农产品经营户 </option>
+                  			      <option value="食品小摊点经营户">食品小摊点经营户 </option>
                   </select><font>(必选)</font>
                   
                   
