@@ -26,8 +26,8 @@ public class Agricultural {
 	
 	private String idNumber;
 	private String numberOfEmployees;
-	private Date recordDate;
-	private Date recordEffectiveDate;
+	private String recordDate;
+	private String recordEffectiveDate;
 	private String recordOrgan;
 	private String recordCardNumber;
 	private String mainBody;//主体业态
@@ -52,16 +52,16 @@ public class Agricultural {
 	public void setNumberOfEmployees(String numberOfEmployees) {
 		this.numberOfEmployees = numberOfEmployees;
 	}
-	public Date getRecordDate() {
+	public String getRecordDate() {
 		return recordDate;
 	}
-	public void setRecordDate(Date recordDate) {
+	public void setRecordDate(String recordDate) {
 		this.recordDate = recordDate;
 	}
-	public Date getRecordEffectiveDate() {
+	public String getRecordEffectiveDate() {
 		return recordEffectiveDate;
 	}
-	public void setRecordEffectiveDate(Date recordEffectiveDate) {
+	public void setRecordEffectiveDate(String recordEffectiveDate) {
 		this.recordEffectiveDate = recordEffectiveDate;
 	}
 	public String getRecordOrgan() {

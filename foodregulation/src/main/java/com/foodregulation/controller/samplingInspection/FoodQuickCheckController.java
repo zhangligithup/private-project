@@ -59,7 +59,7 @@ public class FoodQuickCheckController {
 		param.put("type", 1);
 		// pc端执法人员登录
 		Admin admin = (Admin) request.getSession().getAttribute("sessionAdmin");
-		String unitCode = admin == null ?"":admin.getUnitCode();
+		String unitCode = admin == null ? "" : admin.getUnitCode();
 		request.getSession().setAttribute("unitCode", unitCode);
 		// 1.查询所有单位,监管单位 2.保存到session域
 		List<Dictionary> unitList = unitService.query();
@@ -73,9 +73,9 @@ public class FoodQuickCheckController {
 			request.getSession().setAttribute("user", user);
 			request.getSession().setAttribute("enterpriseName", user.getEnterpriseName());
 			request.getSession().setAttribute("unitName", "");
-		}else{
-			for(Dictionary temp:unitList){
-				if(temp.gettDictionaryCode().equals(unitCode)){
+		} else {
+			for (Dictionary temp : unitList) {
+				if (temp.gettDictionaryCode().equals(unitCode)) {
 					request.getSession().setAttribute("unitName", temp.gettDictionaryName());
 				}
 			}
@@ -105,6 +105,20 @@ public class FoodQuickCheckController {
 		map.put("end_calenderOne", end_calenderOne);
 		map.put("detectionedEnterprise", detectionedEnterprise);
 		map.put("detectionUnitCode", detectionUnitCode);
+		
+		Admin admin = (Admin) request.getSession().getAttribute("sessionAdmin");
+		String userName = "";
+		if(admin != null){
+			userName = admin.getUsername();
+		}
+		if(!"admin".equals(userName)){
+			String unitCode = request.getSession().getAttribute("unitCode") == null ? null
+					: request.getSession().getAttribute("unitCode").toString();
+			String enterpriseName = request.getSession().getAttribute("enterpriseName") == null ? null
+					: request.getSession().getAttribute("enterpriseName").toString();
+			map.put("unitCode", unitCode);
+			map.put("enterpriseName", enterpriseName);
+		}
 		return foodQuickCheckService.findQuickCheckListTotal(map);
 	}
 
@@ -133,39 +147,55 @@ public class FoodQuickCheckController {
 		map.put("detectionUnitCode", detectionUnitCode);
 		map.put("startNum", startNum);
 		map.put("limit", limit);
-		List<Dictionary> unitList = (List<Dictionary>)request.getSession().getAttribute("unitList");
-		List<Dictionary> quickcheckprojectList = (List<Dictionary>)request.getSession().getAttribute("quickcheckprojectList");
+		Admin admin = (Admin) request.getSession().getAttribute("sessionAdmin");
+		String userName = "";
+		if(admin != null){
+			userName = admin.getUsername();
+		}
+		if(!"admin".equals(userName)){
+			String unitCode = request.getSession().getAttribute("unitCode") == null ? null
+					: request.getSession().getAttribute("unitCode").toString();
+			String enterpriseName = request.getSession().getAttribute("enterpriseName") == null ? null
+					: request.getSession().getAttribute("enterpriseName").toString();
+			map.put("unitCode", unitCode);
+			map.put("enterpriseName", enterpriseName);
+		}
+		List<Dictionary> unitList = (List<Dictionary>) request.getSession().getAttribute("unitList");
+		List<Dictionary> quickcheckprojectList = (List<Dictionary>) request.getSession()
+				.getAttribute("quickcheckprojectList");
 		List<FoodQuickCheck> list = foodQuickCheckService.findQuickCheckList(map);
-		for(FoodQuickCheck temp:list){
+		for (FoodQuickCheck temp : list) {
 			temp.setDetectionUnitName("");
-			for(Dictionary unitTemp:unitList){
-				if(unitTemp.gettDictionaryCode().equals(temp.getDetectionUnitCode()==null?"":temp.getDetectionUnitCode())){
+			for (Dictionary unitTemp : unitList) {
+				if (unitTemp.gettDictionaryCode()
+						.equals(temp.getDetectionUnitCode() == null ? "" : temp.getDetectionUnitCode())) {
 					temp.setDetectionUnitName(unitTemp.gettDictionaryName());
 				}
 			}
-			for(Dictionary quickcheckprojectTemp:quickcheckprojectList){
-				if(quickcheckprojectTemp.gettDictionaryCode().equals(temp.getProjectType())){
+			for (Dictionary quickcheckprojectTemp : quickcheckprojectList) {
+				if (quickcheckprojectTemp.gettDictionaryCode().equals(temp.getProjectType())) {
 					temp.setProjectName(quickcheckprojectTemp.gettDictionaryName());
 				}
 			}
 		}
 		return list;
 	}
-	
+
 	@RequestMapping("batchAdd")
 	@ResponseBody
-	public int batchAdd(HttpServletRequest request,String params,String detectionDate,String detectionEnterpriseName,String detectionUnitCode){
+	public int batchAdd(HttpServletRequest request, String params, String detectionDate, String detectionEnterpriseName,
+			String detectionUnitCode) {
 		Admin admin = (Admin) request.getSession().getAttribute("sessionAdmin");
-		//0单位 1企业
+		// 0单位 1企业
 		String detectionBodyType = "";
-		if(admin == null){
+		if (admin == null) {
 			detectionBodyType = "1";
-		}else{
+		} else {
 			detectionBodyType = "0";
 		}
 		List<FoodQuickCheck> foodQuickCheckList = new ArrayList<FoodQuickCheck>();
 		String[] strArray = params.split(":");
-		for(int i = 0;i<strArray.length;i++){
+		for (int i = 0; i < strArray.length; i++) {
 			String temp = strArray[i];
 			String[] tempArray = temp.split(",");
 			FoodQuickCheck foodQuickCheck = new FoodQuickCheck();
@@ -181,15 +211,34 @@ public class FoodQuickCheckController {
 		}
 		return foodQuickCheckService.batchInsert(foodQuickCheckList);
 	}
-	
+
 	/**
 	 * 判断企业是否存在
+	 * 
 	 * @param detectionEnterpriseName
 	 * @return
 	 */
 	@RequestMapping("checkEnterpriseIsHave")
 	@ResponseBody
-	public int checkEnterpriseIsHave(String detectionEnterpriseName){
+	public int checkEnterpriseIsHave(String detectionEnterpriseName) {
 		return enterpriseService.selectEnterpriseCountByName(detectionEnterpriseName);
+	}
+	
+	@RequestMapping("deleteFoodQuickCheck")
+	@ResponseBody
+	public int removeFoodQuickCheck(Integer id){
+		return foodQuickCheckService.removeFoodQuickCheck(id);
+	}
+	
+	@RequestMapping("queryFoodQuickCheck")
+	@ResponseBody
+	public FoodQuickCheck queryFoodQuickCheck(Integer id){
+		return foodQuickCheckService.queryFoodQuickCheck(id);
+	}
+	
+	@RequestMapping("saveModifyFoodQuickCheck")
+	@ResponseBody
+	public int saveModifyFoodQuickCheck(FoodQuickCheck foodQuickCheck){
+		return foodQuickCheckService.saveModifyFoodQuickCheck(foodQuickCheck);
 	}
 }

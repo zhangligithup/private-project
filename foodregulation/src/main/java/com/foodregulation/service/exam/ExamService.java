@@ -54,7 +54,7 @@ public interface ExamService {
      * @param id
      * @return
      */
-    public int delExam(Long id);
+    public int delExam(String id);
 
     /**
      * 随机抽取试题

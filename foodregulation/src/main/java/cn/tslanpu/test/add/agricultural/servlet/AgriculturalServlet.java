@@ -28,6 +28,7 @@ public class AgriculturalServlet extends BaseServlet {
 			agriculturalService.add(agricultural);
 			out.println(1);
 		} catch (Exception e) {
+			e.printStackTrace();
 			out.println(0);
 		}
 	}

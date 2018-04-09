@@ -164,11 +164,15 @@ public class ExamController {
 	 */
 	@RequestMapping("delExam")
 	@ResponseBody
-	public JSONObject delExam(HttpServletRequest request, Long id) {
+	public JSONObject delExam(HttpServletRequest request, String id) {
 		boolean pageResult = false;
 		try {
-			if (id == null || id == 0) {
+			if (StringUtils.isBlank(id)) {
 				return ResultUtil.jsonObject("false", "试题id为空");
+			}
+			//id格式为12,12,12,
+			if(id.indexOf(',')>-1){
+				id = id.substring(0, id.lastIndexOf(','));
 			}
 			int add = examService.delExam(id);
 			if (add > 0) {

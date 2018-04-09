@@ -5,8 +5,10 @@ import com.foodregulation.dao.entity.Exam;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface ExamMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(@Param("ids")String ids);
 
     int insert(Exam record);
 
