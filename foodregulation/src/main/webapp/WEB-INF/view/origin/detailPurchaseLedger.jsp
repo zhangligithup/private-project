@@ -1,12 +1,12 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <div class="breadcrumb_box">
-	<!-- 产品进货台账Id -->
+	<!-- 食品进货台账Id -->
 	<input type="hidden" name="purchaseLedgerId" value="${id}">
     <div class="breadcrumb_box_l">
         <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
             <li><a href="#">溯源管理</a></li>
-            <li class="active">产品进货台账</li>
+            <li class="active">食品进货台账</li>
         </ol>
     </div>
     <div class="breadcrumb_box_r">
@@ -19,7 +19,7 @@
     <div id="myTabContent2" class="tab-content">
         <div class="tab-pane  in active" id="one">
             <div class="titledivone marb3">
-                <div class="title_txt">食品原料及食品相关产品进货台账</div>
+                <div class="title_txt">食品进货台账</div>
             </div>
             <table class="table  table3">
                 <tbody>
@@ -36,10 +36,16 @@
                     <td class="text-left">${purchaseLedger.num }</td>
                 </tr>
                 <tr>
-                    <td class="table3_th">生产批号</td>
+                    <td class="table3_th">生产日期</td>
                     <td  class="text-left">${purchaseLedger.batchNumber }</td>
                     <td  class="table3_th">保质期</td>
                     <td class="text-left">${purchaseLedger.safeDateStr }</td>
+                </tr>
+                <tr>
+                    <td class="table3_th">产地</td>
+                    <td  class="text-left">${purchaseLedger.productionPlace}</td>
+                    <td  class="table3_th"></td>
+                    <td class="text-left"></td>
                 </tr>
                 <tr>
                     <td  class="table3_th">进货时间</td>
@@ -52,12 +58,6 @@
                     <td  class="text-left">${purchaseLedger.supplyPerson }</td>
                     <td  class="table3_th">供货人联系电话</td>
                     <td class="text-left">${purchaseLedger.supplyTel }</td>
-                </tr>
-                <tr>
-                    <td class="table3_th">采购员</td>
-                    <td  class="text-left">${purchaseLedger.buyer }</td>
-                    <td  class="table3_th">验收记录员</td>
-                    <td class="text-left">${purchaseLedger.recordPerson }</td>
                 </tr>
                 </tbody>
             </table>

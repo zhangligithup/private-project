@@ -1,18 +1,29 @@
 package cn.tslanpu.test.add.agricultural.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Hashtable;
 import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.aliyun.oss.OSSClient;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+
 import cn.itcast.commons.CommonUtils;
 import cn.tslanpu.test.add.agricultural.domain.Agricultural;
 import cn.tslanpu.test.add.agricultural.service.AgriculturalService;
 import cn.tslanpu.test.admin.domain.Admin;
 import cn.tslanpu.test.utils.BaseServlet;
+import cn.tslanpu.test.utils.MatrixToImageWriter;
+import cn.tslanpu.test.utils.OSS;
 
 public class AgriculturalServlet extends BaseServlet {
 
@@ -39,11 +50,47 @@ public class AgriculturalServlet extends BaseServlet {
 		// 根据id查询所属分局
 		String str = request.getParameter("enterpriseId");
 		int id = Integer.parseInt(str);
+		createQRcode(id);
 		Agricultural agricultural = agriculturalService.agriculturalFind(id);
-
+		agricultural.setQRcode("http://lanpubucket1.oss-cn-beijing.aliyuncs.com/"+"agricultural" + id + ".png");
 		request.setAttribute("agricultural", agricultural);
 		request.getRequestDispatcher("/pages/tables/agricultural/agriculturalInformation.jsp").forward(request,
 				response);
+	}
+
+	// 生成二维码
+	private final void createQRcode(int agriculturalId) throws IOException {
+
+		String fileName = "agricultural" + agriculturalId + ".png";
+		// 判断文件是否存在
+		OSSClient ossClient = OSS.getOssClient();
+		boolean found = ossClient.doesObjectExist(OSS.bucketName, fileName);
+		if (found) {
+			return;
+		}
+		// 二维码封装的链接
+		String url = "http://www.personalproductionshow.com:8090/foodregulation/xiaotandian/index.do?agriculturalId="
+				+ agriculturalId+"#mp.weixin.qq.com";
+		int width = 300;
+		int height = 300;
+		// 二维码的图片格式
+		String format = "png";
+		Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
+		// 内容所使用编码
+		hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+
+		BitMatrix bitMatrix = null;
+		try {
+			bitMatrix = new MultiFormatWriter().encode(url, BarcodeFormat.QR_CODE, width, height, hints);
+		} catch (WriterException e) {
+			e.printStackTrace();
+		}
+
+		// 二维码生成
+		File outputFile = new File(fileName);
+		MatrixToImageWriter.writeToFile(bitMatrix, format, outputFile);
+		ossClient.putObject(OSS.bucketName, fileName, outputFile);
+		ossClient.shutdown();
 	}
 
 	// 更新信息

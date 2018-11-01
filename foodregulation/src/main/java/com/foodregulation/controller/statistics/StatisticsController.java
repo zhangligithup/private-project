@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +16,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -28,10 +29,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.foodregulation.dao.entity.Dictionary;
+import com.foodregulation.dao.entity.FoodQuickCheck;
 import com.foodregulation.dao.entity.JDJCStatistics;
 import com.foodregulation.dao.entity.JDJCStatisticsNode;
 import com.foodregulation.service.Dictionary.DictionaryService;
 import com.foodregulation.service.enterprise.EnterpriseService;
+import com.foodregulation.service.samplingInspection.FoodQuickCheckService;
 import com.foodregulation.service.statistics.StatisticsServcice;
 
 @Controller
@@ -40,11 +43,12 @@ public class StatisticsController {
 
     @Autowired
     StatisticsServcice statisticsServcice;
-
     @Autowired
     DictionaryService dictionaryService;
     @Autowired
     EnterpriseService enterpriseService;
+    @Autowired
+	FoodQuickCheckService foodQuickCheckService;
 
 
     @RequestMapping("analysisShow")
@@ -56,6 +60,11 @@ public class StatisticsController {
     @RequestMapping("preJdjcStatistics")
     public String preJdjcStatistics() {
         return "statisticalAnalysis/jdjcStatistics";
+    }
+    
+    @RequestMapping("preFoodCheckStatistics")
+    public String preFoodCheckStatistics() {
+    	return "statisticalAnalysis/foodCheckStatistics";
     }
 
 
@@ -130,7 +139,6 @@ public class StatisticsController {
     @ResponseBody
     public List<JDJCStatistics> jdjcStatistics(String startTime, String endTime)
             throws Exception {
-        Map<String, Map<String, Integer>> map = new HashMap<String, Map<String, Integer>>();
         Date startDate = null;
         Date endDate = null;
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -625,6 +633,117 @@ public class StatisticsController {
         return format.format(number1 / (float) number2);// 打印计算结果
     }
 
-
+    @RequestMapping("checkfoodStatistics")
+    @ResponseBody
+    public Map<String,Object> checkfoodStatistics(String startDate, String endDate)
+            throws Exception {
+    	Map<String,Object> result = new HashMap<String,Object>();
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	map.put("start_calenderOne", startDate);
+    	map.put("end_calenderOne", endDate);
+    	//查询所有食检记录
+    	List<FoodQuickCheck> foodQuickCheckList = foodQuickCheckService.findQuickCheckList(map);
+    	if(CollectionUtils.isEmpty(foodQuickCheckList)){
+    		return result;
+    	}
+    	//统计样品名称
+    	Set<String> sampleSet = new HashSet<String>();
+    	//统计检测单位
+    	Set<String> detectionSet = new HashSet<String>();
+    	//统计合格不合格数量
+    	int qualified = 0;
+    	int noQualified = 0;
+    	for(int i=0;i<foodQuickCheckList.size();i++){
+    		sampleSet.add(foodQuickCheckList.get(i).getSampleName());
+    		detectionSet.add(foodQuickCheckList.get(i).getDetectionEnterpriseName());
+    		detectionSet.add(foodQuickCheckList.get(i).getDetectionUnitCode());
+    		if("合格".equals(foodQuickCheckList.get(i).getResult())){
+    			qualified++;
+    		}else{
+    			noQualified++;
+    		}
+    	}
+    	Map<String,String>  qualifiedResult = new HashMap<String,String>();
+    	qualifiedResult.put("qualified", ""+qualified);
+    	qualifiedResult.put("noQualified", ""+noQualified);
+    	result.put("qualifiedResult", qualifiedResult);
+    	
+    	//根据检测项目统计合格不合格
+    	//获取所有的检测项目
+    	List<Map<String,String>> projectList = new ArrayList<Map<String,String>>();
+    	List<Dictionary> quickcheckprojectList = dictionaryService.getDictionaryByType(8);
+    	for(Dictionary dictionary:quickcheckprojectList){
+    		String projectName = dictionary.gettDictionaryName();
+    		String projectCode = dictionary.gettDictionaryCode();
+    		int temp = 0;
+        	int noTemp = 0;
+        	for(int i=0;i<foodQuickCheckList.size();i++){
+        		if(foodQuickCheckList.get(i).getProjectType().equals(projectCode)){
+        			if("合格".equals(foodQuickCheckList.get(i).getResult())){
+        				temp++;
+            		}else{
+            			noTemp++;
+            		}
+        		}
+        	}
+        	Map<String,String> tempMap = new HashMap<String,String>();
+        	tempMap.put("name", projectName);
+        	tempMap.put("qualified", temp+"");
+        	tempMap.put("noQualified", noTemp+"");
+        	projectList.add(tempMap);
+    	}
+    	result.put("projectResult", projectList);
+    	
+    	//根据样品名称统计合格不合格
+    	List<Map<String,String>> sampleList = new ArrayList<Map<String,String>>();
+    	for(String sampleName:sampleSet){
+    		int temp = 0;
+        	int noTemp = 0;
+        	for(int i=0;i<foodQuickCheckList.size();i++){
+        		if(foodQuickCheckList.get(i).getSampleName().equals(sampleName)){
+        			if("合格".equals(foodQuickCheckList.get(i).getResult())){
+        				temp++;
+            		}else{
+            			noTemp++;
+            		}
+        		}
+        	}
+        	Map<String,String> tempMap = new HashMap<String,String>();
+        	tempMap.put("name", sampleName);
+        	tempMap.put("qualified", temp+"");
+        	tempMap.put("noQualified", noTemp+"");
+        	sampleList.add(tempMap);
+    	}
+    	result.put("sampleResult", sampleList);
+    	
+    	//根据检测单位统计
+    	List<Dictionary> dictionaryCheckUnit = dictionaryService.getDictionaryByType(2);
+    	List<Map<String,String>> detectionList = new ArrayList<Map<String,String>>();
+    	for(String detection:detectionSet){
+    		int temp = 0;
+        	int noTemp = 0;
+        	for(int i=0;i<foodQuickCheckList.size();i++){
+        		if(foodQuickCheckList.get(i).getSampleName().equals(detection)||foodQuickCheckList.get(i).getDetectionUnitCode().equals(detection)){
+        			if("合格".equals(foodQuickCheckList.get(i).getResult())){
+        				temp++;
+            		}else{
+            			noTemp++;
+            		}
+        		}
+        	}
+        	Map<String,String> tempMap = new HashMap<String,String>();
+        	for(Dictionary dictionary:dictionaryCheckUnit){
+        		if(detection.equals(dictionary.gettDictionaryCode())){
+        			detection = dictionary.gettDictionaryName();
+        		}
+        	}
+        	tempMap.put("name", detection);
+        	tempMap.put("qualified", temp+"");
+        	tempMap.put("noQualified", noTemp+"");
+        	detectionList.add(tempMap);
+    	}
+    	result.put("detectionResult", detectionList);
+        return result;
+    }
 
 }

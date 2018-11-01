@@ -6,7 +6,7 @@
         <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
             <li><a href="#">溯源管理</a></li>
-            <li class="active">产品进货台账</li>
+            <li class="active">食品进货台账</li>
         </ol>
     </div>
     <div class="breadcrumb_box_r">
@@ -37,7 +37,11 @@
     </table>                      
     <div class="btn_box marb10" >
         <div class="pull-left ">
-           
+           <ul>
+                <li id='li-add_samTask_tab'>
+                    <a href="javascript:void (0)" id='li-8111111' class="form_btn2" onclick="addPurchaseLedger()"><img src="${pageContext.request.contextPath }/images/ioc/add.png"> 添加食品进货台账</a>
+                </li>
+            </ul>
         </div>
         <div class="pull-right">
            <div class="r_txt">共有数据 <font id="total_purchaseLedger"></font>条</div>
@@ -49,7 +53,6 @@
             <th>企业名称</th>
             <th>物品名称</th>
             <th>供货单位</th>
-            <th>采购员</th>
             <th>进货时间</th>
             <th>上报时间</th>
             <th>操作</th>
@@ -67,7 +70,10 @@ $(document).ready(function(){
 	queryPurchaseLedger();  
 });
 
-
+function addPurchaseLedger(){
+    var url = "${pageContext.request.contextPath }/origin/addPurchaseLedger.do";
+   creatTabPage(8111111,url);
+}
 function queryPurchaseLedger(curr){
 	$("#dataListTbody_purchaseLedger tr").remove();
 	var pageNum = 1;
@@ -109,7 +115,6 @@ function queryPurchaseLedger(curr){
 			    		+"<td>"+json[i].company+"</td>"
 			    		+"<td>"+json[i].commodity+"</td>"
 			    		+"<td>"+json[i].supplyUnit+"</td>"
-			    		+"<td>"+json[i].buyer+"</td>"
 			    		+"<td>"+json[i].purchaseTimeStr+"</td>"
 			    		+"<td>"+json[i].reportTimeStr+"</td>"
 			    		+"<td>"

@@ -75,6 +75,7 @@ public class PhysicalServiceImpl implements PhysicalService {
      */
     @Override
     public int updatePhysical(Physical physical) {
+    	enterpriseUserMapper.updateEnterpriseByUsername(physical.getCompanyName(), physical.getPhone());
         return physicalMapper.updateByPrimaryKeySelective(physical);
     }
 

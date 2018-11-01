@@ -18,10 +18,11 @@
     <result column="record_person" property="recordPerson" jdbcType="VARCHAR" />
     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
     <result column="batch_unit" property="batchUnit" jdbcType="VARCHAR" />
+    <result column="production_place" property="productionPlace" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, company, commodity, supply_unit, buyer, purchase_time, report_time, spec, num, 
-    batch_number, safe_date, supply_person, supply_tel, record_person, img_url,batch_unit
+    batch_number, safe_date, supply_person, supply_tel, record_person, img_url,batch_unit,production_place
   </sql>
  
   <select id="selectPurchaseLedger" resultMap="BaseResultMap" >
@@ -155,6 +156,9 @@
       <if test="createUser != null" >
         createUser,
       </if>
+      <if test="productionPlace != null" >
+        production_place,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="company != null" >
@@ -204,6 +208,9 @@
       </if>
       <if test="createUser != null" >
         #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPlace != null" >
+        #{productionPlace,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -255,6 +262,9 @@
       </if>
       <if test="batchUnit != null" >
         batch_unit = #{batchUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="productionPlace != null" >
+        production_place = #{productionPlace,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

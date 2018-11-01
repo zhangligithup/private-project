@@ -71,12 +71,18 @@ public class SupervisionAndCheckController {
 		String checkDate = request.getParameter("checkDate");
 		String unitcode = request.getParameter("unitcode");
 		String enterpriseName = request.getParameter("enterpriseName");
+		String enterpriseTypeName = "";
 		switch (enterpriseTypeCode) {
 		case "enterprise_2":
 			url = "supervisionAndCheckProduction";
 			break;// 食品生产
+		case "enterprise_1":
+			url = "supervisionAndCheckCriculate";
+			enterpriseTypeName = "食品小摊点经营户";
+			break;// 食品小摊点经营户
 		case "enterprise_3":
 			url = "supervisionAndCheckCriculate";
+			enterpriseTypeName = "食品销售";
 			break;// 食品销售企业
 		case "enterprise_4":
 			url = "supervisionAndCheckFood";
@@ -104,6 +110,8 @@ public class SupervisionAndCheckController {
 		request.setAttribute("checkDate", checkDate);
 		request.setAttribute("unitcode", unitcode);
 		request.setAttribute("enterpriseName", enterpriseName);
+		request.setAttribute("enterpriseTypeName", enterpriseTypeName);
+		request.setAttribute("enterpriseTypeCode", enterpriseTypeCode);
 		return "supervisionAndCheck/" + url;
 	}
 
@@ -160,12 +168,18 @@ public class SupervisionAndCheckController {
 		SupervisionAndCheck supervisionAndCheck = supervisionAndCheckService.selectByPrimaryKey(id);
 		request.setAttribute("supervisionAndCheck", supervisionAndCheck);
 		String url = "";
+		String enterpriseTypeName = "";
 		switch (type) {
 		case "enterprise_2":
 			url = "supervisionAndCheckProductionQuery";
 			break;
 		case "enterprise_3":
 			url = "supervisionAndCheckCriculateQuery";
+			enterpriseTypeName = "食品销售";
+			break;
+		case "enterprise_1":
+			url = "supervisionAndCheckCriculateQuery";
+			enterpriseTypeName = "食品小摊点经营户";
 			break;
 		case "enterprise_4":
 			url = "supervisionAndCheckFoodQuery";
@@ -190,6 +204,8 @@ public class SupervisionAndCheckController {
 			break;
 		}
 		;
+		request.setAttribute("enterpriseTypeName", enterpriseTypeName);
+		request.setAttribute("enterpriseTypeCode", type);
 		return "supervisionAndCheck/" + url;
 	}
 

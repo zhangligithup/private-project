@@ -87,9 +87,7 @@
                     <select class="select_style1" id="enterpriseType">
                          <option value="">请选择企业类别</option>
                         <c:forEach items="${enterpriseTypeList}" var="list">
-                           <c:if test="${list.tDictionaryCode!='enterprise_1'}">
                             <option  value="${list.tDictionaryCode}">${list.tDictionaryName}</option>
-                           </c:if>
                         </c:forEach>    
                     </select>
                 </th>

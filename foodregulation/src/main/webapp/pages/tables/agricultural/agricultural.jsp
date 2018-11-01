@@ -20,7 +20,7 @@
 			var recordDate = $("#recordDate").val();
 	        var recordEffectiveDate = $("#recordEffectiveDate").val();
 			if(qyname.trim() == ""){
-				alert("请填写企业名称");
+				alert("请填写经营户名称");
 				return false;
 			}else if(add == 0){
 				alert("请选择行政区域");
@@ -34,13 +34,7 @@
 			}else if(val == 0){
 				alert("请选择监管单位");
 				return false;
-			}else if(recordDate.trim() == ""){
-                alert("请填写备案日期");
-                return false;
-            }else if(recordEffectiveDate.trim() == ""){
-                alert("请填写备案有效日期");
-                return false;
-            }else{
+			}else{
 				$.ajax({
     				url:"${pageContext.request.contextPath }/AgriculturalServlet",
     				type:"post",
@@ -48,10 +42,10 @@
     				data:$('#validateForm1').serialize(),
     				success : function(data) {
     					if(data>0){
-    						alertEase("添加成功",'0');
+    						alertEase("添加成功",1);
     						//queryEnterprise();
     					}else{
-    						alertEase("添加失败",'1');
+    						alertEase("添加失败",2);
     					}
     				}
     			}); 

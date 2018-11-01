@@ -16,7 +16,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -691,6 +690,8 @@ public class AppController {
 		param.put("type", request.getParameter("type"));// 1 :已过期 2:未过期
 		param.put("companyName", request.getParameter("companyName"));// 企业名称
 		param.put("physicalName", request.getParameter("physicalName"));// 体检人姓名
+		EnterpriseUser enterpriseUser = physicalService.selectEnterpriseUserByUsername(request.getParameter("userName"));
+		param.put("cName", enterpriseUser.getEnterpriseName());
 		initPage(request, param);
 		List<Physical> data = physicalService.selectPhysical(param);
 
@@ -1138,6 +1139,8 @@ public class AppController {
 		String imgUrl = request.getParameter("imgUrl");
 
 		String batchUnit = request.getParameter("batchUnit");
+		
+		String productionPlace = request.getParameter("productionPlace");
 
 		PurchaseLedger record = new PurchaseLedger();
 		record.setBatchNumber(batchNumber);
@@ -1155,6 +1158,7 @@ public class AppController {
 		record.setSupplyPerson(supplyPerson);
 		record.setSupplyTel(supplyTel);
 		record.setSupplyUnit(supplyUnit);
+		record.setProductionPlace(productionPlace);
 		record.setCreateUser(request.getParameter("username"));
 		try {
 			originService.insertPurchaseLedger(record);
@@ -1231,6 +1235,8 @@ public class AppController {
 		String imgUrl = request.getParameter("imgUrl");
 
 		String batchUnit = request.getParameter("batchUnit");
+		
+		String productionPlace = request.getParameter("productionPlace");
 
 		PurchaseLedger record = new PurchaseLedger();
 		record.setId(Integer.valueOf(id));
@@ -1249,6 +1255,7 @@ public class AppController {
 		record.setSupplyPerson(supplyPerson);
 		record.setSupplyTel(supplyTel);
 		record.setSupplyUnit(supplyUnit);
+		record.setProductionPlace(productionPlace);
 
 		try {
 			originService.updatePurchaseLedger(record);

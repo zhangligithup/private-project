@@ -18,6 +18,9 @@
   <select id="selectEnterpriseUserByUsername" resultMap="BaseResultMap">
   	select * from enterprise_user where user_name = #{userName}
   </select>
+  <update id="updateEnterpriseByUsername">
+        update enterprise_user set enterprise_name = #{enterpriseName} where user_name = #{userName}
+  </update>
   <insert id="insert" parameterType="com.foodregulation.dao.entity.EnterpriseUser" >
     insert into enterprise_user (enterprise_name, user_name, password,enterpriseTypeCode,name
       )

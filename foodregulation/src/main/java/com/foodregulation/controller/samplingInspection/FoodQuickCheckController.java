@@ -7,7 +7,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import com.foodregulation.service.app.AppService;
 import com.foodregulation.service.enterprise.EnterpriseService;
 import com.foodregulation.service.person.PersonInfoService;
 import com.foodregulation.service.samplingInspection.FoodQuickCheckService;
-import com.foodregulation.util.ResultUtil;
 import com.foodregulation.util.StringUtils;
 
 import cn.tslanpu.test.admin.domain.Admin;
@@ -71,19 +69,52 @@ public class FoodQuickCheckController {
 			// 企业端 人员登录
 			User user = appService.userLogin(param);
 			request.getSession().setAttribute("user", user);
+			request.getSession().setAttribute("account", username);
 			request.getSession().setAttribute("enterpriseName", user.getEnterpriseName());
 			request.getSession().setAttribute("unitName", "");
+			return "samplingInspection/foodQuickCheckTaskApp";
 		} else {
+			request.getSession().setAttribute("account", admin.getUsername());
 			for (Dictionary temp : unitList) {
 				if (temp.gettDictionaryCode().equals(unitCode)) {
 					request.getSession().setAttribute("unitName", temp.gettDictionaryName());
 				}
 			}
 			request.getSession().setAttribute("enterpriseName", "");
+			return "samplingInspection/foodQuickCheckTask";
 		}
-		return "samplingInspection/foodQuickCheckTask";
 	}
 
+	/**
+	 * 小摊点移动端展示
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("selectfindQuickCheck")
+	@ResponseBody
+	public Map<String, Object> selectfindQuickCheck(HttpServletRequest request) {
+		String qyname = request.getParameter("qyname");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("detectionedEnterprise", qyname);
+		int total = foodQuickCheckService.findQuickCheckListTotal(map);
+		Integer startNum = Integer.valueOf(request.getParameter("start"));
+		Integer limit = Integer.valueOf(request.getParameter("count"));
+		map.put("startNum", startNum);
+		map.put("limit", limit);
+		List<Dictionary> quickcheckprojectList = dictionaryService.getDictionaryByType(8);
+		List<FoodQuickCheck> list = foodQuickCheckService.findQuickCheckList(map);
+		for (FoodQuickCheck temp : list) {
+			for (Dictionary quickcheckprojectTemp : quickcheckprojectList) {
+				if (quickcheckprojectTemp.gettDictionaryCode().equals(temp.getProjectType())) {
+					temp.setProjectName(quickcheckprojectTemp.gettDictionaryName());
+				}
+			}
+		}
+		map = new HashMap<String, Object>();
+		map.put("total", total);
+		map.put("list", list);
+		return map;
+	}
 	@RequestMapping("findQuickCheckTotal")
 	@ResponseBody
 	public int findQuickCheckTotal(HttpServletRequest request) {
@@ -98,6 +129,8 @@ public class FoodQuickCheckController {
 				: request.getParameter("detectionedEnterprise").trim();
 		String detectionUnitCode = request.getParameter("detectionUnitCode") == null ? ""
 				: request.getParameter("detectionUnitCode").trim();
+		String result = request.getParameter("result") == null ? ""
+				: request.getParameter("result").trim();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("sampleName", sampleName);
 		map.put("quickcheckproject", quickcheckproject);
@@ -105,19 +138,17 @@ public class FoodQuickCheckController {
 		map.put("end_calenderOne", end_calenderOne);
 		map.put("detectionedEnterprise", detectionedEnterprise);
 		map.put("detectionUnitCode", detectionUnitCode);
-		
-		Admin admin = (Admin) request.getSession().getAttribute("sessionAdmin");
-		String userName = "";
-		if(admin != null){
-			userName = admin.getUsername();
-		}
-		if(!"admin".equals(userName)){
+		map.put("result", result);
+
+		String account = request.getSession().getAttribute("account").toString();
+		if(!"admin".equals(account)){
 			String unitCode = request.getSession().getAttribute("unitCode") == null ? null
 					: request.getSession().getAttribute("unitCode").toString();
 			String enterpriseName = request.getSession().getAttribute("enterpriseName") == null ? null
 					: request.getSession().getAttribute("enterpriseName").toString();
 			map.put("unitCode", unitCode);
 			map.put("enterpriseName", enterpriseName);
+			map.put("account", account);
 		}
 		return foodQuickCheckService.findQuickCheckListTotal(map);
 	}
@@ -136,6 +167,9 @@ public class FoodQuickCheckController {
 				: request.getParameter("detectionedEnterprise").trim();
 		String detectionUnitCode = request.getParameter("detectionUnitCode") == null ? ""
 				: request.getParameter("detectionUnitCode").trim();
+		String result = request.getParameter("result") == null ? ""
+				: request.getParameter("result").trim();
+		
 		Integer startNum = Integer.valueOf(request.getParameter("startNum"));
 		Integer limit = Integer.valueOf(request.getParameter("limit"));
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -145,20 +179,18 @@ public class FoodQuickCheckController {
 		map.put("end_calenderOne", end_calenderOne);
 		map.put("detectionedEnterprise", detectionedEnterprise);
 		map.put("detectionUnitCode", detectionUnitCode);
+		map.put("result", result);
 		map.put("startNum", startNum);
 		map.put("limit", limit);
-		Admin admin = (Admin) request.getSession().getAttribute("sessionAdmin");
-		String userName = "";
-		if(admin != null){
-			userName = admin.getUsername();
-		}
-		if(!"admin".equals(userName)){
+		String account = request.getSession().getAttribute("account").toString();
+		if(!"admin".equals(account)){
 			String unitCode = request.getSession().getAttribute("unitCode") == null ? null
 					: request.getSession().getAttribute("unitCode").toString();
 			String enterpriseName = request.getSession().getAttribute("enterpriseName") == null ? null
 					: request.getSession().getAttribute("enterpriseName").toString();
 			map.put("unitCode", unitCode);
 			map.put("enterpriseName", enterpriseName);
+			map.put("account", account);
 		}
 		List<Dictionary> unitList = (List<Dictionary>) request.getSession().getAttribute("unitList");
 		List<Dictionary> quickcheckprojectList = (List<Dictionary>) request.getSession()
@@ -205,8 +237,15 @@ public class FoodQuickCheckController {
 			foodQuickCheck.setProjectType(tempArray[1]);
 			foodQuickCheck.setResult(tempArray[2]);
 			foodQuickCheck.setDetectionedEnterprise(tempArray[3]);
+			if(StringUtils.isNotBlank(tempArray[4])){
+				foodQuickCheck.setImgUrl(tempArray[4]);
+			}
+			if(StringUtils.isNotBlank(tempArray[5])){
+				foodQuickCheck.setNoQualifiedVideo(tempArray[5]);
+			}
 			foodQuickCheck.setDetectionUnitCode(detectionUnitCode);
 			foodQuickCheck.setDetectionEnterpriseName(detectionEnterpriseName);
+			foodQuickCheck.setAccount(request.getSession().getAttribute("account").toString());
 			foodQuickCheckList.add(foodQuickCheck);
 		}
 		return foodQuickCheckService.batchInsert(foodQuickCheckList);

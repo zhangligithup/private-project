@@ -47,6 +47,8 @@ public class PurchaseLedger {
     private String safeDateStr;
     
     private String createUser;
+    
+    private String productionPlace;//产地
 
     public Integer getId() {
         return id;
@@ -221,6 +223,14 @@ public class PurchaseLedger {
 
 	public void setCreateUser(String createUser) {
 		this.createUser = createUser;
+	}
+
+	public String getProductionPlace() {
+		return productionPlace;
+	}
+
+	public void setProductionPlace(String productionPlace) {
+		this.productionPlace = productionPlace;
 	}
     
 	

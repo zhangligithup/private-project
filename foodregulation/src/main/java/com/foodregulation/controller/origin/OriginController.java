@@ -51,6 +51,11 @@ public class OriginController {
         return "origin/purchaseLedger";
     }
     
+    @RequestMapping("/addPurchaseLedger")
+    public String addPurchaseLedger() {
+        return "origin/addPurchaseLedger";
+    }
+    
     /**
      * 产品进货台账 --详情页
      * @Title: detailPurchaseLedger
@@ -128,7 +133,21 @@ public class OriginController {
         return "origin/editAdditiveFiling";
     }
     /*************************************产品进货台账*****************************************************/
-    
+    //小摊点移动端显示进货台账接口
+    @RequestMapping("/queryPurchaseLedger")
+    @ResponseBody
+    public Map<String, Object> queryPurchaseLedger(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("startNum", request.getParameter("start"));
+        map.put("limit", request.getParameter("count"));
+        map.put("company", request.getParameter("qyname"));
+        List<PurchaseLedger> result = originService.selectPurchaseLedger(map);
+        int total = originService.selectPurchaseLedgerTotal(map);
+        map = new HashMap<String, Object>();
+        map.put("total", total);
+        map.put("list", result);
+        return map;
+    }
     /**
      * 显示
      */
@@ -197,6 +216,13 @@ public class OriginController {
     public int updatePurchaseLedger(HttpServletRequest request, PurchaseLedger record){
 		int num = originService.updatePurchaseLedger(record);
         return num;
+    }
+    
+    @RequestMapping("/savePurchaseLedger")
+    @ResponseBody
+    public int savePurchaseLedger(HttpServletRequest request, PurchaseLedger record){
+    	int num = originService.insertPurchaseLedger(record);
+    	return num;
     }
 
 

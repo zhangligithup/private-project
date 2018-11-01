@@ -251,12 +251,6 @@
   <servlet>
     <description>This is the description of my J2EE component</description>
     <display-name>This is the display name of my J2EE component</display-name>
-    <servlet-name>AgriculturalQrServlet</servlet-name>
-    <servlet-class>cn.tslanpu.test.add.agricultural.servlet.AgriculturalQrServlet</servlet-class>
-  </servlet>
-  <servlet>
-    <description>This is the description of my J2EE component</description>
-    <display-name>This is the display name of my J2EE component</display-name>
     <servlet-name>ComplainServlet</servlet-name>
     <servlet-class>cn.tslanpu.test.complain.servlet.ComplainServlet</servlet-class>
   </servlet>
@@ -493,10 +487,6 @@
     <url-pattern>/QrCode</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>AgriculturalQrServlet</servlet-name>
-    <url-pattern>/AgriculturalQrServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>ComplainServlet</servlet-name>
     <url-pattern>/ComplainServlet</url-pattern>
   </servlet-mapping>
@@ -557,6 +547,6 @@
     <welcome-file>/login.jsp</welcome-file>
   </welcome-file-list>
   <session-config>
-        <session-timeout>240</session-timeout>
+        <session-timeout>720</session-timeout>
   </session-config>
 </web-app>

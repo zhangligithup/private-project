@@ -30,9 +30,7 @@
             <td>
                 <select  style="" name="supervisionAndCheckType" id="supervisionAndCheckTypeAddTask">
 	                <c:forEach items="${enterpriseTypeList}" var="list">
-		        		   <c:if test="${list.tDictionaryCode!='enterprise_1'}">
 		        		   	<option  value="${list.tDictionaryCode}">${list.tDictionaryName}</option>
-		        		   </c:if>
 		          	</c:forEach>
                 </select>
             </td>

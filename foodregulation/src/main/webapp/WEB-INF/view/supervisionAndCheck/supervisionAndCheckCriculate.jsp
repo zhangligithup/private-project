@@ -1,14 +1,14 @@
 <%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <form id="addscCriculate">
-<input type = "hidden" value="enterprise_3" name="enterpriseTypeCode">
+<input type = "hidden" value="${enterpriseTypeCode}" name="enterpriseTypeCode">
 <input type = "hidden" value="${dealTaskId}" name="taskId">
 <div class="breadcrumb_box">
     <div class="breadcrumb_box_l">
         <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
             <li><a href="#">监督检查</a></li>
-            <li class="active">添加食品销售监督检查</li>
+            <li class="active">添加${enterpriseTypeName}监督检查</li>
         </ol>
     </div>
     <div class="breadcrumb_box_r">
@@ -166,7 +166,7 @@
         </tr>
        
         <tr>
-            <td rowspan="3"> 2．经营资质</td>
+            <td rowspan="3"> 2．经营环境</td>
             <td>2.1</td>
             <td>是否具有与经营的食品品种、数量相适应的场所。</td>
             <td>

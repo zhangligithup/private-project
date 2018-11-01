@@ -79,7 +79,7 @@ public class Cosmetic {
 	}
 
 	public void setQyname(String qyname) {
-		this.qyname = qyname;
+		this.qyname = qyname == null?null:qyname.trim();
 	}
 
 	public String getAddress() {

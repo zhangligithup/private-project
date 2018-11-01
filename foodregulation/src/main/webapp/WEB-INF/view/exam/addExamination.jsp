@@ -109,7 +109,7 @@
 <script>
 function allChoice(ele){
 	if(ele.checked){
-		$("input[name='check_exam']").attr("checked","true");
+		$("input[name='check_exam']").prop("checked", true);
 	}else{
 		$("input[name='check_exam']").removeAttr("checked"); 
 	}

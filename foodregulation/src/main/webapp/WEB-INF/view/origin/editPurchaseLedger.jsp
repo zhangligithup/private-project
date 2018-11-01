@@ -4,7 +4,7 @@
         <ol class="breadcrumb">
             <li><a href="#">首页</a></li>
             <li><a href="#">溯源管理</a></li>
-            <li class="active">产品进货台账</li>
+            <li class="active">食品进货台账</li>
         </ol>
     </div>
     <div class="breadcrumb_box_r">
@@ -17,28 +17,32 @@
     <div id="myTabContent2" class="tab-content">
         <div class="tab-pane  in active" id="one">
             <div class="titledivone marb3">
-                <div class="title_txt">食品原料及食品相关产品进货台账</div>
+                <div class="title_txt">食品进货台账</div>
             </div>
             <form id="purchaseLedgerEditForm">
-                <input type="hidden" name="imgUrl" value="${purchaseLedger.imgUrl}">
+                <input type="hidden" id = "imgUrl" name="imgUrl" value="${purchaseLedger.imgUrl}">
                 <input type="hidden" name="id" value="${purchaseLedger.id}">
 	            <table class="table  table3">
 	                <tbody>
 	                <tr>
-	                    <td  class="table3_th">企业名称</td>
-	                    <td width="35%" class="text-left"><input type="text" class="input2" name="company" value="${purchaseLedger.company}"></td>
+	                    <td  class="table3_th">企业名称<font style="color: red">*</font></td>
+	                    <td width="35%" class="text-left"><input type="text" id="company" onblur="checkIsHave(this)" class="input2" name="company" value="${purchaseLedger.company}"></td>
 	                    <td  class="table3_th">物品名称</td>
-	                    <td class="text-left"><input type="text" class="input2" name="commodity" value="${purchaseLedger.commodity}"></td>
+	                    <td class="text-left"><input type="text" id="commodity" class="input2" name="commodity" value="${purchaseLedger.commodity}"></td>
 	                </tr>
 	                <tr>
 	                    <td class="table3_th">规格</td>
-	                    <td  class="text-left"><input type="text" class="input2" name="spec" value="${purchaseLedger.spec}"></td>
+	                    <td  class="text-left"><input type="text" id = "spec" class="input2" name="spec" value="${purchaseLedger.spec}"></td>
 	                    <td  class="table3_th">数量</td>
-	                    <td class="text-left"><input type="text" class="input2" name="num" value="${purchaseLedger.num}"></td>
+	                    <td class="text-left"><input type="text" id="num" class="input2" name="num" value="${purchaseLedger.num}"></td>
 	                </tr>
 	                <tr>
-	                    <td class="table3_th">生产批号</td>
-	                    <td  class="text-left"><input type="text" class="input2" name="batchNumber" value="${purchaseLedger.batchNumber}"></td>
+	                    <td class="table3_th">生产日期</td>
+	                    <td  class="text-left">
+	                       <div id="batchNumberBox1" style="position:relative">
+	                           <input type="text" class="input2" id="batchNumber" name="batchNumber" value="${purchaseLedger.batchNumber}">
+	                       </div>
+	                    </td>
 	                    <td  class="table3_th">保质期</td>
 	                    <td class="text-left">
 	                      <div id="safeDateStrBox1" style="position:relative">
@@ -46,15 +50,21 @@
 	                       </div>
 	                    </td>
 	                </tr>
+	                 <tr>
+                        <td class="table3_th">产地</td>
+                        <td  class="text-left"><input type="text" id = "productionPlace" class="input2" name="productionPlace" value="${purchaseLedger.productionPlace}"></td>
+                        <td  class="table3_th"></td>
+                        <td class="text-left"></td>
+                    </tr>
 	                <tr>
-	                    <td  class="table3_th">进货时间</td>
+	                    <td  class="table3_th">进货时间<font style="color: red">*</font></td>
 	                    <td class="text-left">
 	                       <div id="purchasecalenderOneBox1" style="position:relative">
 	                           <input type="text" id="purchaseTimeStr" class="input2" name="purchaseTimeStr" value="${purchaseLedger.purchaseTimeStr}">
 	                       </div>
 	                    </td>
 	                    <td  class="table3_th">供货单位</td>
-	                    <td class="text-left"><input type="text" class="input2" name="supplyUnit" value="${purchaseLedger.supplyUnit}"></td>
+	                    <td class="text-left"><input type="text" id="supplyUnit" class="input2" name="supplyUnit" value="${purchaseLedger.supplyUnit}"></td>
 	                </tr>
 	                <tr>
 	                    <td class="table3_th">供货单位联系人</td>
@@ -63,13 +73,7 @@
 	                    <td class="text-left"><input type="text" class="input2" name="supplyTel" value="${purchaseLedger.supplyTel}"></td>
 	                </tr>
 	                <tr>
-	                    <td class="table3_th">采购员</td>
-	                    <td  class="text-left"><input type="text" class="input2" name="buyer" value="${purchaseLedger.buyer}"></td>
-	                    <td  class="table3_th">验收记录员</td>
-	                    <td class="text-left"><input type="text" class="input2" name="recordPerson" value="${purchaseLedger.recordPerson}"></td>
-	                </tr>
-	                <tr>
-                        <td class="table3_th">上传图片</td>
+                        <td class="table3_th">上传进货票据<font style="color: red">*</font></td>
                         <td id="purchaseLedgerTd">
                              <div id="zyuploadPurchaseLedger" class="zyupload row-fluid">
                              </div>
@@ -223,9 +227,32 @@ $(function(){
         forceParse: 0,
         format:'yyyy-mm-dd'
     });
+    $('#batchNumber').datetimepicker({
+        container:'#batchNumberBox1',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format:'yyyy-mm-dd'
+    });
 });
 function updatePurchaseLedger(){
+	if(!$("#company").val()){
+		alertEase("企业名称不能为空",2);
+		return;
+	}
+	if(!$("#purchaseTimeStr").val()){
+		alertEase("进货时间不能为空",2);
+		return;
+	}
 	upload();
+	if(!$("#imgUrl").val()){
+        alertEase("进货票据不能为空",2);
+        return;
+    }
 	$.ajax({
 		url:"${pageContext.request.contextPath}/origin/updatePurchaseLedger.do",
 		type:"post",
@@ -240,7 +267,26 @@ function updatePurchaseLedger(){
 		}
 	});
 }
-
+function checkIsHave(ele){
+    var detectionEnterpriseName = $(ele).val().trim();
+    $(ele).val(detectionEnterpriseName);
+    if(detectionEnterpriseName){
+        $.ajax({
+            url:"${pageContext.request.contextPath}/foodQuickCheck/checkEnterpriseIsHave.do",
+            type:"post",
+            dataType:"text",
+            data:{
+                detectionEnterpriseName:detectionEnterpriseName
+            },
+            success : function(result) {
+                if(result==0){
+                    alertEase("企业不存在",2);
+                    $(ele).focus();
+                }
+            }
+        });
+    }
+}
 
 </script>
 

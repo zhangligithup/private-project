@@ -14,7 +14,7 @@
     <!--日历插件-->
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/plugins-js/bootstrap-datetimepicker.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/common.js"></script>
-    <title>食药监管系统</title>
+    <title>曹妃甸区食药监管系统</title>
 </head>
 <body class="login_body" onkeydown="keyLogin(event)">
 	 <div class="login_div">
@@ -22,8 +22,7 @@
         <form id="formValidate" action="${pageContext.request.contextPath }/AdminServlet" method="post">
             <div class="login_l">
                 <div class="login_body_content">
-                    <img src="${pageContext.request.contextPath}/images/logo.png" alt="">
-                    <p>食药监管系统</p>
+                    <p>曹妃甸区食药监管系统</p>
                 </div>
             </div>
             <div class="login_r">

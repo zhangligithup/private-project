@@ -63,7 +63,7 @@ public class Drug {
 		return qyname;
 	}
 	public void setQyname(String qyname) {
-		this.qyname = qyname;
+		this.qyname = qyname == null?null:qyname.trim();
 	}
 	public String getAddress() {
 		return address;

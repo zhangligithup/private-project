@@ -16,4 +16,6 @@ public interface EnterpriseUserMapper {
     EnterpriseUser findEnterpriseUserById(@Param("id")int id);
     
     EnterpriseUser selectEnterpriseUserByUsername(@Param("userName")String userName);
+    
+    int updateEnterpriseByUsername(@Param("enterpriseName")String enterpriseName,@Param("userName")String userName);
 }

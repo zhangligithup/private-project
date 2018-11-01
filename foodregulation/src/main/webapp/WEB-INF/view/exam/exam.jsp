@@ -19,7 +19,7 @@
     <div class="btn_box marb10" >
         <div class="pull-left ">
             <a href="javascript:void (0)" class="form_btn2" data-toggle='modal' data-target='#mymodal_exam' onclick="addBtnExam()"><img src="${pageContext.request.contextPath }/images/ioc/add.png"> 添加试题</a>
-          
+            <a href="javascript:void (0)" class="form_btn2" onclick="batchDel()">批量删除</a>
         </div>
         <div class="pull-right">
            <div class="r_txt">共有数据 <font id="total_exam"></font>条</div>
@@ -28,6 +28,7 @@
     <table class="table table-bordered table2">
         <thead>
         <tr>
+            <th>全选<input type='checkbox' onclick="allChoice(this)"></th>
             <th class="width60">编号</th>
             <th>试题类别</th>
             <th>试题题目</th>
@@ -117,7 +118,25 @@
 $(document).ready(function(){
 	queryExamBasic();
 });
-
+function batchDel(){
+	var ids = '';
+	$('input[name="checkbox_exam2"]:checked').each(function(){
+		ids = ids+$(this).val()+',';
+    });
+	ids = ids.trim();
+	if(ids.split(',').length==1){
+		alertEase("请至少选择一条数据",2);
+	}else{
+		deleteExam(ids);
+	}
+}
+function allChoice(ele){
+    if(ele.checked){
+        $("input[name='checkbox_exam2']").prop("checked", true);
+    }else{
+        $("input[name='checkbox_exam2']").removeAttr("checked"); 
+    }
+}
 //清空表单 
 function emptyFormExam(){
 	$("#data_exam").find("input[type='text']").each(function () {//清空表单
@@ -155,8 +174,7 @@ function queryExamBasic(curr){
 		success : function(json) {
 			var tr="";
 			for(var i=0;i<json.length;i++) {
-
-			    tr+="<tr><td>"+json[i].id+"</td><td>"+json[i].exType+"</td><td>"+json[i].title+"</td><td>"+json[i].content+"</td><td>"+json[i].answer+"</td><td class='width220'><a href='javascript:void(0)' class='editer_btns edit_btn' data-toggle='modal' data-target='#mymodal_exam'  onclick='findExam("+json[i].id+")'>编辑</a><a href='javascript:void(0)' class='editer_btns del_btn' onclick='deleteExam("+json[i].id+")'>删除</a></td></tr>";
+			    tr+="<tr><td><input type='checkbox'  value='"+json[i].id+"' name='checkbox_exam2'></td><td>"+json[i].id+"</td><td>"+json[i].exType+"</td><td>"+json[i].title+"</td><td>"+json[i].content+"</td><td>"+json[i].answer+"</td><td class='width220'><a href='javascript:void(0)' class='editer_btns edit_btn' data-toggle='modal' data-target='#mymodal_exam'  onclick='findExam("+json[i].id+")'>编辑</a><a href='javascript:void(0)' class='editer_btns del_btn' onclick='deleteExam("+json[i].id+")'>删除</a></td></tr>";
 			}
 			$("#dataListTbody_exam").append(tr);
 		}
@@ -254,9 +272,9 @@ function deleteExam(id){
 			},
 			success : function(data) {
                 if(data.result=="true"){
-					alertEase("删除信息成功",'alert_succ');
+					alertEase("删除信息成功",1);
 				}else{
-					alertEase("删除信息失败",'alert_err');
+					alertEase("删除信息失败",2);
 				}
 				queryExamBasic();
 			}

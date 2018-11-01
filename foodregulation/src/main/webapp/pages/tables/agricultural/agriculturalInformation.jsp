@@ -49,22 +49,6 @@
             $("#printForm").submit();
         }
         
-        //生成二维码
-        function browseFolder(id){
-            $.ajax({
-                url:"${pageContext.request.contextPath }/AgriculturalQrServlet",
-                data:{"id":id},
-                type: "POST",
-                async: false,
-                success: function(jsonData) {
-                    var objs=eval("("+jsonData+")");//将json形式字符串转换为json对象
-                    document.getElementById("down").href = "${pageContext.request.contextPath }/" + objs.file; 
-                    document.getElementById("down").download = objs.fileName;
-                    document.getElementById("down").click();
-                }
-            });
-        }
-        
         //提交修改
         function sumbitsure(id){
             var val = $("#department").val();
@@ -75,7 +59,7 @@
             var recordDate = $("#recordDate").val();
             var recordEffectiveDate = $("#recordEffectiveDate").val();
             if(qyname.trim() == ""){
-                alert("请填写企业名称");
+                alert("请填写经营户名称");
                 return false;
             }else if(add == 0){
                 alert("请选择行政区域");
@@ -89,12 +73,6 @@
             }else if(val == 0){
                 alert("请选择监管单位");
                 return false;
-            }else if(recordDate.trim() == ""){
-                alert("请填写备案日期");
-                return false;
-            }else if(recordEffectiveDate.trim() == ""){
-                alert("请填写备案有效日期");
-                return false;
             }else{
                 confirmMessage('con_punishBasis','确定要修改吗',{width:300,height:150,sure:callBack}); 
                 function callBack(){
@@ -105,9 +83,9 @@
                         data:$('#AgriculturalForm').serialize(),
                         success : function(data) {
                             if(data>0){
-                                alertEase("修改成功",'alert_succ');
+                                alertEase("修改成功",1);
                             }else{
-                                alertEase("修改失败",'alert_err');
+                                alertEase("修改失败",2);
                             }
                         }
                     }); 
@@ -278,12 +256,11 @@
                       </tr>
                       <tr>
                         <td colspan="2" align="right"><input type="submit" class="btn btn-primary"  width="30px" value="修改"/></td>
-                        <td><input type="button" onclick="print()" class="btn btn-primary"  width="50px" value="打印"/></td>      
-                        <td>
-                            <input type="button" onclick="browseFolder(${agricultural.id})" class="btn btn-primary"  width="50px" value="生成二维码"/>
-                            <a download="" href="" id="down"></a>
-                        </td>                   
-                     </tr>                                            
+                        <td olspan="2"><input type="button" onclick="print()" class="btn btn-primary"  width="50px" value="打印"/></td>      
+                      </tr>
+                      <tr>
+                        <td colspan="4" style="text-align:center"><img alt="" src="${agricultural.QRcode}"></td>
+                      </tr>                                            
                    </tbody>
                   </table>  
                   </form>
@@ -327,4 +304,27 @@
             format:'yyyy-mm-dd'
         });
       });
+      var temp = "";
+      function uploadImg(idStr){
+           temp = idStr;
+           $("#"+idStr).click();
+      }
+      function previewImg(ele){
+          var formData = new FormData();
+          formData.append('fileselect',ele.files[0]);    //将文件转成二进制形式
+          $.ajax({
+              type:"post",
+              url:"${pageContext.request.contextPath}/supervisionAndCheck/upload.do",
+              async:false,
+              contentType: false,    //这个一定要写
+              processData: false, //这个也一定要写，不然会报错
+              data:formData,
+              dataType:'text',    //返回类型，有json，text，HTML。
+              success : function(data) {
+                  var url = data;
+                  $("#"+temp+"Img").attr("src","http://lanpubucket1.oss-cn-beijing.aliyuncs.com/"+url);
+                  $("input[name='"+temp+"']").val(url);
+                }
+              });
+      }
     </script>

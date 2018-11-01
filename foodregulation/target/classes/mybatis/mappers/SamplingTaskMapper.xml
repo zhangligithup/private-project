@@ -59,8 +59,6 @@
     UNION ALL
     SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
     UNION ALL
-    SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
-    UNION ALL
     SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
     UNION ALL
     SELECT id,qyname,address,department,'enterprise_2' AS enterpriseType FROM production
@@ -108,8 +106,6 @@
     SELECT id,qyname,address,department,'enterprise_4' AS enterpriseType  FROM food
     UNION ALL
     SELECT id,qyname,address,department,'enterprise_7' AS enterpriseType  FROM health
-    UNION ALL
-    SELECT id,qyname,address,department,'enterprise_5' AS enterpriseType  FROM industry
     UNION ALL
     SELECT id,qyname,address,department,'enterprise_10' AS enterpriseType FROM medical
     UNION ALL

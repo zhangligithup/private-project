@@ -54,7 +54,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from t_exam
-    where id = #{id,jdbcType=BIGINT}
+    where id in (${ids})
   </delete>
   <insert id="insert" parameterType="com.foodregulation.dao.entity.Exam" >
     insert into t_exam (id, ex_type, answer, 

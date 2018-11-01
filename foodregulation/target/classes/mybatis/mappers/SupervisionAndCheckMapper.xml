@@ -293,8 +293,6 @@ left join
 	union all
 	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from health
 	union all
-	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from industry
-	union all
 	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from medical
 	union all
 	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_2' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from production
@@ -341,8 +339,6 @@ left join
 	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_4' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from food
 	union all
 	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_7' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi  from health
-	union all
-	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_5' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from industry
 	union all
 	select id,longitude,latitude,department,qyname,address,scpermit,youxiaodate,'enterprise_10' as enterpriseType,qydelegate,qyphone,zzcode,create_time,scaddress,fazhengriqi from medical
 	union all

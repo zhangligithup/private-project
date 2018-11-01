@@ -28,7 +28,11 @@
 			<mvc:exclude-mapping path="/app/**"/> 
 			<mvc:exclude-mapping path="/supervisionAndCheck/**"/> 
 			<mvc:exclude-mapping path="/dictionary/**"/> 
+			<mvc:exclude-mapping path="/foodQuickCheck/**"/> 
+			<mvc:exclude-mapping path="/video/**"/> 
+			<mvc:exclude-mapping path="/xiaotandian/**"/> 
 			<mvc:exclude-mapping path="/enterpriseInfo/getEnterpriseListTotal.do"/> 
+			<mvc:exclude-mapping path="/origin/queryPurchaseLedger.do"/> 
 			<mvc:exclude-mapping path="/enterpriseInfo/getEnterpriseList.do"/> 
 			<bean class="com.foodregulation.interceptor.SessionInterceptor"></bean>
 		</mvc:interceptor>

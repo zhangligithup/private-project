@@ -2,12 +2,14 @@ package cn.tslanpu.test.add.agricultural.domain;
 
 import java.util.Date;
 
+import com.foodregulation.util.StringUtils;
+
 public class Agricultural {
 	
-	private int id;
+	private Integer id;
 	private String qyname;		//经营户名称
 	private String address;		//所属行政区域
-	private String scaddress;	//生产地址
+	private String scaddress;	//经营场所地址
 	private String qydelegate;  //企业负责人
 	private String qyphone;		//企业负责人手机号
 	private String zzcode;		//注册号
@@ -25,7 +27,8 @@ public class Agricultural {
 	private String latitude;	 //维度      28
 	
 	private String idNumber;
-	private String numberOfEmployees;
+	private String idNumberEncrypt;
+	private Integer numberOfEmployees;
 	private String recordDate;
 	private String recordEffectiveDate;
 	private String recordOrgan;
@@ -39,17 +42,24 @@ public class Agricultural {
 	private String smallStallregistrationCard;
 	private String healthCertificate;
 	
+	private String QRcode;//二维码路径
+	
 	
 	public String getIdNumber() {
 		return idNumber;
 	}
 	public void setIdNumber(String idNumber) {
 		this.idNumber = idNumber;
+		if(StringUtils.isNotBlank(idNumber)&&idNumber.length()>15){
+			this.idNumberEncrypt = idNumber.substring(0,4)+"**********"+idNumber.substring(14);
+		}else{
+			this.idNumberEncrypt = "**********";
+		}
 	}
-	public String getNumberOfEmployees() {
+	public Integer getNumberOfEmployees() {
 		return numberOfEmployees;
 	}
-	public void setNumberOfEmployees(String numberOfEmployees) {
+	public void setNumberOfEmployees(Integer numberOfEmployees) {
 		this.numberOfEmployees = numberOfEmployees;
 	}
 	public String getRecordDate() {
@@ -160,7 +170,7 @@ public class Agricultural {
 		return qyname;
 	}
 	public void setQyname(String qyname) {
-		this.qyname = qyname;
+		this.qyname = qyname == null?null:qyname.trim();
 	}
 	public String getAddress() {
 		return address;
@@ -209,5 +219,17 @@ public class Agricultural {
 	}
 	public void setItemsOfBusiness(String itemsOfBusiness) {
 		this.itemsOfBusiness = itemsOfBusiness;
+	}
+	public String getQRcode() {
+		return QRcode;
+	}
+	public void setQRcode(String qRcode) {
+		QRcode = qRcode;
+	}
+	public String getIdNumberEncrypt() {
+		return idNumberEncrypt;
+	}
+	public void setIdNumberEncrypt(String idNumberEncrypt) {
+		this.idNumberEncrypt = idNumberEncrypt;
 	}
 }

@@ -299,6 +299,11 @@ a{text-decoration: none}
   width:calc(100% - 70px);
   float: left;
 }
+.search_parent select{
+  min-width: 220px;
+  width:calc(100% - 70px);
+  float: left;
+}
 .search_parent .search_btn{
   width: 70px;
   padding-left: 30px;
