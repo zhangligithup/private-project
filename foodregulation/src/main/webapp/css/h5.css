@@ -1,0 +1,298 @@
+html,body{
+    height: 100%;
+}
+.sel_banner{
+    position: relative;
+    height: 2.1rem;
+    background: #3f4248;
+}
+
+.sel_banSer{
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left:-2.95rem;
+    height:.94rem;
+    margin-top:-.47rem;
+
+}
+.sel_banSer .sel_banSerInp{
+    width:4.72rem;
+    height:.94rem;
+    background:#fff;
+    font-size:.3rem;
+    padding:0 .2rem;
+    border-radius:.1rem 0 0 .1rem;
+    border: 0;
+}
+.sel_banSerBtn{
+    width:1.18rem;
+    height:.94rem;
+    background:#0bc0f0;
+    background:url(../images/sel_banSerBtn.png) no-repeat;
+    background-size: 100% 100%;
+}
+.sel_sectUl{
+    padding:.05rem .3rem 0;
+}
+.sel_sectUli{
+    border-top:1px solid #f2f2f2;
+}
+.sel_sectUli .listDiv{
+    font-size:.30rem;
+    line-height:.8rem;
+    display: flex;
+    flex-direction: row;
+}
+.listDivl{
+    flex: 1;
+}
+.openBtn{
+    height: 0.28rem;
+    width: 0.17rem;
+    margin-right: 0.2rem;
+    transition: transform linear .3s;
+    -webkit-transition: transform linear .3s;
+    -moz-transition:transform linear .3s;
+    -o-transition: transform linear .3s;
+    -ms-transition: transform linear .3s;
+
+}
+.closeBtn{
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+}
+
+.videoUl{
+    background: #f8f8f8;
+    display: none;
+
+}
+.videoLi{
+    display: flex;
+    padding-left: 0.2rem;
+    flex-direction: row;
+    border-top:1px solid #f2f2f2;
+}
+.videoLi .lText{
+    flex: 1;
+    font-size:.26rem;
+    line-height:.8rem;
+    color:#000;
+}
+.videoLi .rBtn{
+    width:.61rem;
+    height:.49rem;
+    background:url(../images/sel_sectUi.png) no-repeat;
+    background-size: 100% 100%;
+    margin-top:.15rem;
+}
+
+
+
+.mask{
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 100;
+    display: none;
+}
+.popBox{
+    background: #fff;
+    height: 4.66rem;
+    position: absolute;
+    top: 50%;
+    margin-top: -2.33rem;
+    left: 0;
+    width: 100%;
+
+}
+.popBox .popTitle{
+    font-size: 0.28rem;
+    color: #000000;
+    line-height: 0.8rem;
+    padding-left: .15rem;
+    height: 0.8rem;
+}
+.popBox .titleText{
+    width: 6.6rem;
+    float: left;
+}
+.popBox .popClose{
+    width: .7rem;
+    height: 0.8rem;
+    float: right;
+    display: inline-block;
+    background: url("../images/popclose.gif") no-repeat center;
+    background-size: 0.28rem 0.23rem;
+
+}
+
+.popBox .videoBox{
+    background: #141414;
+    height: 3.7rem;
+}
+.popBox-video{
+    width: 100%;
+    height: 3.7rem;
+}
+.menuBoxbody{background: #f6f6f6}
+.menuTop{
+    width: 100%;
+    height: 2.81rem;
+}
+.menuBox{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 0.43rem;
+    box-sizing: border-box;
+}
+.menuBox li{
+    width: 33.3%;
+    height: 2.14rem;
+    box-sizing: border-box;
+    border-right:1px solid #f6f6f6;
+    border-bottom:1px solid #f6f6f6;
+    background: #fff;
+    float: left;
+    text-align: center;
+
+}
+.menuBox .icon-btn{
+    width: 0.94rem;
+    height: 0.83rem;
+    margin-top: 0.48rem;
+
+}
+.menuBox .textBox{
+   /* margin-top: 0.05rem;*/
+    font-size: 0.26rem;
+    color: #000007;
+
+}
+.menuText{
+    font-size: 0.45rem;
+    text-align: center;
+    color: #FF0000;
+    clear: both;
+}
+.introduce{
+    font-size: 0.24rem;
+    color: #555;
+    padding: 0.2rem;
+}
+.introduce h2{
+    font-size: 0.4rem;
+    line-height: 0.8rem;
+    text-align: center;
+    color: #333;
+}
+.introduce h3{
+    font-size: 0.3rem;
+    line-height: 0.6rem;
+    color: #333;
+}
+.introduce .intrUl{
+    padding-left: 2em;
+}
+.intrUl li{
+    font-size: 0.26rem;
+    line-height: 0.52rem;
+    margin-bottom: 0.1rem;
+}
+.introduce p{
+    font-size: 0.26rem;
+    line-height: 0.48rem;
+    margin-bottom: 0.1rem;
+    text-indent: 2em;
+}
+.system {
+    font-size: 0.24rem;
+    color: #555;
+    padding: 0.2rem;
+}
+.system h1{
+    font-size: 0.4rem;
+    line-height: 0.8rem;
+    text-align: center;
+    color: #333;
+}
+.system h2{
+    font-size: 0.32rem;
+    line-height: 0.5rem;
+    text-align: center;
+    margin: 0.1rem 0;
+    color: #333;
+}
+.system h3{
+    font-size: 0.3rem;
+    line-height: 0.6rem;
+    text-align: center;
+    color: #333;
+}
+.system p{
+    font-size: 0.26rem;
+    line-height: 0.48rem;
+    margin-bottom: 0.1rem;
+    text-indent: 2em;
+}
+.system .span1{
+    padding-right: 0.2rem;
+}
+.mt30{
+    margin-top: 0.3rem;
+}
+.callTle{
+    color: #009529;
+}
+.tle{
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    margin-top: 0.35rem;
+}
+.tle img{
+    width: 4.14rem;
+    height: 0.72rem;
+    display: inline-block;
+}
+.system .h3_2{
+    font-size: 0.3rem;
+    line-height: 0.6rem;
+    text-align: left;
+    color: #333;
+    text-indent: 2em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

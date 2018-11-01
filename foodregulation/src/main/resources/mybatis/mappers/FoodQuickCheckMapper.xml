@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foodregulation.dao.mapper.FoodQuickCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.foodregulation.dao.entity.FoodQuickCheck" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sample_name" property="sampleName" jdbcType="VARCHAR" />
+    <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="CHAR" />
+    <result column="detectioned_enterprise" property="detectionedEnterprise" jdbcType="VARCHAR" />
+    <result column="detection_unit_code" property="detectionUnitCode" jdbcType="VARCHAR" />
+    <result column="detection_body_type" property="detectionBodyType" jdbcType="CHAR" />
+    <result column="detection_date" property="detectionDate" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="no_qualified_video" property="noQualifiedVideo" jdbcType="VARCHAR" />
+    <result column="detection_enterprise_name" property="detectionEnterpriseName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sample_name, project_type, result, detectioned_enterprise, detection_unit_code, 
+    detection_body_type, detection_date,detection_enterprise_name,img_url,account,no_qualified_video
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_food_quick_check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectQuickCheckListTotal" parameterType="map" resultType="int">
+    select count(*) from t_food_quick_check where 1=1 
+    <if test="sampleName != null and sampleName != ''">
+        and sample_name like '%${sampleName}%'
+    </if>
+    <if test="quickcheckproject != null and quickcheckproject != ''">
+        and project_type = #{quickcheckproject}
+    </if>
+    <if test="start_calenderOne != null and start_calenderOne != ''">
+        <![CDATA[ and detection_date >= #{start_calenderOne} ]]>
+    </if>
+    <if test="end_calenderOne != null and end_calenderOne != ''">
+        <![CDATA[ and detection_date <= #{end_calenderOne} ]]>
+    </if>
+    <if test="detectionedEnterprise != null and detectionedEnterprise != ''">
+        and detectioned_enterprise like '%${detectionedEnterprise}%'
+    </if>
+    <if test="detectionUnitCode != null and detectionUnitCode != ''">
+        and (detection_unit_code = #{detectionUnitCode} or detection_enterprise_name = #{detectionUnitCode})
+    </if>
+    <if test="enterpriseName != null and enterpriseName != ''">
+        and detection_enterprise_name = #{enterpriseName}
+    </if>
+    <if test="unitCode != null and unitCode != ''">
+        and detection_unit_code = #{unitCode}
+    </if>
+    <if test="result != null and result != ''">
+        and result = #{result}
+    </if>
+    <if test="account != null and account != ''">
+        and account = #{account}
+    </if>
+  </select>
+  <select id="selectQuickCheckList" resultMap="BaseResultMap" parameterType="map">
+    select <include refid="Base_Column_List" /> from t_food_quick_check where 1=1 
+    <if test="sampleName != null and sampleName != ''">
+        and sample_name like '%${sampleName}%'
+    </if>
+    <if test="quickcheckproject != null and quickcheckproject != ''">
+        and project_type = #{quickcheckproject}
+    </if>
+    <if test="start_calenderOne != null and start_calenderOne != ''">
+        <![CDATA[ and detection_date >= #{start_calenderOne} ]]>
+    </if>
+    <if test="end_calenderOne != null and end_calenderOne != ''">
+        <![CDATA[ and detection_date <= #{end_calenderOne} ]]>
+    </if>
+    <if test="detectionedEnterprise != null and detectionedEnterprise != ''">
+        and detectioned_enterprise like '%${detectionedEnterprise}%'
+    </if>
+    <if test="detectionUnitCode != null and detectionUnitCode != ''">
+        and (detection_unit_code = #{detectionUnitCode} or detection_enterprise_name = #{detectionUnitCode})
+    </if>
+    <if test="enterpriseName != null and enterpriseName != ''">
+        and detection_enterprise_name = #{enterpriseName}
+    </if>
+    <if test="unitCode != null and unitCode != ''">
+        and detection_unit_code = #{unitCode}
+    </if>
+    <if test="result != null and result != ''">
+        and result = #{result}
+    </if>
+    <if test="account != null and account != ''">
+        and account = #{account}
+    </if>
+    order by id desc
+    <if test="startNum!=null and startNum>-1">
+        limit ${startNum},${limit}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_food_quick_check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.foodregulation.dao.entity.FoodQuickCheck" >
+    insert into t_food_quick_check (id, sample_name, project_type, 
+      result, detectioned_enterprise, detection_unit_code, 
+      detection_body_type, detection_date)
+    values (#{id,jdbcType=INTEGER}, #{sampleName,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{result,jdbcType=CHAR}, #{detectionedEnterprise,jdbcType=VARCHAR}, #{detectionUnitCode,jdbcType=VARCHAR}, 
+      #{detectionBodyType,jdbcType=CHAR}, #{detectionDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="batchInsert">
+    insert into t_food_quick_check (sample_name, project_type, 
+      result, detectioned_enterprise, detection_unit_code, 
+      detection_body_type, detection_date,detection_enterprise_name,img_url,account,no_qualified_video)
+    values 
+    <foreach collection="dataList" item="data" separator=",">
+       (#{data.sampleName,jdbcType=VARCHAR}, #{data.projectType,jdbcType=VARCHAR}, 
+      #{data.result,jdbcType=CHAR}, #{data.detectionedEnterprise,jdbcType=VARCHAR}, #{data.detectionUnitCode,jdbcType=VARCHAR},
+      #{data.detectionBodyType,jdbcType=CHAR}, #{data.detectionDate,jdbcType=VARCHAR}, #{data.detectionEnterpriseName,jdbcType=VARCHAR}, #{data.imgUrl,jdbcType=VARCHAR}, #{data.account,jdbcType=VARCHAR}, #{data.noQualifiedVideo,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.foodregulation.dao.entity.FoodQuickCheck" >
+    insert into t_food_quick_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sampleName != null" >
+        sample_name,
+      </if>
+      <if test="projectType != null" >
+        project_type,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="detectionedEnterprise != null" >
+        detectioned_enterprise,
+      </if>
+      <if test="detectionUnitCode != null" >
+        detection_unit_code,
+      </if>
+      <if test="detectionBodyType != null" >
+        detection_body_type,
+      </if>
+      <if test="detectionDate != null" >
+        detection_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sampleName != null" >
+        #{sampleName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=CHAR},
+      </if>
+      <if test="detectionedEnterprise != null" >
+        #{detectionedEnterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionUnitCode != null" >
+        #{detectionUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionBodyType != null" >
+        #{detectionBodyType,jdbcType=CHAR},
+      </if>
+      <if test="detectionDate != null" >
+        #{detectionDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.foodregulation.dao.entity.FoodQuickCheck" >
+    update t_food_quick_check
+    <set >
+      <if test="sampleName != null" >
+        sample_name = #{sampleName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectType != null" >
+        project_type = #{projectType,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=CHAR},
+      </if>
+      <if test="detectionedEnterprise != null" >
+        detectioned_enterprise = #{detectionedEnterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionUnitCode != null" >
+        detection_unit_code = #{detectionUnitCode,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionBodyType != null" >
+        detection_body_type = #{detectionBodyType,jdbcType=CHAR},
+      </if>
+      <if test="detectionDate != null" >
+        detection_date = #{detectionDate,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="noQualifiedVideo != null" >
+        no_qualified_video = #{noQualifiedVideo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.foodregulation.dao.entity.FoodQuickCheck" >
+    update t_food_quick_check
+    set sample_name = #{sampleName,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      result = #{result,jdbcType=CHAR},
+      detectioned_enterprise = #{detectionedEnterprise,jdbcType=VARCHAR},
+      detection_unit_code = #{detectionUnitCode,jdbcType=VARCHAR},
+      detection_body_type = #{detectionBodyType,jdbcType=CHAR},
+      detection_date = #{detectionDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

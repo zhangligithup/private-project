@@ -1,0 +1,202 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+html,body{
+    height: 100%;
+}
+html {
+	font-size: 100px;
+}
+body {
+	width: 7.5rem;
+    max-width: 1080px;
+    margin: 0 auto;
+	padding: 0;
+	border: 0;
+    background: #f0f2f5;
+	font-size: .32rem;
+    font-family: 'STHeiti','Microsoft YaHei',Helvetica,Arial,sans-serif;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+a:hover, a:visited, a:link, a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+.row:before,
+.row:after {
+	content: " ";
+	display: table; 
+}
+.row:after {
+	clear: both; 
+}
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+  position: relative;
+  min-height: 1px;
+  padding-left: .1rem;
+  padding-right: .1rem;
+  float: left;
+}
+.col-1 {width: 8.33333%; }
+.col-2 {width: 16.66667%; }
+.col-3 {width: 25%; }
+.col-4 {width: 33.33333%; }
+.col-5 {width: 41.66667%; }
+.col-6 {width: 50%; }
+.col-7 {width: 58.33333%; }
+.col-8 {width: 66.66667%; }
+.col-9 {width: 75%; }
+.col-10 {width: 83.33333%; }
+.col-11 {width: 91.66667%; }
+.col-12 {width: 100%; }
+
+.nav {
+	position: relative;
+	left: 0;
+	display: block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.nav li {
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+.nav li *{
+	vertical-align: middle;
+}
+
+[class^="icon-"] {
+	width: 4.2rem;
+    height: 2rem;
+	background-image: url(../images/icons.png);
+	background-size: 4.2rem 2rem;
+	background-repeat: no-repeat;
+	display: inline-block;
+	vertical-align: top;
+}
+.icon-rzzz {
+	width: .73rem;
+	height: .62rem;
+	line-height: .62rem;
+	background-position: 0 0;
+}
+.icon-jhtz {
+	width: .62rem;
+	height: .62rem;
+	line-height: .62rem;
+	background-position: -0.76rem 0;
+}
+.icon-sccj {
+	width: .54rem;
+	height: .62rem;
+	line-height: .62rem;
+	background-position: -1.43rem 0;
+}
+.icon-rxdh {
+	width: .69rem;
+	height: .62rem;
+	line-height: .62rem;
+	background-position: -2rem 0;
+}
+.icon-xsjl {
+	width: .66rem;
+	height: .59rem;
+	line-height: .59rem;
+	background-position: -2.74rem 0;
+}
+.icon-cpzz {
+	width: .74rem;
+	height: .58rem;
+	line-height: .58rem;
+	background-position: -3.46rem 0;
+}
+.icon-jbdh {
+	width: .53rem;
+	height: .53rem;
+	line-height: .53rem;
+	background-position: -3.06rem -0.66rem;
+}
+
+.icon-no {
+	width: .40rem;
+	height: .49rem;
+	line-height: .49rem;
+	background-position: -0 -0.64rem;
+}
+.icon-person {
+	width: .49rem;
+	height: .49rem;
+	line-height:.49rem;
+	background-position: -0.43rem -0.64rem;
+}
+.icon-card {
+	width: .46rem;
+	height: .49rem;
+	line-height: .49rem;
+	background-position: -0.95rem -0.64rem;
+}
+.icon-phone {
+	width: .32rem;
+	height: .49rem;
+	line-height: .49rem;
+	background-position: -1.46rem -0.64rem;
+}
+.icon-address {
+	width: .28rem;
+	height: .49rem;
+	line-height: .49rem;
+	background-position: -1.84rem -0.64rem;
+}
+.icon-category {
+	width: .36rem;
+	height: .49rem;
+	line-height: .49rem;
+	background-position: -2.17rem -0.64rem;
+}
+.icon-syjlogo {
+	width: .38rem;
+	height: .49rem;
+	line-height: .49rem;
+	background-position: -2.6rem -0.64rem;
+}
+.icon-certificate1 {
+	width: 1.02rem;
+	height: .36rem;
+	line-height: .36rem;
+	background-position: 0 -1.17rem;
+}
+.icon-certificate2 {
+	width: 1.02rem;
+	height: .36rem;
+	line-height: .36rem;
+	background-position: -1.1rem -1.17rem;
+}
+.icon-back {
+	width: .2rem;
+	height: .35rem;
+	line-height: .35rem;
+	background-position: -0.01rem -1.6rem;
+}
+.icon-next {
+	width: .20rem;
+	height: .35rem;
+	line-height: .35rem;
+	background-position: -0.27rem -1.6rem;
+}
+.icon-arrow-down {
+	width: .23rem;
+	height: .30rem;
+	line-height: .30rem;
+	background-position: -0.61rem -1.65rem;
+}
